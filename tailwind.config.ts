@@ -80,6 +80,6 @@ const config: Config = {
         
     
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/")],
 }
 export default config
