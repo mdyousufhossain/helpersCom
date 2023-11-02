@@ -21,19 +21,32 @@ export const metadata: Metadata = {
   description:
     'A community where everyone get their help . Question about everying ,Share knowledge and colllaboration with dev and gamers and explore vast amount of topic in any  development',
   icons: {
-    icon: '/assets/images/site-logo.svg',
-  },
+    icon: '/assets/images/site-logo.svg'
+  }
 }
 
-export default function RootLayout({
+export default function RootLayout ({
   children
 }: {
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        elements: {
+          formButtonPrimary: 'primary-gradient',
+          footerActionLink: 'primary-text-gradient hover:text-primary-500'
+        }
+      }}
+    >
       <html lang='en'>
-        <body className={`${inter.variable} ${spcaceGrotesk.variable}`}>{children}</body>
+        <body
+          className={`
+        ${inter.variable} 
+        ${spcaceGrotesk.variable}`}
+        >
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   )
