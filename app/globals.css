@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("../style/theme.css");
+@import url('../style/theme.css');
 body {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 @layer utilities {
