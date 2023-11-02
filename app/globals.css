@@ -35,6 +35,7 @@ body {
   .primary-gradient {
     background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
   }
+    /* darkest bg */
   .dark-gradient {
     background: linear-gradient(
       232deg,
