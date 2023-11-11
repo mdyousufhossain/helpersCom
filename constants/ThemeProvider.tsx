@@ -9,11 +9,15 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-export function ThemeProvider ({ children }: { children: React.ReactNode }) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState('')
 
   const handleThemeChange = () => {
-    if (mode === 'dark') {
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme:dark)').matches)
+    ) {
       setMode('light')
       document.documentElement.classList.add('light')
     } else {
@@ -22,12 +26,12 @@ export function ThemeProvider ({ children }: { children: React.ReactNode }) {
     }
   }
 
-  // rookies mistake need to deal with it 
 
-  // useEffect(() => {
-  //   handleThemeChange()
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [mode])
+
+  useEffect(() => {
+    handleThemeChange()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode])
 
   return (
     <ThemeContext.Provider value={{ mode, setMode }}>
@@ -36,7 +40,7 @@ export function ThemeProvider ({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function useTheme () {
+export function useTheme() {
   const context = useContext(ThemeContext)
 
   if (context === undefined) {

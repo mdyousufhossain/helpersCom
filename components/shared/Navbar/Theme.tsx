@@ -58,6 +58,7 @@ const Theme = () => {
           {themes.map((item) => (
             <MenubarItem
               key={item.value}
+              // eslint-disable-next-line tailwindcss/no-custom-classname
               className='dark:focus:big-dark-400 flex items-center gap-4 px-2.5 py-2'
               onClick={() => themHanlder(item.value)}
             >
@@ -69,6 +70,7 @@ const Theme = () => {
                 className={`${mode === item.value && 'active-theme'}`}
               />
               <p
+                // eslint-disable-next-line tailwindcss/no-custom-classname
                 className={`body-semibold text-light-500 ${
                   mode === item.value
                     ? 'text-primary-500'
