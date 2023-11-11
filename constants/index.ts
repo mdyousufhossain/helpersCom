@@ -1,4 +1,4 @@
-import { BadgeCriteriaType, SidebarLink } from '@/types'
+import { SidebarLink } from '@/types'
 
 export const themes = [
   {
@@ -15,7 +15,7 @@ export const themes = [
     value: 'system',
     label: 'System',
     icon: '/assets/icons/computer.svg'
-  },
+  }
 ]
 
 export const BADGE_CRITERIA = {
@@ -43,7 +43,7 @@ export const BADGE_CRITERIA = {
     BRONZE: 1000,
     SILVER: 10000,
     GOLD: 100000
-  },
+  }
 }
 
 export const sidebarLinks: SidebarLink[] = [
