@@ -6,15 +6,15 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
+  // MenubarSeparator,
+  // MenubarShortcut,
+  MenubarTrigger
 } from '@/components/ui/menubar'
 import Image from 'next/image'
 import { themes } from '@/constants'
 
 const Theme = () => {
-  const { mode, setMode } = useTheme()
+  const { mode } = useTheme()
 
   return (
     // eslint-disable-next-line tailwindcss/no-custom-classname
