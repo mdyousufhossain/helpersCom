@@ -26,7 +26,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-
+// shit
 
   useEffect(() => {
     handleThemeChange()
