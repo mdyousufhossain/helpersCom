@@ -6,8 +6,7 @@ import Theme from './Theme'
 
 const Navbar = () => {
   return (
-    // eslint-disable-next-line tailwindcss/no-custom-classname
-    <nav className='flex-between background-light900_dark200 dark:shadow-none sm:px-12 fixed z-50 w-full gap-5 p-6 shadow-light-300'>
+    <nav className='flex-between background-light900_dark200 dark: shadow-none sm:px-12 fixed z-50 w-full gap-5 p-6 shadow-light-300'>
       <Link href='/' className='flex items-center gap-1'>
         <Image
           src='/assets/images/site-logo.svg'

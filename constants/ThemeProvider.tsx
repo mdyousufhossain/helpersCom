@@ -9,7 +9,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider ({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState('')
 
   const handleThemeChange = () => {
@@ -18,11 +18,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       (!('theme' in localStorage) &&
         window.matchMedia('(prefers-color-scheme:dark)').matches)
     ) {
-      setMode('light')
-      document.documentElement.classList.add('light')
-    } else {
       setMode('dark')
       document.documentElement.classList.add('dark')
+    } else {
+      setMode('light')
+      document.documentElement.classList.remove('dark')
     }
   }
 
@@ -31,6 +31,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode])
 
+  console.log('mode', mode)
   return (
     <ThemeContext.Provider value={{ mode, setMode }}>
       {children}
@@ -38,7 +39,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function useTheme() {
+export function useTheme () {
   const context = useContext(ThemeContext)
 
   if (context === undefined) {
