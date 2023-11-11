@@ -17,14 +17,14 @@ import { themes } from '@/constants'
 const Theme = () => {
   const { mode, setMode } = useTheme()
 
-  // const themHanlder = (item: any) => {
-  //   setMode(item)
-  //   if (item !== 'system') {
-  //     localStorage.theme = item
-  //   } else {
-  //     localStorage.removeItem('theme')
-  //   }
-  // }
+  const themHanlder = (item: any) => {
+    setMode(item)
+    if (item !== 'system') {
+      localStorage.theme = item
+    } else {
+      localStorage.removeItem('theme')
+    }
+  }
 
   return (
     // eslint-disable-next-line tailwindcss/no-custom-classname
@@ -58,17 +58,7 @@ const Theme = () => {
               key={item.value}
               // eslint-disable-next-line tailwindcss/no-custom-classname
               className='dark:focus:big-dark-400 flex items-center gap-4 px-2.5 py-2'
-              onClick={
-                () => {
-                  setMode(item.value)
-
-                  if (item.value !== 'system') {
-                    localStorage.theme = item.value
-                  } else {
-                    localStorage.removeItem('theme')
-                  }
-                }
-              }
+              onClick={() => themHanlder(item.value)}
             >
               <Image
                 src={item.icon}
