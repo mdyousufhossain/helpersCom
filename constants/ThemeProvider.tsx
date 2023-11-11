@@ -26,8 +26,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-// shit
-
   useEffect(() => {
     handleThemeChange()
   // eslint-disable-next-line react-hooks/exhaustive-deps
