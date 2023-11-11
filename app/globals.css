@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('../style/theme.css');
+@import url('../styles/theme.css');
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -32,24 +32,24 @@ body {
   .markdown {
     @apply max-w-full prose dark:prose-p:text-light-700 dark:pros;
   }
-  .primary-gradient {
-    background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
-  }
-    /* darkest bg */
-  .dark-gradient {
-    background: linear-gradient(
-      232deg,
-      rgba(23, 28, 35, 0.41) 0%,
-      rgba(19, 22, 28, 0.7) 100%
-    );
-  }
-  .tab {
-    @apply min-h-full dark:bg-dark-400 bg-light-800 text-light-5;
-  }
+}
+.primary-gradient {
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+}
+.dark-gradient {
+  background: linear-gradient(
+    232deg,
+    rgba(23, 28, 35, 0.41) 0%,
+    rgba(19, 22, 28, 0.7) 100%
+  );
+}
 
-  .no-focus {
-    @apply focus-visible:ring-0 focus-visible:ring-transparent focus;
-  }
+tab {
+  @apply min-h-full dark:bg-dark-400 bg-light-800 text-light-5;
+}
+
+.no-focus {
+  @apply focus-visible:ring-0 focus-visible:ring-transparent focus;
 }
 .active-theme {
   filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(0deg)
@@ -73,6 +73,7 @@ body {
   height: 3px;
   border-radius: 2px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: #ffffff;
 }
@@ -94,9 +95,9 @@ code {
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-word-break: break-all;
-  /* This is the dangerous one in WebKit, as it breaks things whereve
-word-break: break-all;
-/* Instead use this non-standard one: */
+  /* This is the dangerous one in WebKit, as it breaks things whereve */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
   word-break: break-word;
   /* Adds a hyphen where the word breaks, if supported (No Blink) */
   -ms-hyphens: auto;
@@ -107,7 +108,7 @@ word-break: break-all;
   color: #ff7000 !important;
 }
 
-.markdown pre {
+markdown pre {
   display: grid;
   width: 100%;
 }
@@ -122,7 +123,6 @@ word-break: break-all;
 .cl-internal-b3fm6y {
   background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
 }
-
 .hash-span {
   margin-top: -140px;
   padding-bottom: 140px;
