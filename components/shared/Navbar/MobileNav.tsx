@@ -1,20 +1,41 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetTrigger
+  SheetTrigger,
 } from '@/components/ui/sheet'
+import { sidebarLinks } from '@/constants'
 import { SignedOut } from '@clerk/nextjs'
 
 import Image from 'next/image'
 import Link from 'next/link'
+const NavContent = () => {
+  return (
+    <section className='flex h-full flex-col gap-6 pt-16'>
+      {sidebarLinks.map((item) => {
+        return (
+          <SheetClose asChild key={item.route}>
+            <Link href={item.route} className=''>
+              <Image
+                src={item.imgURL}
+                alt={item.label}
+                width={20}
+                height={20}
+              />
+              <p>{item.label}</p>
+            </Link>
+          </SheetClose>
+        )
+      })}
+    </section>
+  )
+}
 
 const MobileNav = () => {
   // reusable funciton
-  const NavContent = () => {
-    return <h1> Nav Content</h1>
-  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -50,8 +71,18 @@ const MobileNav = () => {
           <div className='flex flex-col gap-3'>
             <SheetClose asChild>
               <Link href='/sign-in'>
-                <Button className='small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none'>
+                <Button className='small-medium btn-secondary shadow-none min-h-[41px] w-full rounded-lg px-4 py-3'>
                   <span className='primary-text-gradient'>Log in</span>
+                </Button>
+              </Link>
+            </SheetClose>
+            <SheetClose asChild>
+              <Link href='/sign-up'>
+                <Button
+                  className='small-medium light-border-2
+                btn-tertiary shadow-none min-h-[41px] w-full rounded-lg px-4 py-3'
+                >
+                  <span className='primary-text-gradient'>Sign-up</span>
                 </Button>
               </Link>
             </SheetClose>
