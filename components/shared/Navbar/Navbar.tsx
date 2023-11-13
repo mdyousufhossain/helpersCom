@@ -38,7 +38,7 @@ const Navbar = () => {
             }}
           />
         </SignedIn>
-        <MobileNav />
+        <MobileNav/>
       </div>
     </nav>
   )
