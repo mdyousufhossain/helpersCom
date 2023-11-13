@@ -63,6 +63,7 @@ const MobileNav = () => {
             Helper<span className='text-primary-500'>.Com</span>
           </p>
         </Link>
+        <div>
         <SheetClose asChild>
           <NavContent />
         </SheetClose>
@@ -88,6 +89,7 @@ const MobileNav = () => {
             </SheetClose>
           </div>
         </SignedOut>
+        </div>
       </SheetContent>
     </Sheet>
   )
