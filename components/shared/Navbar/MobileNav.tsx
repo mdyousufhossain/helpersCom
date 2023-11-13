@@ -4,34 +4,15 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetTrigger,
+  SheetTrigger
 } from '@/components/ui/sheet'
-import { sidebarLinks } from '@/constants'
+
 import { SignedOut } from '@clerk/nextjs'
 
 import Image from 'next/image'
 import Link from 'next/link'
-const NavContent = () => {
-  return (
-    <section className='flex h-full flex-col gap-6 pt-16'>
-      {sidebarLinks.map((item) => {
-        return (
-          <SheetClose asChild key={item.route}>
-            <Link href={item.route} className=''>
-              <Image
-                src={item.imgURL}
-                alt={item.label}
-                width={20}
-                height={20}
-              />
-              <p>{item.label}</p>
-            </Link>
-          </SheetClose>
-        )
-      })}
-    </section>
-  )
-}
+import NavContent from './NavContent'
+
 
 const MobileNav = () => {
   // reusable funciton
