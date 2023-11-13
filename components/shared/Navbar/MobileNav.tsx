@@ -1,8 +1,20 @@
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger
+} from '@/components/ui/sheet'
+import { SignedOut } from '@clerk/nextjs'
 
 import Image from 'next/image'
 import Link from 'next/link'
+
 const MobileNav = () => {
+  // reusable funciton
+  const NavContent = () => {
+    return <h1> Nav Content</h1>
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -30,6 +42,21 @@ const MobileNav = () => {
             Helper<span className='text-primary-500'>.Com</span>
           </p>
         </Link>
+        <SheetClose asChild>
+          <NavContent />
+        </SheetClose>
+
+        <SignedOut>
+          <div className='flex flex-col gap-3'>
+            <SheetClose asChild>
+              <Link href='/sign-in'>
+                <Button className='small-medium btn-secondary'>
+                  <span className='primary-text-gradient'>Log in</span>
+                </Button>
+              </Link>
+            </SheetClose>
+          </div>
+        </SignedOut>
       </SheetContent>
     </Sheet>
   )
