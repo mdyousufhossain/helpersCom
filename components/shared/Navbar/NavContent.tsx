@@ -5,7 +5,7 @@ import { SheetClose } from '@/components/ui/sheet'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-
+// just ....
 const NavContent = () => {
   const pathname = usePathname()
   return (
