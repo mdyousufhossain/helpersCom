@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Theme from './Theme'
 import MobileNav from './MobileNav'
+import GlobalSearch from '../search/GlobalSearch'
 
 const Navbar = () => {
   return (
@@ -21,7 +22,7 @@ const Navbar = () => {
         </p>
       </Link>
 
-      {/* global */}
+      <GlobalSearch />
 
       <div className='flex-between gap-5'>
         <Theme />
