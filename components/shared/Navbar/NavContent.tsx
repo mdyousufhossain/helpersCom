@@ -14,6 +14,7 @@ const NavContent = () => {
         const isActive =
           (pathname.includes(item.route) && item.route.length > 1) ||
           pathname === item.route
+        console.log(isActive)
         return (
           <SheetClose asChild key={item.route}>
             <Link
@@ -29,8 +30,11 @@ const NavContent = () => {
                 alt={item.label}
                 width={20}
                 height={20}
+                className={`${isActive ? ' ' : 'invert-colors'}`}
               />
-              <p>{item.label}</p>
+              <p className={`${isActive ? 'base-bold' : 'base-medium'}`}>
+                {item.label}
+              </p>
             </Link>
           </SheetClose>
         )
