@@ -25,7 +25,7 @@ const MobileNav = () => {
           width={36}
           height={36}
           alt='menu'
-          className='invert-colors xs:hidden'
+          className='invert-colors sm:hidden'
         />
       </SheetTrigger>
       <SheetContent
