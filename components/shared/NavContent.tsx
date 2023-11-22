@@ -5,7 +5,15 @@ import { SheetClose } from '@/components/ui/sheet'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-
+/**
+ *
+ *
+ * @todo make this reusable for both mobile and leftside
+ *
+ * @params : input the leftbar aka tab and lg screen style and mobile style
+ * @issue : dialog error having
+ * @erro : DialogClose` must be used within `Dialog`
+ */
 
 const NavContent = () => {
   const pathname = usePathname()
