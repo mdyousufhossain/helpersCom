@@ -68,6 +68,7 @@ const LeftSidebar = () => {
               className='small-medium light-border-2
                 btn-tertiary [box-shadow-none] min-h-[41px] w-full rounded-lg px-4 py-3'
             >
+                {/* image added */}
               <Image
                 src='/assets/icons/sign-up.svg'
                 alt='sign-up'
