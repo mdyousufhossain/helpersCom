@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import RenderTag from './RenderTag'
 
 const RightSidebar = () => {
   const hotQuestions = [
@@ -27,12 +28,15 @@ const RightSidebar = () => {
                 alt='chevron right'
                 width={20}
                 height={20}
+                className='invert-colors'
               />
             </Link>
           ))}
         </div>
       </div>
-      <div></div>
+      <div className='mt-7 flex flex-col gap-4'>
+            <RenderTag />
+      </div>
     </section>
   )
 }
