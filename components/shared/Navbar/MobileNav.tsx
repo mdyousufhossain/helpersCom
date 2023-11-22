@@ -4,15 +4,14 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetTrigger
+  SheetTrigger,
 } from '@/components/ui/sheet'
 
 import { SignedOut } from '@clerk/nextjs'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import NavContent from './NavContent'
-
+import NavContent from '../NavContent'
 
 const MobileNav = () => {
   // reusable funciton
@@ -45,31 +44,31 @@ const MobileNav = () => {
           </p>
         </Link>
         <div>
-        <SheetClose asChild>
-          <NavContent />
-        </SheetClose>
+          <SheetClose asChild>
+            <NavContent />
+          </SheetClose>
 
-        <SignedOut>
-          <div className='flex flex-col gap-3'>
-            <SheetClose asChild>
-              <Link href='/sign-in'>
-                <Button className='small-medium btn-secondary shadow-none min-h-[41px] w-full rounded-lg px-4 py-3'>
-                  <span className='primary-text-gradient'>Log in</span>
-                </Button>
-              </Link>
-            </SheetClose>
-            <SheetClose asChild>
-              <Link href='/sign-up'>
-                <Button
-                  className='small-medium light-border-2
-                btn-tertiary shadow-none min-h-[41px] w-full rounded-lg px-4 py-3'
-                >
-                  <span className='primary-text-gradient'>Sign-up</span>
-                </Button>
-              </Link>
-            </SheetClose>
-          </div>
-        </SignedOut>
+          <SignedOut>
+            <div className='flex flex-col gap-3'>
+              <SheetClose asChild>
+                <Link href='/sign-in'>
+                  <Button className='small-medium btn-secondary [box-shadow-none] min-h-[41px] w-full rounded-lg px-4 py-3'>
+                    <span className='primary-text-gradient'>Log in</span>
+                  </Button>
+                </Link>
+              </SheetClose>
+              <SheetClose asChild>
+                <Link href='/sign-up'>
+                  <Button
+                    className='small-medium light-border-2
+                btn-tertiary [box-shadow-none] min-h-[41px] w-full rounded-lg px-4 py-3'
+                  >
+                    <span className='primary-text-gradient'>Sign-up</span>
+                  </Button>
+                </Link>
+              </SheetClose>
+            </div>
+          </SignedOut>
         </div>
       </SheetContent>
     </Sheet>
