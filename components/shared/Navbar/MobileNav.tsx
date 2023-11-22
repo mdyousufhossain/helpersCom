@@ -4,7 +4,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetTrigger,
+  SheetTrigger
 } from '@/components/ui/sheet'
 
 import { SignedOut } from '@clerk/nextjs'
