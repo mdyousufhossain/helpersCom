@@ -15,7 +15,7 @@ interface QuestionProps {
   answers: Array<object>
   createdAt?: Date | string
 }
-
+// making questions cards 
 const QuestionsCard = ({
   _id,
   title,
