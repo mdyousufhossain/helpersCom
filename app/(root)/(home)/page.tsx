@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-
-export default function Home () {
+import LocalSearch from '@/components/shared/search/LocalSearch'
+export default function Home() {
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
@@ -13,8 +13,14 @@ export default function Home () {
         </Link>
       </div>
       <div className='mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center'>
-        {/* localSearch */}
-        {/* filter */}
+        <LocalSearch
+          route='/'
+          iconPosition='left'
+          imgSrc='/assets/icons/search.svg'
+          placeholder='Search for questions'
+          otherclasses='flex-1'
+        />
+        <h3>filter</h3>
       </div>
     </>
   )

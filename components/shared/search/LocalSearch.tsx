@@ -1,10 +1,23 @@
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 
-const GlobalSearch = () => {
+interface customProps {
+  route: string
+  iconPosition: string
+  imgSrc: string
+  placeholder: string
+  otherclasses: string
+}
+const LocalSearch = ({
+  route,
+  iconPosition,
+  imgSrc,
+  placeholder,
+  otherclasses
+}: customProps) => {
   return (
-    <div className='relative w-full max-w-[600px] max-lg:hidden'>
-      <div className='background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4'>
+    <div className='relative w-full max-lg:max-w-[400px] max-sm:w-full'>
+      <div className='background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-sm px-4'>
         <Image
           src='/assets/icons/search.svg'
           width={24}
@@ -22,4 +35,4 @@ const GlobalSearch = () => {
     </div>
   )
 }
-export default GlobalSearch
+export default LocalSearch
