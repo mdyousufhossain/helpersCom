@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 
@@ -13,26 +14,34 @@ const LocalSearch = ({
   iconPosition,
   imgSrc,
   placeholder,
-  otherclasses
+  otherclasses,
 }: customProps) => {
   return (
-    <div className='relative w-full max-lg:max-w-[400px] max-sm:w-full'>
-      <div className='background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-sm px-4'>
+    // <div className='relative w-full max-lg:max-w-[400px] max-sm:w-full'>
+    <div
+      className={`background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-4 rounded-sm px-4 ${otherclasses}`}
+    >
+      {iconPosition === 'left' && (
         <Image
-          src='/assets/icons/search.svg'
+          src={imgSrc}
           width={24}
           height={24}
-          alt={'search pointer'}
+          alt={'search icon'}
           className='cursor-pointer'
         />
-        <Input
-          type='text'
-          placeholder='Search globally'
-          value=''
-          className='placeholder background-light800_darkgradient [box-shadow-none]  border-none outline-none focus-visible:ring-0 focus-visible:ring-transparent'
-        />
-      </div>
+      )}
+      <Input
+        type='text'
+        placeholder={placeholder}
+        value=''
+        className='placeholder
+          [box-shadow-none]  paragraph-regular no-focus background-light800_darkgradient border-none outline-none focus-visible:ring-0
+          focus-visible:ring-transparent
+          '
+        //   onChange={() => {}}
+      />
     </div>
+    // </div>
   )
 }
 export default LocalSearch
