@@ -3,6 +3,7 @@ import Link from 'next/link'
 import LocalSearch from '@/components/shared/search/LocalSearch'
 import Filter from '@/components/shared/Filter'
 import { HomePageFilters } from '@/constants/filters'
+import HomeFilter from '@/components/home/HomeFilter'
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
           containerclasses='hidden max-md:flex'
         />
       </div>
+      <HomeFilter />
     </>
   )
 }
