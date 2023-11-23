@@ -4,6 +4,66 @@ import LocalSearch from '@/components/shared/search/LocalSearch'
 import Filter from '@/components/shared/Filter'
 import { HomePageFilters } from '@/constants/filters'
 import HomeFilter from '@/components/home/HomeFilter'
+import NoResult from '@/components/shared/NoResult'
+
+const questions = [
+  // {
+  //   _id: 0,
+  //   title: 'random questions',
+  //   tags: [
+  //     { _id: 0, name: 'python' },
+  //     { _id: 1, name: 'python' },
+  //     { _id: 3, name: 'python' },
+  //   ],
+  //   author: 'maga',
+  //   upvote: 10,
+  //   views: 100,
+  //   answer: 2,
+  //   createdAt: '2021-090-01T12:00:00.000Z',
+  // },
+  // {
+  //   _id: 1,
+  //   title: 'random questions 1',
+  //   tags: [
+  //     { _id: 0, name: 'python' },
+  //     { _id: 1, name: 'python' },
+  //     { _id: 3, name: 'python' },
+  //   ],
+  //   author: 'maga',
+  //   upvote: 10,
+  //   views: 100,
+  //   answer: 2,
+  //   createdAt: '2021-11-01T12:00:00.000Z',
+  // },
+  // {
+  //   _id: 2,
+  //   title: 'random questions 2',
+  //   tags: [
+  //     { _id: 0, name: 'python' },
+  //     { _id: 1, name: 'python' },
+  //     { _id: 3, name: 'python' },
+  //   ],
+  //   author: 'maga',
+  //   upvote: 10,
+  //   views: 100,
+  //   answer: 2,
+  //   createdAt: '2021-10-01T12:00:00.000Z',
+  // },
+  // {
+  //   _id: 3,
+  //   title: 'random questions 3',
+  //   tags: [
+  //     { _id: 0, name: 'python' },
+  //     { _id: 1, name: 'python' },
+  //     { _id: 3, name: 'python' },
+  //   ],
+  //   author: 'maga',
+  //   upvote: 10,
+  //   views: 100,
+  //   answer: 2,
+  //   createdAt: '2021-09-01T12:00:00.000Z',
+  // },
+]
 
 export default function Home() {
   return (
@@ -31,6 +91,13 @@ export default function Home() {
         />
       </div>
       <HomeFilter />
+
+      <div className='mt-10 flex w-full flex-col gap-6'>
+        {/* looping through question */}
+        {questions.length > 0
+          ? ''
+          : <NoResult />}
+      </div>
     </>
   )
 }
