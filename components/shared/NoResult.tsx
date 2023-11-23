@@ -17,11 +17,11 @@ const NoResult = () => {
         height={200}
         className='hidden object-contain dark:flex'
       />
-      <h2>No result founded or something unexpected occured </h2>
+      <h2>No result founded or something unexpected occured 🚀</h2>
       <p>
         Be first to break the silence Ask a Questions and kickstart the
         discusstion. our query could be the next big thing others learn from.
-        Get involved{' '}
+        Get involved
       </p>
     </div>
   )
