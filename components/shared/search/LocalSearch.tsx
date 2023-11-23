@@ -9,12 +9,13 @@ interface customProps {
   placeholder: string
   otherclasses: string
 }
+
 const LocalSearch = ({
   route,
   iconPosition,
   imgSrc,
   placeholder,
-  otherclasses,
+  otherclasses
 }: customProps) => {
   return (
     // <div className='relative w-full max-lg:max-w-[400px] max-sm:w-full'>

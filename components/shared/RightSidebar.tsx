@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import RenderTag from './RenderTag'
+
 const hotQuestions = [
   { _id: 0, title: 'test' },
   { _id: 1, title: 'test' },
   { _id: 2, title: 'test' },
   { _id: 3, title: 'test' },
-  { _id: 4, title: 'test' },
+  { _id: 4, title: 'test' }
 ]
 
 const popularTags = [
@@ -14,7 +15,7 @@ const popularTags = [
   { _id: 2, name: 'javascript', totalQuestions: 5 },
   { _id: 3, name: 'javascript', totalQuestions: 5 },
   { _id: 4, name: 'javascript', totalQuestions: 5 },
-  { _id: 5, name: 'javascript', totalQuestions: 5 },
+  { _id: 5, name: 'javascript', totalQuestions: 5 }
 ]
 const RightSidebar = () => {
   return (
