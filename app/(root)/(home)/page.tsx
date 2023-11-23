@@ -65,7 +65,7 @@ const questions = [
   // },
 ]
 
-export default function Home() {
+export default function Home () {
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
@@ -95,8 +95,19 @@ export default function Home() {
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
         {questions.length > 0
-          ? ''
-          : <NoResult />}
+          ? (
+              ''
+            )
+          : (
+          <NoResult
+          title=' No result founded or something unexpected occured 🚀'
+
+          description='Be first to break the silence Ask a Questions and kickstart the
+          discusstion. our query could be the next big thing others learn from.
+          Get involved💡'
+          link='/ask-question'
+          />
+            )}
       </div>
     </>
   )

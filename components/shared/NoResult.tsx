@@ -2,7 +2,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '../ui/button'
 
-const NoResult = () => {
+interface Props {
+  title: string
+  description: string
+  link: string
+}
+
+const NoResult = ({ title, description, link }: Props) => {
   return (
     <div className='mt-10 flex w-full flex-col items-center '>
       <Image
@@ -19,15 +25,11 @@ const NoResult = () => {
         height={200}
         className='hidden object-contain dark:flex'
       />
-      <h2 className='h2-bold text-dark200_light900 mt-8'>
-        No result founded or something unexpected occured 🚀
-      </h2>
+      <h2 className='h2-bold text-dark200_light900 mt-8'>{title}</h2>
       <p className='body-regular text-dark500_light700 my-3.5 max-w-md text-center'>
-        Be first to break the silence Ask a Questions and kickstart the
-        discusstion. our query could be the next big thing others learn from.
-        Get involved💡
+        {description}
       </p>
-      <Link href='/'>
+      <Link href={link}>
         <Button
           className='paragraph-medium mt-5 min-h-[46px]
         rounded-lg bg-primary-500 p-4 text-light-900 dark:text-light-900'
