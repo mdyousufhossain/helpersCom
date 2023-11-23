@@ -5,64 +5,89 @@ import Filter from '@/components/shared/Filter'
 import { HomePageFilters } from '@/constants/filters'
 import HomeFilter from '@/components/home/HomeFilter'
 import NoResult from '@/components/shared/NoResult'
+import QuestionsCard from '@/components/cards/QuestionsCard'
 
 const questions = [
-  // {
-  //   _id: 0,
-  //   title: 'random questions',
-  //   tags: [
-  //     { _id: 0, name: 'python' },
-  //     { _id: 1, name: 'python' },
-  //     { _id: 3, name: 'python' },
-  //   ],
-  //   author: 'maga',
-  //   upvote: 10,
-  //   views: 100,
-  //   answer: 2,
-  //   createdAt: '2021-090-01T12:00:00.000Z',
-  // },
-  // {
-  //   _id: 1,
-  //   title: 'random questions 1',
-  //   tags: [
-  //     { _id: 0, name: 'python' },
-  //     { _id: 1, name: 'python' },
-  //     { _id: 3, name: 'python' },
-  //   ],
-  //   author: 'maga',
-  //   upvote: 10,
-  //   views: 100,
-  //   answer: 2,
-  //   createdAt: '2021-11-01T12:00:00.000Z',
-  // },
-  // {
-  //   _id: 2,
-  //   title: 'random questions 2',
-  //   tags: [
-  //     { _id: 0, name: 'python' },
-  //     { _id: 1, name: 'python' },
-  //     { _id: 3, name: 'python' },
-  //   ],
-  //   author: 'maga',
-  //   upvote: 10,
-  //   views: 100,
-  //   answer: 2,
-  //   createdAt: '2021-10-01T12:00:00.000Z',
-  // },
-  // {
-  //   _id: 3,
-  //   title: 'random questions 3',
-  //   tags: [
-  //     { _id: 0, name: 'python' },
-  //     { _id: 1, name: 'python' },
-  //     { _id: 3, name: 'python' },
-  //   ],
-  //   author: 'maga',
-  //   upvote: 10,
-  //   views: 100,
-  //   answer: 2,
-  //   createdAt: '2021-09-01T12:00:00.000Z',
-  // },
+  {
+    _id: '1',
+    title: 'How to use TypeScript with React?',
+    tags: [
+      { _id: 'tag1', name: 'TypeScript' },
+      { _id: 'tag2', name: 'React' }
+    ],
+    author: {
+      _id: 'author1',
+      name: 'John Doe',
+      picture: 'john-doe.jpg'
+    },
+    upvotes: 10,
+    views: 100,
+    answers: [
+      { /* answer object here */ },
+      { /* answer object here */ }
+    ],
+    createdAt: new Date('2023-01-01')
+  },
+  {
+    _id: '2',
+    title: 'What are the best practices for coding in JavaScript?',
+    tags: [
+      { _id: 'tag3', name: 'JavaScript' },
+      { _id: 'tag4', name: 'Best Practices' }
+    ],
+    author: {
+      _id: 'author2',
+      name: 'Jane Smith',
+      picture: 'jane-smith.jpg'
+    },
+    upvotes: 8,
+    views: 85,
+    answers: [
+      { /* answer object here */ }
+    ],
+    createdAt: '2023-02-15'
+  },
+  {
+    _id: '3',
+    title: 'How to deploy a Node.js app on Heroku?',
+    tags: [
+      { _id: 'tag5', name: 'Node.js' },
+      { _id: 'tag6', name: 'Heroku' }
+    ],
+    author: {
+      _id: 'author3',
+      name: 'Alice Johnson',
+      picture: 'alice-johnson.jpg'
+    },
+    upvotes: 15,
+    views: 120,
+    answers: [
+      { /* answer object here */ },
+      { /* answer object here */ }
+    ],
+    createdAt: new Date('2023-03-10')
+  },
+  {
+    _id: '4',
+    title: 'What are the latest features in ECMAScript 2022?',
+    tags: [
+      { _id: 'tag7', name: 'ECMAScript' },
+      { _id: 'tag8', name: 'JavaScript' }
+    ],
+    author: {
+      _id: 'author4',
+      name: 'Bob Williams',
+      picture: 'bob-williams.jpg'
+    },
+    upvotes: 12,
+    views: 110,
+    answers: [
+      { /* answer object here */ },
+      { /* answer object here */ }
+    ],
+    createdAt: '2023-04-05'
+  }
+  // Add more questions as needed
 ]
 
 export default function Home () {
@@ -96,7 +121,19 @@ export default function Home () {
         {/* looping through question */}
         {questions.length > 0
           ? (
-              ''
+              questions.map((question) => (
+              <QuestionsCard
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes}
+              views={question.views}
+              answers={question.answers}
+              createdAt={question.createdAt}
+              />
+              ))
             )
           : (
           <NoResult
