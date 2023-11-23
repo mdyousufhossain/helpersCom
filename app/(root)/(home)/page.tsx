@@ -106,6 +106,7 @@ export default function Home () {
           discusstion. our query could be the next big thing others learn from.
           Get involved💡'
           link='/ask-question'
+          linkTitle='Ask a Question'
           />
             )}
       </div>

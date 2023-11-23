@@ -6,9 +6,10 @@ interface Props {
   title: string
   description: string
   link: string
+  linkTitle: string
 }
 
-const NoResult = ({ title, description, link }: Props) => {
+const NoResult = ({ title, description, link,linkTitle }: Props) => {
   return (
     <div className='mt-10 flex w-full flex-col items-center '>
       <Image
@@ -34,7 +35,7 @@ const NoResult = ({ title, description, link }: Props) => {
           className='paragraph-medium mt-5 min-h-[46px]
         rounded-lg bg-primary-500 p-4 text-light-900 dark:text-light-900'
         >
-          Ask Question
+        {linkTitle}
         </Button>
       </Link>
     </div>
