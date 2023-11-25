@@ -16,6 +16,12 @@ interface QuestionProps {
   createdAt?: Date | string
 }
 // making questions cards 
+
+/**
+ * 
+ * @param param0 views:fun count the click or views coount so it dosnt neccerlery get from the users
+ * @returns 
+ */
 const QuestionsCard = ({
   _id,
   title,
