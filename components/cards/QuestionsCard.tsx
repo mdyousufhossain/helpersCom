@@ -61,7 +61,7 @@ const QuestionsCard = ({
           imgUrl='/assets/icons/avatar.svg'
           value={author.name}
           alt={'user'}
-          title='-Asked 1000 hours ago '
+          title={getTimestamp(createdAt)}
           href={`/profile/${author._id}`}
           textStyles='small-medium text-dark400_light800'
         />
@@ -69,7 +69,7 @@ const QuestionsCard = ({
           imgUrl='/assets/icons/like.svg'
           value={upvotes}
           alt={'Upvotes'}
-          title='Votes'
+          title='Votes' 
           textStyles='small-medium text-dark400_light800'
         />
         <Metric

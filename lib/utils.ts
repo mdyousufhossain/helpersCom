@@ -43,7 +43,12 @@ export const getTimestamp = (createdAt: Date): string => {
 
 // Example usage:
 // const createdAt = new Date('2023-11-25T12:00:00')
-// const result = getTimestamp(createdAt)
 // console.log(result)
 
-// hello there 
+// hello there
+
+// const newdate = new Date('2023-11-25T12:00:00')
+
+// const result = getTimestamp(newdate)
+
+// console.log(result)

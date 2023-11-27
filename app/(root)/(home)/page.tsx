@@ -23,10 +23,14 @@ const questions = [
     upvotes: 10,
     views: 100,
     answers: [
-      { /* answer object here */ },
-      { /* answer object here */ }
+      {
+        /* answer object here */
+      },
+      {
+        /* answer object here */
+      }
     ],
-    createdAt: new Date('2023-11-25T12:00:00')
+    createdAt: new Date('2020-11-25T12:00:00')
   },
   {
     _id: '2',
@@ -43,9 +47,11 @@ const questions = [
     upvotes: 8,
     views: 85,
     answers: [
-      { /* answer object here */ }
+      {
+        /* answer object here */
+      }
     ],
-    createdAt: new Date('2021-1-10')
+    createdAt: new Date('2019-1-10')
   },
   {
     _id: '3',
@@ -62,10 +68,14 @@ const questions = [
     upvotes: 15,
     views: 120,
     answers: [
-      { /* answer object here */ },
-      { /* answer object here */ }
+      {
+        /* answer object here */
+      },
+      {
+        /* answer object here */
+      }
     ],
-    createdAt: new Date('2023-11-25T12:00:00')
+    createdAt: new Date('2013-11-25T12:00:00')
   },
   {
     _id: '4',
@@ -82,11 +92,15 @@ const questions = [
     upvotes: 12,
     views: 110,
     answers: [
-      { /* answer object here */ },
-      { /* answer object here */ }
+      {
+        /* answer object here */
+      },
+      {
+        /* answer object here */
+      }
     ],
-    createdAt: new Date('2023-11-25T12:00:00')
-  }
+    createdAt: new Date('2017-11-25T12:00:00')
+  },
   // Add more questions as needed
 ]
 
@@ -119,8 +133,9 @@ export default function Home() {
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {questions.length > 0
+          ? (
+              questions.map((question) => (
             <QuestionsCard
               key={question._id}
               _id={question._id}
@@ -132,8 +147,9 @@ export default function Home() {
               answers={question.answers}
               createdAt={question.createdAt}
             />
-          ))
-        ) : (
+              ))
+            )
+          : (
           <NoResult
             title=' No result founded or something unexpected occured 🚀'
             description='Be first to break the silence Ask a Questions and kickstart the
@@ -142,7 +158,7 @@ export default function Home() {
             link='/ask-question'
             linkTitle='Ask a Question'
           />
-        )}
+            )}
       </div>
     </>
   )
