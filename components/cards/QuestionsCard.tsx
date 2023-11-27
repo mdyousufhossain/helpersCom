@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 interface QuestionProps {
   _id?: string | number
   title: string
@@ -15,12 +17,12 @@ interface QuestionProps {
   answers: Array<object>
   createdAt?: Date | string
 }
-// making questions cards 
+// making questions cards
 
 /**
- * 
+ *
  * @param param0 views:fun count the click or views coount so it dosnt neccerlery get from the users
- * @returns 
+ * @returns
  */
 const QuestionsCard = ({
   _id,
@@ -30,8 +32,22 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
-  createdAt
+  createdAt,
 }: QuestionProps) => {
-  return <div>QuestionsCard</div>
+  return (
+    <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>
+      <div className='flex flex-col-reverse items-center justify-between gap-5 sm:flex-row'>
+        <span className='subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden'>
+          {String(createdAt)}
+        </span>
+        <Link href={`/question/${_id}`}>
+          <h3  className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>{title}</h3>
+        </Link>
+
+        {/* if signed in add edit and deleted actions */}
+      </div>
+      
+    </div>
+  )
 }
 export default QuestionsCard
