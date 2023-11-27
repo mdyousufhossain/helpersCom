@@ -52,12 +52,50 @@ const Questions = () => {
                     <span className='text-primary-500'>*</span>
                 </FormLabel>
                 <FormControl className='mt-3.5'>
-                  <Input placeholder='Write down How may people help you' {...field} className='no-focus paragraph-regular background-light700_dark300 light-border-2 min-h-[56px] border' />
+                  <Input placeholder='Write down How may people help you' {...field} className='no-focus paragraph-regular background-light900_dark300 light-border-2 min-h-[56px] border' />
                 </FormControl>
                 <FormDescription className='body-regular mt-2.5 text-light-500'>
                   Be specefic help people understand your Question
                 </FormDescription>
-                <FormMessage />
+                <FormMessage className='text-red-500'/>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='explanation'
+            render={({ field }) => (
+              <FormItem className='flex w-full flex-col gap-3 '>
+                <FormLabel className='paragraph-semibold text-dark400_light800'>
+                    Detail explanation of your Qoustion 
+                    <span className='text-primary-500'>*</span>
+                </FormLabel>
+                <FormControl className='mt-3.5'>
+                  {/* {@todo : add an editor component} */}
+                </FormControl>
+                <FormDescription className='body-regular mt-2.5 text-light-500'>
+                  Introduce the problem and put in the title with minimum of 20 characters.
+                </FormDescription>
+                <FormMessage className='text-red-500'/>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='Tags'
+            render={({ field }) => (
+              <FormItem className='flex w-full flex-col'>
+                <FormLabel className='paragraph-semibold text-dark400_light800'>
+                    Add tags
+                    <span className='text-primary-500'>*</span>
+                </FormLabel>
+                <FormControl className='mt-3.5'>
+                  <Input placeholder='Add tags' {...field} className='no-focus paragraph-regular background-light900_dark300 light-border-2 min-h-[56px] border' />
+                </FormControl>
+                <FormDescription className='body-regular mt-2.5 text-light-500'>
+                  Add atleast 3 tags to your description . you need to press enter to add a tag
+                </FormDescription>
+                <FormMessage className='text-red-500'/>
               </FormItem>
             )}
           />
