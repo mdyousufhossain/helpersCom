@@ -26,7 +26,7 @@ const questions = [
       { /* answer object here */ },
       { /* answer object here */ }
     ],
-    createdAt: new Date('2023-01-01')
+    createdAt: new Date('2023-11-25T12:00:00')
   },
   {
     _id: '2',
@@ -45,7 +45,7 @@ const questions = [
     answers: [
       { /* answer object here */ }
     ],
-    createdAt: '2023-02-15'
+    createdAt: new Date('2021-1-10')
   },
   {
     _id: '3',
@@ -65,7 +65,7 @@ const questions = [
       { /* answer object here */ },
       { /* answer object here */ }
     ],
-    createdAt: new Date('2023-03-10')
+    createdAt: new Date('2023-11-25T12:00:00')
   },
   {
     _id: '4',
@@ -85,12 +85,12 @@ const questions = [
       { /* answer object here */ },
       { /* answer object here */ }
     ],
-    createdAt: '2023-04-05'
+    createdAt: new Date('2023-11-25T12:00:00')
   }
   // Add more questions as needed
 ]
 
-export default function Home () {
+export default function Home() {
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
@@ -119,10 +119,9 @@ export default function Home () {
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
-        {questions.length > 0
-          ? (
-              questions.map((question) => (
-              <QuestionsCard
+        {questions.length > 0 ? (
+          questions.map((question) => (
+            <QuestionsCard
               key={question._id}
               _id={question._id}
               title={question.title}
@@ -132,20 +131,18 @@ export default function Home () {
               views={question.views}
               answers={question.answers}
               createdAt={question.createdAt}
-              />
-              ))
-            )
-          : (
+            />
+          ))
+        ) : (
           <NoResult
-          title=' No result founded or something unexpected occured 🚀'
-
-          description='Be first to break the silence Ask a Questions and kickstart the
+            title=' No result founded or something unexpected occured 🚀'
+            description='Be first to break the silence Ask a Questions and kickstart the
           discusstion. our query could be the next big thing others learn from.
           Get involved💡'
-          link='/ask-question'
-          linkTitle='Ask a Question'
+            link='/ask-question'
+            linkTitle='Ask a Question'
           />
-            )}
+        )}
       </div>
     </>
   )
