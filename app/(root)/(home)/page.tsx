@@ -45,7 +45,7 @@ const questions = [
     answers: [
       { /* answer object here */ }
     ],
-    createdAt: '2023-02-15'
+    createdAt: new Date('2021-1-10')
   },
   {
     _id: '3',
@@ -85,7 +85,7 @@ const questions = [
       { /* answer object here */ },
       { /* answer object here */ }
     ],
-    createdAt: '2023-04-05'
+    createdAt: new Date('2023-5-10')
   }
   // Add more questions as needed
 ]

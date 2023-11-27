@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import RenderTag from '../shared/RenderTag'
 import Metric from '../shared/Metric'
+import { getTimestamp } from '@/lib/utils'
 
 interface QuestionProps {
   _id?: string | number
@@ -17,7 +18,7 @@ interface QuestionProps {
   upvotes: number | string
   views: number | string
   answers: Array<object>
-  createdAt?: Date | string
+  createdAt: Date
 }
 // making questions cards
 
@@ -34,13 +35,13 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
-  createdAt,
+  createdAt
 }: QuestionProps) => {
   return (
     <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>
       <div className='flex flex-col-reverse items-center justify-between gap-5 sm:flex-row'>
         <span className='subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden'>
-          {String(createdAt)}
+          {getTimestamp(createdAt)}
         </span>
         <Link href={`/question/${_id}`}>
           <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
