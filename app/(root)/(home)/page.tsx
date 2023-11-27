@@ -46,7 +46,7 @@ const questions = [
       picture: 'jane-smith.jpg'
     },
     upvotes: 789013,
-    views: 85,
+    views: 2670185,
     answers: [
       {
         /* answer object here */
