@@ -52,10 +52,10 @@ const Questions = () => {
                     <span className='text-primary-500'>*</span>
                 </FormLabel>
                 <FormControl className='mt-3.5'>
-                  <Input placeholder='shadcn' {...field} className='no-focus paragraph-regular background-light700_dark300 light-border-2 min-h-[56px] border' />
+                  <Input placeholder='Write down How may people help you' {...field} className='no-focus paragraph-regular background-light700_dark300 light-border-2 min-h-[56px] border' />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
+                <FormDescription className='body-regular mt-2.5 text-light-500'>
+                  Be specefic help people understand your Question
                 </FormDescription>
                 <FormMessage />
               </FormItem>
