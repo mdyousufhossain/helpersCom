@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import RenderTag from '../shared/RenderTag'
 
 interface QuestionProps {
   _id?: string | number
@@ -32,7 +33,7 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
-  createdAt,
+  createdAt
 }: QuestionProps) => {
   return (
     <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>
@@ -41,12 +42,18 @@ const QuestionsCard = ({
           {String(createdAt)}
         </span>
         <Link href={`/question/${_id}`}>
-          <h3  className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>{title}</h3>
+          <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
+            {title}
+          </h3>
         </Link>
 
         {/* if signed in add edit and deleted actions */}
       </div>
-      
+      <div className=' mt-3.5 flex flex-wrap gap-2'>
+        {tags.map((tag) => (
+          <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+        ))}
+      </div>
     </div>
   )
 }
