@@ -6,8 +6,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getTimestamp = (createdAt: Date): string => {
-  const now: Date = new Date()
-  const timeDifference: number = now.getTime() - createdAt.getTime()
+  const now = new Date()
+  const timeDifference = now.getTime() - createdAt.getTime()
 
   // Define time units in milliseconds
   const minute = 60 * 1000
@@ -42,6 +42,6 @@ export const getTimestamp = (createdAt: Date): string => {
 }
 
 // Example usage:
-const createdAt = new Date('2023-11-25T12:00:00')
-const result = getTimestamp(createdAt)
-console.log(result)
+// const createdAt = new Date('2023-11-25T12:00:00')
+// const result = getTimestamp(createdAt)
+// console.log(result)
