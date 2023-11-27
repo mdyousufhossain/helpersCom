@@ -35,7 +35,7 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
-  createdAt,
+  createdAt
 }: QuestionProps) => {
   return (
     <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>

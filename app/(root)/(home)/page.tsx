@@ -66,8 +66,8 @@ const questions = [
       name: 'Alice Johnson',
       picture: 'alice-johnson.jpg'
     },
-    upvotes: 15,
-    views: 120,
+    upvotes: 2510215,
+    views: 10520120,
     answers: [
       {
         /* answer object here */
@@ -101,11 +101,11 @@ const questions = [
       }
     ],
     createdAt: new Date('2017-11-25T12:00:00')
-  },
+  }
   // Add more questions as needed
 ]
 
-export default function Home() {
+export default function Home () {
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
@@ -130,7 +130,7 @@ export default function Home() {
           containerclasses='hidden max-md:flex'
         />
       </div>
-      <HomeFilter  />
+      <HomeFilter />
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
