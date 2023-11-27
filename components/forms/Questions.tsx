@@ -57,7 +57,7 @@ const Questions = () => {
                 <FormDescription className='body-regular mt-2.5 text-light-500'>
                   Be specefic help people understand your Question
                 </FormDescription>
-                <FormMessage />
+                <FormMessage className='text-red-500'/>
               </FormItem>
             )}
           />
