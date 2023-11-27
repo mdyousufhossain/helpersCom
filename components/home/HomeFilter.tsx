@@ -6,7 +6,7 @@ const HomeFilter = () => {
   const active = 'newest'
 
   return (
-    <div className='mt-10 flex-wrap gap-3 md:flex  '>
+    <div className='max-md::hidden mt-10 flex flex-wrap gap-3  max-md:hidden'>
       {HomePageFilters.map((item) => (
         <Button
           key={item.value}

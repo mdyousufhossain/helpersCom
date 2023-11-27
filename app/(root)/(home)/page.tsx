@@ -6,6 +6,7 @@ import { HomePageFilters } from '@/constants/filters'
 import HomeFilter from '@/components/home/HomeFilter'
 import NoResult from '@/components/shared/NoResult'
 import QuestionsCard from '@/components/cards/QuestionsCard'
+import { formatNumber } from '@/lib/utils'
 
 const questions = [
   {
@@ -20,8 +21,8 @@ const questions = [
       name: 'John Doe',
       picture: 'john-doe.jpg'
     },
-    upvotes: 10,
-    views: 100,
+    upvotes: 16000,
+    views: 56000,
     answers: [
       {
         /* answer object here */
@@ -44,7 +45,7 @@ const questions = [
       name: 'Jane Smith',
       picture: 'jane-smith.jpg'
     },
-    upvotes: 8,
+    upvotes: 789013,
     views: 85,
     answers: [
       {
@@ -129,7 +130,7 @@ export default function Home() {
           containerclasses='hidden max-md:flex'
         />
       </div>
-      <HomeFilter />
+      <HomeFilter  />
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
@@ -142,8 +143,8 @@ export default function Home() {
               title={question.title}
               tags={question.tags}
               author={question.author}
-              upvotes={question.upvotes}
-              views={question.views}
+              upvotes={formatNumber(question.upvotes)}
+              views={formatNumber(question.views)}
               answers={question.answers}
               createdAt={question.createdAt}
             />
