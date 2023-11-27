@@ -34,7 +34,7 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
-  createdAt
+  createdAt,
 }: QuestionProps) => {
   return (
     <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>
@@ -55,12 +55,34 @@ const QuestionsCard = ({
           <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
         ))}
       </div>
-      <div className='flex-between w-full flex-wrap gap-3'>
+      <div className='flex-between mt-6 w-full flex-wrap gap-3'>
+        <Metric
+          imgUrl='/assets/icons/avatar.svg'
+          value={author.name}
+          alt={'user'}
+          title='-Asked 1000 hours ago '
+          href={`/profile/${author._id}`}
+          textStyles='small-medium text-dark400_light800'
+        />
         <Metric
           imgUrl='/assets/icons/like.svg'
           value={upvotes}
           alt={'Upvotes'}
-          title="Votes"
+          title='Votes'
+          textStyles='small-medium text-dark400_light800'
+        />
+        <Metric
+          imgUrl='/assets/icons/message.svg'
+          value={answers.length}
+          alt={'message'}
+          title='answers'
+          textStyles='small-medium text-dark400_light800'
+        />
+        <Metric
+          imgUrl='/assets/icons/eye.svg'
+          value={views}
+          alt={'eye'}
+          title='views'
           textStyles='small-medium text-dark400_light800'
         />
       </div>
