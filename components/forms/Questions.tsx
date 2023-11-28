@@ -1,7 +1,7 @@
 /* eslint-disable comma-dangle */
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -22,16 +22,18 @@ import { QuestionsSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
 import Image from 'next/image'
 
+const type: any = 'create'
 /**
  *
  * @returns 'javascript',"funcitonal programming",'algorithm
  * @todo add handleTagfunction
  * @todo add handleRemovefunciton
  *
- *
+ *@todo making form tag reusable required usetate and form
  */
 const Questions = () => {
   const editorRef = useRef(null)
+  const [isSubmiting, setIsSubmiting] = useState(false)
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -44,9 +46,14 @@ const Questions = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    setIsSubmiting(true)
+    try {
+      // make an asuning call to your api in datadse
+      // nagivate homepage
+    } catch (error) {
+    } finally {
+      setIsSubmiting(false)
+    }
   }
 
   const handleInputKeyDown = (
@@ -212,7 +219,17 @@ const Questions = () => {
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <Button
+            type='submit'
+            className='primary-gradient !text-ligt-900 '
+            disabled={isSubmiting}
+          >
+            {isSubmiting ? (
+              <>{type === 'edit' ? 'creating...' : 'Posting...'}</>
+            ) : (
+              <>{type === 'edit' ? 'Edit Questions' : 'Ask a Questions'}</>
+            )}
+          </Button>
         </form>
       </Form>
     </div>
