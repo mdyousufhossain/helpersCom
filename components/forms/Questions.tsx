@@ -12,7 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 
 import { Input } from '../ui/input'
@@ -27,12 +27,12 @@ const Questions = () => {
     defaultValues: {
       title: '',
       explanation: '',
-      tags: [],
-    },
+      tags: []
+    }
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  function onSubmit (values: z.infer<typeof QuestionsSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
@@ -125,7 +125,7 @@ const Questions = () => {
           />
           <FormField
             control={form.control}
-            name='Tags'
+            name='tags'
             render={({ field }) => (
               <FormItem className='flex w-full flex-col'>
                 <FormLabel className='paragraph-semibold text-dark400_light800'>
