@@ -12,7 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form'
 
 import { Input } from '../ui/input'
@@ -27,15 +27,34 @@ const Questions = () => {
     defaultValues: {
       title: '',
       explanation: '',
-      tags: []
-    }
+      tags: [],
+    },
   })
 
   // 2. Define a submit handler.
-  function onSubmit (values: z.infer<typeof QuestionsSchema>) {
+  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
+  }
+
+  const handleInputKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    field: any
+  ) => {
+    if (e.key === 'Enter' && field.name === 'tags') {
+      e.preventDefault()
+      const tagInput = e.target as HTMLInputElement
+      const tagValue = tagInput.value.trim()
+      if (tagValue !== '') {
+        if (tagValue.length > 15) {
+          return form.setError('tags', {
+            type: 'required',
+            message: 'Tag must be less than 15 charadcter',
+          })
+        }
+      }
+    }
   }
 
   return (
@@ -104,14 +123,14 @@ const Questions = () => {
                         'fullscreen',
                         'insertdatetime',
                         'media',
-                        'table'
+                        'table',
                       ],
                       toolbar:
                         'undo redo | blocks | ' +
                         'codesample | bold italic forecolor | alignleft aligncenter ' +
                         'alignright alignjustify | bullist numlist  ',
                       content_style:
-                        'body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:16px }'
+                        'body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:16px }',
                     }}
                   />
                 </FormControl>
@@ -135,7 +154,7 @@ const Questions = () => {
                 <FormControl className='mt-3.5'>
                   <Input
                     placeholder='Add tags'
-                    {...field}
+                    onKeyDown={(e) => handleInputKeyDown(e, field)}
                     className='no-focus paragraph-regular background-light900_dark300 light-border-2 min-h-[56px] border'
                   />
                 </FormControl>
