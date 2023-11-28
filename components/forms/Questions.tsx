@@ -45,9 +45,15 @@ const Questions = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  function onSubmi(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
-    console.log(values)
+    try {
+      // make an asuning call to your api in datadse
+      // nagivate homepage
+    } catch (error) {
+    } finally {
+      setIsSubmiting(false)
+    }
   }
 
   const handleInputKeyDown = (
@@ -218,13 +224,11 @@ const Questions = () => {
             className='primary-gradient !text-ligt-900 '
             disabled={isSubmiting}
           >
-            {isSubmiting
-              ? (
+            {isSubmiting ? (
               <>{type === 'edit' ? 'creating...' : 'Posting...'}</>
-                )
-              : (
+            ) : (
               <>{type === 'edit' ? 'Edit Questions' : 'Ask a Questions'}</>
-                )}
+            )}
           </Button>
         </form>
       </Form>
