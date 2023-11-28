@@ -45,7 +45,7 @@ const Questions = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmi(values: z.infer<typeof QuestionsSchema>) {
+  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
     try {
       // make an asuning call to your api in datadse
