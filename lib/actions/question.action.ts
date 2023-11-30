@@ -1,10 +1,11 @@
 'use server'
 
-export async function createQuestion (params){
+import { connectionToDatabase } from '../mongoose'
 
-    try {
-       // make connection with db 
-    } catch (error) {
-        
-    }
+export async function createQuestion (params :any) {
+  try {
+    connectionToDatabase()
+  } catch (error) {
+    console.log(error)
+  }
 }
