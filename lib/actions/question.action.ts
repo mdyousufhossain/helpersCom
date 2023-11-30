@@ -1,6 +1,6 @@
 'use server'
 
-export async function createQuestion (params) {
+export async function createQuestion (params){
 
     try {
        // make connection with db 
