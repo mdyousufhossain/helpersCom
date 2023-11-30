@@ -134,7 +134,9 @@ const Questions = () => {
                       // @ts-ignore
                       (editorRef.current = editor)
                     }
-                    initialValue='<p>This is the initial content of the editor.</p>'
+                    onBlur={field.onBlur}
+                    onEditorChange={(content) => field.onChange(content)}
+                    initialValue=''
                     init={{
                       height: 350,
                       menubar: false,
