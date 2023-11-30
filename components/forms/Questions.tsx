@@ -21,6 +21,7 @@ import { Button } from '../ui/button'
 import { QuestionsSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
 import Image from 'next/image'
+import { createQuestion } from '@/lib/actions/question.action'
 
 const type: any = 'create'
 /**
@@ -45,11 +46,10 @@ const Questions = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
     try {
-      // make an asuning call to your api in datadse
-      // nagivate homepage
+      await createQuestion({})
     } catch (error) {
     } finally {
       setIsSubmiting(false)
@@ -134,7 +134,9 @@ const Questions = () => {
                       // @ts-ignore
                       (editorRef.current = editor)
                     }
-                    initialValue='<p>This is the initial content of the editor.</p>'
+                    onBlur={field.onBlur}
+                    onEditorChange={(content) => field.onChange(content)}
+                    initialValue=''
                     init={{
                       height: 350,
                       menubar: false,
@@ -221,14 +223,17 @@ const Questions = () => {
           />
           <Button
             type='submit'
-            className='primary-gradient !text-ligt-900 '
+            // eslint-disable-next-line tailwindcss/no-custom-classname
+            className='primary-gradient !text-dark200_light900'
             disabled={isSubmiting}
           >
-            {isSubmiting ? (
+            {isSubmiting
+              ? (
               <>{type === 'edit' ? 'creating...' : 'Posting...'}</>
-            ) : (
+                )
+              : (
               <>{type === 'edit' ? 'Edit Questions' : 'Ask a Questions'}</>
-            )}
+                )}
           </Button>
         </form>
       </Form>
