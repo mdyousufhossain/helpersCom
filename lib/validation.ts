@@ -13,5 +13,5 @@ export const QuestionsSchema = z.object({
       .max(10, 'mate hold the horses , dont you thing its too much')
       .min(1)
       .max(3, 'no more requred')
-  ),
+  )
 })
