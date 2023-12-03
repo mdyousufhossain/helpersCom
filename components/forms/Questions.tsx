@@ -50,6 +50,7 @@ const Questions = () => {
     setIsSubmiting(true)
     try {
       await createQuestion({})
+      console.log(' this is running')
     } catch (error) {
     } finally {
       setIsSubmiting(false)
@@ -99,7 +100,7 @@ const Questions = () => {
             name='title'
             render={({ field }) => (
               <FormItem className='flex w-full flex-col'>
-                <FormLabel className='paragraph-semibold text-dark400_light800'>
+                <FormLabel className='paragraph-semibold text-dark200_light900'>
                   Question Title
                   <span className='text-primary-500'>*</span>
                 </FormLabel>
@@ -107,7 +108,7 @@ const Questions = () => {
                   <Input
                     placeholder='Write down How may people help you'
                     {...field}
-                    className='no-focus paragraph-regular background-light900_dark300 light-border-2 min-h-[56px] border'
+                    className='no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark400_light700 min-h-[56px] border'
                   />
                 </FormControl>
                 <FormDescription className='body-regular mt-2.5 text-light-500'>
@@ -188,7 +189,7 @@ const Questions = () => {
                     <Input
                       placeholder='Add tags'
                       onKeyDown={(e) => handleInputKeyDown(e, field)}
-                      className='no-focus paragraph-regular background-light900_dark300 light-border-2 min-h-[56px] border'
+                      className='no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark400_light700 min-h-[56px] border'
                     />
 
                     {field.value.length > 0 && (
@@ -227,13 +228,11 @@ const Questions = () => {
             className='primary-gradient !text-dark200_light900'
             disabled={isSubmiting}
           >
-            {isSubmiting
-              ? (
+            {isSubmiting ? (
               <>{type === 'edit' ? 'creating...' : 'Posting...'}</>
-                )
-              : (
+            ) : (
               <>{type === 'edit' ? 'Edit Questions' : 'Ask a Questions'}</>
-                )}
+            )}
           </Button>
         </form>
       </Form>
