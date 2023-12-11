@@ -1,6 +1,6 @@
 'use server'
 
-import { connectionToDatabase } from '../mongoose'
+import { connectionToDat abase } from '../mongoose'
 
 export async function createQuestion (params :any) {
   try {
