@@ -17,7 +17,6 @@ export const connectionToDatabase = async () => {
     })
 
     isConnected = true
-
     console.log('mongoo db is connected')
   } catch (error) {
     console.error(error)
