@@ -1,6 +1,4 @@
-import { Tags } from 'lucide-react'
 import { Schema, models, model, Document } from 'mongoose'
-import { title } from 'process'
 
 export interface IQuestion extends Document {
   title: string
@@ -25,6 +23,5 @@ const QuestionSchema = new Schema({
 })
 
 const Question = models.Question || model('Question', QuestionSchema)
-
 
 export default Question
