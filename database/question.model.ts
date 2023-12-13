@@ -19,7 +19,7 @@ const QuestionSchema = new Schema({
   upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   answers: [{ type: Schema.Types.ObjectId, ref: 'Anwers' }],
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
 })
 
 const Question = models.Question || model('Question', QuestionSchema)
