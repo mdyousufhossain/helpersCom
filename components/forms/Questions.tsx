@@ -22,6 +22,9 @@ import { QuestionsSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
 import Image from 'next/image'
 import { createQuestion } from '@/lib/actions/question.action'
+import { title } from 'process'
+import { Content } from 'next/font/google'
+import { Tags } from 'lucide-react'
 
 const type: any = 'create'
 /**
@@ -49,7 +52,12 @@ const Questions = () => {
   async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
     try {
-      await createQuestion({})
+      await createQuestion({
+        title : values.title ,
+        Content : values.explanation,  
+        Tags: values.tags,
+        //author:         
+      })
       console.log(' this is running')
     } catch (error) {
     } finally {
