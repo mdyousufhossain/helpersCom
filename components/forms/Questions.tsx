@@ -244,11 +244,13 @@ const Questions = ({ mongoUserId }: Props) => {
             className='primary-gradient !text-dark200_light900'
             disabled={isSubmiting}
           >
-            {isSubmiting ? (
+            {isSubmiting
+              ? (
               <>{type === 'edit' ? 'creating...' : 'Posting...'}</>
-            ) : (
+                )
+              : (
               <>{type === 'edit' ? 'Edit Questions' : 'Ask a Questions'}</>
-            )}
+                )}
           </Button>
         </form>
       </Form>
