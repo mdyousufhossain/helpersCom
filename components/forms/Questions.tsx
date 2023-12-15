@@ -23,6 +23,9 @@ import { Badge } from '../ui/badge'
 import Image from 'next/image'
 import { createQuestion } from '@/lib/actions/question.action'
 
+import { useRouter, usePathname } from 'next/navigation'
+import { Router } from 'lucide-react'
+
 const type: any = 'create'
 /**
  *
@@ -32,9 +35,15 @@ const type: any = 'create'
  *
  *@todo making form tag reusable required usetate and form
  */
-const Questions = () => {
+
+interface Props {
+  mongoUserId: string
+}
+const Questions = ({ mongoUserId }: Props) => {
   const editorRef = useRef(null)
   const [isSubmiting, setIsSubmiting] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -46,11 +55,18 @@ const Questions = () => {
   })
 
   // 2. Define a submit handler.
-  async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
     try {
-      await createQuestion({})
+      await createQuestion({
+        title: values.title,
+        Content: values.explanation,
+        Tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      })
       console.log(' this is running')
+
+      router.push('/')
     } catch (error) {
     } finally {
       setIsSubmiting(false)
@@ -228,11 +244,13 @@ const Questions = () => {
             className='primary-gradient !text-dark200_light900'
             disabled={isSubmiting}
           >
-            {isSubmiting ? (
+            {isSubmiting
+              ? (
               <>{type === 'edit' ? 'creating...' : 'Posting...'}</>
-            ) : (
+                )
+              : (
               <>{type === 'edit' ? 'Edit Questions' : 'Ask a Questions'}</>
-            )}
+                )}
           </Button>
         </form>
       </Form>
