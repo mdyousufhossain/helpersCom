@@ -4,9 +4,10 @@ import { connectionToDatabase } from '../mongoose'
 
 import User from '@/database/user.question'
 
-// this a demo comment 
-// this a seccond comment 
-export async function getUserById(params: any) {
+// this a demo comment
+// this a seccond comment
+
+export async function getUserById (params: any) {
   try {
     connectionToDatabase()
 
@@ -17,6 +18,5 @@ export async function getUserById(params: any) {
     return user
   } catch (error) {
     console.log(error)
-    throw error
   }
 }

@@ -24,7 +24,8 @@ import Image from 'next/image'
 import { createQuestion } from '@/lib/actions/question.action'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { Router } from 'lucide-react'
+
+
 
 const type: any = 'create'
 /**
@@ -55,19 +56,20 @@ const Questions = ({ mongoUserId }: Props) => {
   })
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
     try {
       await createQuestion({
         title: values.title,
-        Content: values.explanation,
-        Tags: values.tags,
+        content: values.explanation,
+        tags: values.tags,
         author: JSON.parse(mongoUserId),
       })
       console.log(' this is running')
 
       router.push('/')
     } catch (error) {
+      console.log('this is questions create question error', error)
     } finally {
       setIsSubmiting(false)
     }
