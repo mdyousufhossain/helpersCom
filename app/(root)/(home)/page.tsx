@@ -42,7 +42,7 @@ export default async function Home () {
         {/* looping through question */}
         {result.questions.length > 0
           ? (
-              result.questions.map((question) => (
+              result.questions.map(({ question } : any) => (
             <QuestionsCard
               key={question._id}
               _id={question._id}
