@@ -6,7 +6,7 @@ import Tag from '@/database/tags.question'
 import { CreateQuestionParams, GetQuestionsParams } from './shared.types'
 import User from '@/database/user.question'
 
-export async function getQuestions(params: GetQuestionsParams) {
+export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
 
@@ -20,7 +20,7 @@ export async function getQuestions(params: GetQuestionsParams) {
   }
 }
 
-export async function createQuestion(params: CreateQuestionParams) {
+export async function createQuestion (params: CreateQuestionParams) {
   try {
     connectionToDatabase()
 
@@ -52,7 +52,7 @@ export async function createQuestion(params: CreateQuestionParams) {
     await Question.findByIdAndUpdate(
       question._id,
       {
-        $push: { tags: { $each: tagsAsObjectId } },
+        $push: { tags: { $each: tagsAsObjectId } }
       },
       { new: true }
     )

@@ -25,8 +25,6 @@ import { createQuestion } from '@/lib/actions/question.action'
 
 import { useRouter, usePathname } from 'next/navigation'
 
-
-
 const type: any = 'create'
 /**
  *
