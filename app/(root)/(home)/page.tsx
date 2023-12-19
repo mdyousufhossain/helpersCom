@@ -12,7 +12,7 @@ import { getQuestions } from '@/lib/actions/question.action'
 export default async function Home () {
   const data = await getQuestions({})
 
-  console.log(data.questions)
+  //console.log(data.questions)
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
