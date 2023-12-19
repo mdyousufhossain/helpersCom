@@ -12,7 +12,7 @@ export interface CreateQuestionParams {
   content: string
   tags: string[]
   author: Schema.Types.ObjectId | IUser
-  path: string
+  path?: string
 }
 
 export interface GetAnswersParams {
