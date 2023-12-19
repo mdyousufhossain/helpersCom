@@ -11,10 +11,7 @@ import {
 import { revalidatePath } from 'next/cache'
 import console from 'console'
 import Question from '@/database/question.model'
-import path from 'path'
 
-// this a demo comment
-// this a seccond comment
 
 export async function getUserById (params: any) {
   try {
