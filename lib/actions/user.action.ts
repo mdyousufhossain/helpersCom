@@ -6,14 +6,12 @@ import User from '@/database/user.question'
 import {
   CreateUserParams,
   DeleteUserParams,
-  UpdateUserParams
+  UpdateUserParams,
 } from './shared.types'
 import { revalidatePath } from 'next/cache'
-import console from 'console'
 import Question from '@/database/question.model'
 
-
-export async function getUserById (params: any) {
+export async function getUserById(params: any) {
   try {
     connectionToDatabase()
 
@@ -30,7 +28,7 @@ export async function getUserById (params: any) {
 // this a demo comment
 // this a seccond comment
 
-export async function createUser (userData: CreateUserParams) {
+export async function createUser(userData: CreateUserParams) {
   try {
     connectionToDatabase()
 
@@ -40,38 +38,31 @@ export async function createUser (userData: CreateUserParams) {
     console.log(error)
   }
 }
-export async function updateUser (params: UpdateUserParams) {
+export async function updateUser(params: UpdateUserParams) {
   try {
     connectionToDatabase()
 
     const { clerkId, updateData, path } = params
 
     await User.findOneAndUpdate({ clerkId }, updateData, {
-      new: true
+      new: true,
     })
     revalidatePath(path)
   } catch (error) {
     console.log(error)
   }
 }
-export async function deleteUser (params: DeleteUserParams) {
+export async function deleteUser(params: DeleteUserParams) {
   try {
-    connectionToDatabase()
+    await connectionToDatabase()
 
     const { clerkId } = params
 
-    const user = await User.findOneAndDelete({ clerkId })
+    const user: any = await User.findOneAndDelete({ clerkId })
 
     if (!user) {
       throw new Error('User not found')
     }
-
-    /**
-     *
-     * when delete a user
-     * we need to delete questions , answer , comments
-     *
-     */
 
     const userQuestionsIds = await Question.find({ author: user._id }).distinct(
       '_id'
@@ -79,14 +70,13 @@ export async function deleteUser (params: DeleteUserParams) {
 
     await Question.deleteMany({ author: user._id })
 
-    /**
-     * @todo later delete User answers , comments and other things if left any
-     */
+    // @todo: Later delete user answers, comments, and other related data if needed
 
     const deletedUser = await User.findByIdAndDelete(user._id)
 
     return deletedUser
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    throw new Error('Failed to delete user')
   }
 }
