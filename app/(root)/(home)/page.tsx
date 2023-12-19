@@ -8,7 +8,7 @@ import NoResult from '@/components/shared/NoResult'
 import QuestionsCard from '@/components/cards/QuestionsCard'
 import { formatNumber } from '@/lib/utils'
 import { getQuestions } from '@/lib/actions/question.action'
-
+// bal
 export default async function Home () {
   const result : any = await getQuestions({})
 
