@@ -10,9 +10,8 @@ import { formatNumber } from '@/lib/utils'
 import { getQuestions } from '@/lib/actions/question.action'
 
 export default async function Home () {
-  const data = await getQuestions({})
+  const result : any = await getQuestions({})
 
-  //console.log(data.questions)
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
@@ -41,9 +40,9 @@ export default async function Home () {
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
-        {data.questions.length > 0
+        {result.questions.length > 0
           ? (
-              data.questions.map((question) => (
+              result.questions.map((question) => (
             <QuestionsCard
               key={question._id}
               _id={question._id}
