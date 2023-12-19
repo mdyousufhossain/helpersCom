@@ -9,6 +9,7 @@ const GlobalSearch = () => {
           src='/assets/icons/search.svg'
           width={24}
           height={24}
+          alt='search pointer'
           className='cursor-pointer'
         />
         <Input
