@@ -6,12 +6,12 @@ import User from '@/database/user.question'
 import {
   CreateUserParams,
   DeleteUserParams,
-  UpdateUserParams,
+  UpdateUserParams
 } from './shared.types'
 import { revalidatePath } from 'next/cache'
 import Question from '@/database/question.model'
 
-export async function getUserById(params: any) {
+export async function getUserById (params: any) {
   try {
     connectionToDatabase()
 
@@ -28,7 +28,7 @@ export async function getUserById(params: any) {
 // this a demo comment
 // this a seccond comment
 
-export async function createUser(userData: CreateUserParams) {
+export async function createUser (userData: CreateUserParams) {
   try {
     connectionToDatabase()
 
@@ -38,21 +38,21 @@ export async function createUser(userData: CreateUserParams) {
     console.log(error)
   }
 }
-export async function updateUser(params: UpdateUserParams) {
+export async function updateUser (params: UpdateUserParams) {
   try {
     connectionToDatabase()
 
     const { clerkId, updateData, path } = params
 
     await User.findOneAndUpdate({ clerkId }, updateData, {
-      new: true,
+      new: true
     })
     revalidatePath(path)
   } catch (error) {
     console.log(error)
   }
 }
-export async function deleteUser(params: DeleteUserParams) {
+export async function deleteUser (params: DeleteUserParams) {
   try {
     await connectionToDatabase()
 
@@ -64,6 +64,7 @@ export async function deleteUser(params: DeleteUserParams) {
       throw new Error('User not found')
     }
 
+    // eslint-disable-next-line no-unused-vars
     const userQuestionsIds = await Question.find({ author: user._id }).distinct(
       '_id'
     )

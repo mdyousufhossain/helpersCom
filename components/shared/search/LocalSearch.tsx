@@ -34,7 +34,7 @@ const LocalSearch = ({
       <Input
         type='text'
         placeholder={placeholder}
-        //value=''
+        // value=''
         className='placeholder
           [box-shadow-none]  paragraph-regular no-focus background-light800_darkgradient border-none outline-none focus-visible:ring-0
           focus-visible:ring-transparent
