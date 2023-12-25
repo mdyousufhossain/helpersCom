@@ -15,8 +15,9 @@ export interface IUser extends Document {
   joinedAt: Date
 }
 
+// user schema reuqired
 const UserSchema = new Schema({
-  clerkid: { type: String, required: true },
+  clerkId: { type: String, required: true },
   name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
