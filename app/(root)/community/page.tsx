@@ -30,8 +30,8 @@ const Page = async () => {
         {reuslt.users.length > 0
           ? (
               reuslt.users.map((user) => (
-                <UserCard key={user._id} user={user}  />
-               ))
+                <UserCard key={user._id} user={user} />
+              ))
             )
           : (
           <div className='paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center'>
