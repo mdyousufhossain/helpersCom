@@ -97,8 +97,6 @@ export async function getAllUsers (params: GetAllUsersParams) {
   }
 }
 
- 
-
 // export async function getAllUsers(params:GetAllUsersParams) {
 
 //   try {

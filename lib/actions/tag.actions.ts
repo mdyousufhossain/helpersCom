@@ -4,10 +4,11 @@ import User from '@/database/user.question'
 import { GetTopInteractedTagsParams } from './shared.types'
 import { connectionToDatabase } from '../mongoose'
 
-export async function getTopInterectedTags(params: GetTopInteractedTagsParams) {
+export async function getTopInterectedTags (params: GetTopInteractedTagsParams) {
   try {
     connectionToDatabase()
 
+    // eslint-disable-next-line no-unused-vars
     const { userId, limit = 3 } = params
 
     const user = await User.findById(userId)
