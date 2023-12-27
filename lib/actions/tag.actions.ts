@@ -5,7 +5,7 @@ import { GetAllTagsParams, GetTopInteractedTagsParams } from './shared.types'
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
 
-export async function getTopInterectedTags(params: GetTopInteractedTagsParams) {
+export async function getTopInterectedTags (params: GetTopInteractedTagsParams) {
   try {
     connectionToDatabase()
 
@@ -20,7 +20,7 @@ export async function getTopInterectedTags(params: GetTopInteractedTagsParams) {
     return [
       { _id: '1', name: 'demo tag' },
       { _id: '2', name: 'demo tag 2' },
-      { _id: '3', name: 'demo tag 3' },
+      { _id: '3', name: 'demo tag 3' }
     ]
   } catch (error) {
     console.log(error)
@@ -28,7 +28,7 @@ export async function getTopInterectedTags(params: GetTopInteractedTagsParams) {
   }
 }
 
-export async function getAllTags(params: GetAllTagsParams) {
+export async function getAllTags (params: GetAllTagsParams) {
   try {
     connectionToDatabase()
 
