@@ -27,17 +27,13 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 import { useEffect } from 'react'
 
 interface Props {
-  data : string
+  data: string
 }
-const ParseHTML = ({ data }:Props) => {
+const ParseHTML = ({ data }: Props) => {
   useEffect(() => {
     Prism.highlightAll()
   }, [])
-  
-  return (
-    <div>
-      {parse(data)}
-    </div>
-  )
+
+  return <div>{parse(data)}</div>
 }
 export default ParseHTML
