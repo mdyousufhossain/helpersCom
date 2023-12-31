@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Metric from '@/components/shared/Metric'
 import { formatNumber, getTimestamp } from '@/lib/utils'
+import ParseHTML from '@/components/shared/ParseHTML'
 
 const Page = async ({ params, searchParams }) => {
   const result = await getQuestionsById({ questionId: params.id })
@@ -57,7 +58,7 @@ const Page = async ({ params, searchParams }) => {
 
       </div>
 
-      {/* parsedContent */}
+      <ParseHTML data={result.content} />
     </>
   )
 }
