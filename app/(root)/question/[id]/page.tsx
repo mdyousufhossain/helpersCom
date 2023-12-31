@@ -6,7 +6,7 @@ import { formatNumber, getTimestamp } from '@/lib/utils'
 import ParseHTML from '@/components/shared/ParseHTML'
 import RenderTag from '@/components/shared/RenderTag'
 
-const Page = async ({ params, searchParams }) => {
+const Page = async ({ params } : any) => {
   const result = await getQuestionsById({ questionId: params.id })
 
   return (
@@ -72,7 +72,7 @@ const Page = async ({ params, searchParams }) => {
             />
           ))
          }
-      </div> 
+      </div>
     </>
   )
 }
