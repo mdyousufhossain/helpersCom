@@ -5,6 +5,7 @@ import Metric from '@/components/shared/Metric'
 import { formatNumber, getTimestamp } from '@/lib/utils'
 import ParseHTML from '@/components/shared/ParseHTML'
 import RenderTag from '@/components/shared/RenderTag'
+import Answer from '@/components/forms/Answer'
 
 const Page = async ({ params } : any) => {
   const result = await getQuestionsById({ questionId: params.id })
@@ -73,6 +74,7 @@ const Page = async ({ params } : any) => {
           ))
          }
       </div>
+      <Answer />
     </>
   )
 }
