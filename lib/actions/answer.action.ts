@@ -1,4 +1,4 @@
-'user server'
+'use server'
 
 import Answer from '@/database/answer.model'
 import { connectionToDatabase } from '../mongoose'
@@ -23,8 +23,9 @@ export async function createAnswer (params: CreateAnswerParams) {
     })
 
     /**
-     * @todo : add interaction
-     * user repution
+     * @todo
+     * @add interaction
+     * @user repution
      */
 
     revalidatePath(path)
