@@ -1,10 +1,18 @@
 import { Schema } from 'mongoose'
 import { IUser } from '@/database/user.question'
+
 export interface GetQuestionsParams {
   page?: number
   pageSize?: number
   searchQuery?: string
   filter?: string
+}
+
+export interface CreateAnswerParams {
+  content: string
+  author: string
+  question: string
+  path: string
 }
 
 export interface CreateQuestionParams {
