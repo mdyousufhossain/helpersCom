@@ -12,7 +12,7 @@ export async function createAnswer (params: CreateAnswerParams) {
   try {
     const { content, author, question, path } = params
 
-    const newAnswer = new Answer({
+    const newAnswer = await Answer.create({
       content,
       author,
       question
@@ -41,10 +41,10 @@ export async function getAnswers (params:GetAnswersParams) {
 
     const { questionId } = params
 
-    const answer = await Answer.find({ question: questionId }).populate('author', '_id clerkId name picture')
+    const answers = await Answer.find({ question: questionId }).populate('author', '_id clerkId name picture')
       .sort({ createdAt: -1 })
 
-    return { answer }
+    return { answers }
   } catch (error) {
     console.log(error)
   }

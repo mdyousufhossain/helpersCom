@@ -8,10 +8,9 @@ import RenderTag from '@/components/shared/RenderTag'
 import Answer from '@/components/forms/Answer'
 import { auth } from '@clerk/nextjs'
 import { getUserById } from '@/lib/actions/user.action'
+import AllAnswer from '@/components/shared/AllAnswer'
 
 const Page = async ({ params }: any) => {
-  const result = await getQuestionsById({ questionId: params.id })
-
   const { userId: clerkId } = auth()
 
   let mongoUser : any
@@ -20,6 +19,7 @@ const Page = async ({ params }: any) => {
     mongoUser = await getUserById({ userId: clerkId })
   }
 
+  const result = await getQuestionsById({ questionId: params.id })
   return (
     <>
       <div className='flex-start w-full flex-col'>
@@ -83,6 +83,13 @@ const Page = async ({ params }: any) => {
           />
         ))}
       </div>
+
+      <AllAnswer
+
+        questionId={JSON.stringify(result._id)}
+        userId={JSON.stringify(mongoUser._id)}
+        totalAnswers={result.answers.length} page={''} filter={''}
+      />
       <Answer
          question={result.content}
          questionId={JSON.stringify(result._id)}
