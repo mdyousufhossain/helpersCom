@@ -10,3 +10,4 @@ export const QuestionsSchema = z.object({
 })
 
 // new start of the next chapter aka backend
+export const AnswerSchema = z.object({ answer: z.string().min(100) })

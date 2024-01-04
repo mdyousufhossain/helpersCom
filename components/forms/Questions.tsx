@@ -24,6 +24,7 @@ import Image from 'next/image'
 import { createQuestion } from '@/lib/actions/question.action'
 
 import { useRouter } from 'next/navigation'
+import { useTheme } from '@/constants/ThemeProvider'
 // usePathname
 const type: any = 'create'
 /**
@@ -39,6 +40,7 @@ interface Props {
   mongoUserId: string
 }
 const Questions = ({ mongoUserId }: Props) => {
+  const { mode } = useTheme()
   const editorRef = useRef(null)
   const [isSubmiting, setIsSubmiting] = useState(false)
   const router = useRouter()
@@ -180,6 +182,8 @@ const Questions = ({ mongoUserId }: Props) => {
                         'alignright alignjustify | bullist numlist  ',
                       content_style:
                         'body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:16px }',
+                      skin: mode === 'dark' ? 'oxide-dark' : 'oxide',
+                      content_css: mode === 'dark' ? 'dark' : 'light',
                     }}
                   />
                 </FormControl>
