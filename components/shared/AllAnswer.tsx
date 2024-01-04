@@ -2,7 +2,7 @@ import { AnswerFilters } from '@/constants/filters'
 import Filter from './Filter'
 import { getAnswers } from '@/lib/actions/answer.action'
 import Link from 'next/link'
-import { profile } from 'console'
+
 import Image from 'next/image'
 import { getTimestamp } from '@/lib/utils'
 import ParseHTML from './ParseHTML'
