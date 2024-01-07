@@ -123,3 +123,37 @@ export async function upvoteQuestion (params: QuestionVoteParams) {
     throw error
   }
 }
+
+export async function downvoteQuestion (params: QuestionVoteParams) {
+  try {
+    connectionToDatabase()
+
+    const { questionId, userId, hasupVoted, hasdownVoted, path } = params
+
+    let updateQuery = {}
+
+    if (hasdownVoted) {
+      updateQuery = { $pull: { downvote: userId } }
+    } else if (hasupVoted) {
+      updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downvotes: userId }
+      }
+    } else {
+      updateQuery = { $addToSet: { downvotes: userId } }
+    }
+
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, { new: true })
+
+    if (!question) {
+      throw new Error('Question not found')
+    }
+
+    // increament the auhtor reputation by some point
+
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
