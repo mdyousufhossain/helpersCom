@@ -32,7 +32,7 @@ const Voting = ({
 
   const handleSave = () => {}
 
-  const handleVote = async (action:string) => {
+  const handleVote = async (action: string) => {
     if (!userId) {
       return
     }
@@ -57,8 +57,8 @@ const Voting = ({
       }
 
       /**
-     * @todo do a toaster
-     */
+       * @todo do a toaster
+       */
       return
     }
 
@@ -69,7 +69,7 @@ const Voting = ({
           userId: JSON.parse(userId),
           hasupVoted,
           hasdownVoted,
-          path: pathname
+          path: pathname,
         })
       } else if (type === 'Answer') {
         await downvoteAnswer({
@@ -77,12 +77,12 @@ const Voting = ({
           userId: JSON.parse(userId),
           hasupVoted,
           hasdownVoted,
-          path: pathname
+          path: pathname,
         })
       }
       /**
-     * @todo do a toaster
-     */
+       * @todo do a toaster
+       */
     }
   }
   return (
@@ -103,7 +103,10 @@ const Voting = ({
           />
 
           <div className='flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1'>
-            <p> {formatNumber(upvotes)}</p>
+            <p className='subtle-medium text-dark400_light900'>
+              {' '}
+              {formatNumber(upvotes)}
+            </p>
           </div>
         </div>
         <div className='flex-center gap-1.5'>
@@ -121,22 +124,27 @@ const Voting = ({
           />
 
           <div className='flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1'>
-            <p> {formatNumber(downvotes)}</p>
+            <p className='subtle-medium text-dark400_light900'>
+              {' '}
+              {formatNumber(downvotes)}
+            </p>
           </div>
         </div>
       </div>
-      { type === 'Question' && (<Image
-            src={
-              hasSaved
-                ? '/assets/icons/star-filled.svg'
-                : '/assets/icons/star-red.svg'
-            }
-            width={18}
-            height={18}
-            alt='star'
-            className='cursor-pointer'
-            onClick={handleSave}
-          />)}
+      {type === 'Question' && (
+        <Image
+          src={
+            hasSaved
+              ? '/assets/icons/star-filled.svg'
+              : '/assets/icons/star-red.svg'
+          }
+          width={18}
+          height={18}
+          alt='star'
+          className='cursor-pointer'
+          onClick={handleSave}
+        />
+      )}
     </div>
   )
 }

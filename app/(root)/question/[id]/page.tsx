@@ -27,7 +27,7 @@ const Page = async ({ params }: any) => {
         <div className='flex w-full flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
           <Link
             href={`/profile/${result.author.clerkId}`}
-            className='flex items-end justify-start gap-1'
+            className='flex items-start  gap-1'
           >
             <Image
               src={result.author.picture}
@@ -40,7 +40,7 @@ const Page = async ({ params }: any) => {
               {result.author.name}
             </p>
           </Link>
-          <div className='flex justify-end'>
+          <div className='flex items-start justify-end'>
           <Voting
             type='Question'
             itemId={JSON.stringify(result._id)}
