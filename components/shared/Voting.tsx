@@ -1,4 +1,5 @@
 'use client'
+import { upvoteAnswer, downvoteAnswer } from '@/lib/actions/answer.action'
 import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
@@ -46,14 +47,15 @@ const Voting = ({
           path: pathname
         })
       } else if (type === 'Answer') {
-      // await upvoteQuestion({
-      //   questionId: JSON.parse(itemId),
-      //   userId: JSON.parse(userId),
-      //   hasupVoted,
-      //   hasdownVoted,
-      //   path: pathname
-      // })
+        await upvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
+
       /**
      * @todo do a toaster
      */
@@ -70,13 +72,13 @@ const Voting = ({
           path: pathname
         })
       } else if (type === 'Answer') {
-      // await downvoteAnswer({
-      //   questionId: JSON.parse(itemId),
-      //   userId: JSON.parse(userId),
-      //   hasupVoted,
-      //   hasdownVoted,
-      //   path: pathname
-      // })
+        await downvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
       /**
      * @todo do a toaster
@@ -123,7 +125,7 @@ const Voting = ({
           </div>
         </div>
       </div>
-      <Image
+      { type === 'Question' && (<Image
             src={
               hasSaved
                 ? '/assets/icons/star-filled.svg'
@@ -134,7 +136,7 @@ const Voting = ({
             alt='star'
             className='cursor-pointer'
             onClick={handleSave}
-          />
+          />)}
     </div>
   )
 }
