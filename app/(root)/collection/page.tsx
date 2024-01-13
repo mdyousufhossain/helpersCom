@@ -8,8 +8,9 @@ import { getSavedQuestions } from '@/lib/actions/user.action'
 import { auth } from '@clerk/nextjs'
 // bal
 export default async function Home () {
-  
+  const { userId } = auth()
   const result = await getSavedQuestions({
+    clerkId: userId
 
   })
 
@@ -33,9 +34,9 @@ export default async function Home () {
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
-        {result.questions.length > 0
+        {result.question.length > 0
           ? (
-              result.questions.map((question : any) => (
+              result.question.map((question : any) => (
             <QuestionsCard
               key={question._id}
               _id={question._id}
