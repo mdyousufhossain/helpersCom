@@ -2,7 +2,7 @@
 
 import Answer from '@/database/answer.model'
 import { connectionToDatabase } from '../mongoose'
-import { CreateAnswerParams, GetAnswersParams } from './shared.types'
+import { AnswerVoteParams, CreateAnswerParams, GetAnswersParams } from './shared.types'
 import Question from '@/database/question.model'
 import { revalidatePath } from 'next/cache'
 
@@ -47,5 +47,73 @@ export async function getAnswers (params:GetAnswersParams) {
     return { answers }
   } catch (error) {
     console.log(error)
+  }
+}
+
+export async function upvoteAnswer (params: AnswerVoteParams) {
+  try {
+    connectionToDatabase()
+
+    const { answerId, userId, hasupVoted, hasdownVoted, path } = params
+
+    let updateQuery = {}
+
+    if (hasupVoted) {
+      updateQuery = { $pull: { upvotes: userId } }
+    } else if (hasdownVoted) {
+      updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId }
+      }
+    } else {
+      updateQuery = { $addToSet: { upvotes: userId } }
+    }
+
+    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+
+    if (!answer) {
+      throw new Error('answer not found')
+    }
+
+    // increament the auhtor reputation by some point
+
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function downvoteAnswer (params: AnswerVoteParams) {
+  try {
+    connectionToDatabase()
+
+    const { answerId, userId, hasupVoted, hasdownVoted, path } = params
+
+    let updateQuery = {}
+
+    if (hasdownVoted) {
+      updateQuery = { $pull: { downvote: userId } }
+    } else if (hasupVoted) {
+      updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downvotes: userId }
+      }
+    } else {
+      updateQuery = { $addToSet: { upvotes: userId } }
+    }
+
+    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+
+    if (!answer) {
+      throw new Error('answer not found')
+    }
+
+    // increament the auhtor reputation by some point
+
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
   }
 }
