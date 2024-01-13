@@ -1,6 +1,7 @@
 'use client'
 import { upvoteAnswer, downvoteAnswer } from '@/lib/actions/answer.action'
 import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
+import { toggleSaveQuestion } from '@/lib/actions/user.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -30,7 +31,24 @@ const Voting = ({
   const pathname = usePathname()
   // const router = useRouter()
 
-  const handleSave = () => {}
+  const handleSave = async () => {
+    await toggleSaveQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname
+    })
+  }
+
+  /**
+   *
+   * @param action 'upvote'
+   * @returns  upvoteing the post or comment
+   *
+   * @param action : downvote
+   * @return downvoteing the post or comment
+   * 
+   * const too many if we can use case statment including the if statment but that would more spegitify
+   */
 
   const handleVote = async (action: string) => {
     if (!userId) {
@@ -69,7 +87,7 @@ const Voting = ({
           userId: JSON.parse(userId),
           hasupVoted,
           hasdownVoted,
-          path: pathname,
+          path: pathname
         })
       } else if (type === 'Answer') {
         await downvoteAnswer({
@@ -77,7 +95,7 @@ const Voting = ({
           userId: JSON.parse(userId),
           hasupVoted,
           hasdownVoted,
-          path: pathname,
+          path: pathname
         })
       }
       /**
