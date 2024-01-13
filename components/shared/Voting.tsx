@@ -46,8 +46,8 @@ const Voting = ({
    *
    * @param action : downvote
    * @return downvoteing the post or comment
-   * 
-   * const too many if we can use case statment including the if statment but that would more spegitify
+   *
+   * cons : too many if statement we can use case statment including the if statment but that would more spegitify
    */
 
   const handleVote = async (action: string) => {
