@@ -109,7 +109,7 @@ export async function toggleSaveQuestion (params:ToggleSaveQuestionParams) {
     if (!user) {
       throw new Error('User not found')
     }
-    const isQuestionsSaved = user.saved.include(questionId)
+    const isQuestionsSaved = user.saved.includes(questionId)
 
     if (isQuestionsSaved) {
       // remove the questionid from the saved instance
