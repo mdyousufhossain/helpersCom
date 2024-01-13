@@ -1,5 +1,7 @@
 'use client'
+import { upvoteAnswer, downvoteAnswer } from '@/lib/actions/answer.action'
 import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
+import { toggleSaveQuestion } from '@/lib/actions/user.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -29,9 +31,26 @@ const Voting = ({
   const pathname = usePathname()
   // const router = useRouter()
 
-  const handleSave = () => {}
+  const handleSave = async () => {
+    await toggleSaveQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname
+    })
+  }
 
-  const handleVote = async (action:string) => {
+  /**
+   *
+   * @param action 'upvote'
+   * @returns  upvoteing the post or comment
+   *
+   * @param action : downvote
+   * @return downvoteing the post or comment
+   *
+   * cons : too many if statement we can use case statment including the if statment but that would more spegitify
+   */
+
+  const handleVote = async (action: string) => {
     if (!userId) {
       return
     }
@@ -46,17 +65,18 @@ const Voting = ({
           path: pathname
         })
       } else if (type === 'Answer') {
-      // await upvoteQuestion({
-      //   questionId: JSON.parse(itemId),
-      //   userId: JSON.parse(userId),
-      //   hasupVoted,
-      //   hasdownVoted,
-      //   path: pathname
-      // })
+        await upvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
+
       /**
-     * @todo do a toaster
-     */
+       * @todo do a toaster
+       */
       return
     }
 
@@ -70,17 +90,17 @@ const Voting = ({
           path: pathname
         })
       } else if (type === 'Answer') {
-      // await downvoteAnswer({
-      //   questionId: JSON.parse(itemId),
-      //   userId: JSON.parse(userId),
-      //   hasupVoted,
-      //   hasdownVoted,
-      //   path: pathname
-      // })
+        await downvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
       /**
-     * @todo do a toaster
-     */
+       * @todo do a toaster
+       */
     }
   }
   return (
@@ -101,7 +121,10 @@ const Voting = ({
           />
 
           <div className='flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1'>
-            <p> {formatNumber(upvotes)}</p>
+            <p className='subtle-medium text-dark400_light900'>
+              {' '}
+              {formatNumber(upvotes)}
+            </p>
           </div>
         </div>
         <div className='flex-center gap-1.5'>
@@ -119,22 +142,27 @@ const Voting = ({
           />
 
           <div className='flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1'>
-            <p> {formatNumber(downvotes)}</p>
+            <p className='subtle-medium text-dark400_light900'>
+              {' '}
+              {formatNumber(downvotes)}
+            </p>
           </div>
         </div>
       </div>
-      <Image
-            src={
-              hasSaved
-                ? '/assets/icons/star-filled.svg'
-                : '/assets/icons/star-red.svg'
-            }
-            width={18}
-            height={18}
-            alt='star'
-            className='cursor-pointer'
-            onClick={handleSave}
-          />
+      {type === 'Question' && (
+        <Image
+          src={
+            hasSaved
+              ? '/assets/icons/star-filled.svg'
+              : '/assets/icons/star-red.svg'
+          }
+          width={18}
+          height={18}
+          alt='star'
+          className='cursor-pointer'
+          onClick={handleSave}
+        />
+      )}
     </div>
   )
 }
