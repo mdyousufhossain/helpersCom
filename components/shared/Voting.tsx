@@ -5,7 +5,9 @@ import { toggleSaveQuestion } from '@/lib/actions/user.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 // import { useRouter } from 'next/router'
+import { viewQuestion } from '@/lib/actions/interaction.action'
 
 interface Props {
   type: string
@@ -103,6 +105,13 @@ const Voting = ({
        */
     }
   }
+
+  useEffect(() => {
+    viewQuestion({
+      questionId: JSON.parse(itemId),
+      userId: userId ? JSON.parse(userId) : undefined
+    })
+  }, [itemId, userId, pathname])
   return (
     <div className='flex gap-5'>
       <div className='flex-center gap-2.5'>
