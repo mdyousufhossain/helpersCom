@@ -37,7 +37,7 @@ export async function createQuestion (params: CreateQuestionParams) {
     const question = await Question.create({
       title,
       content,
-      tags:[], // Initialize tags as an empty array
+      tags: [], // Initialize tags as an empty array
       author
     })
 
