@@ -23,7 +23,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
           />
           <div className='mt-3'>
             <h3>{userInfo.user.name}</h3>
-            <p>@{userInfo.user.username}</p>
+            <p className='paragraph-regular text-dark200_light800'>@{userInfo.user.username}</p>
 
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
               {userInfo.user.locaion && <>Location</>}
@@ -31,7 +31,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
               {userInfo.user.joinedAt.toString()}
             </div>
 
-            {userInfo.user.bio && <p>{userInfo.user.bio}</p>}
+            {userInfo.user.bio && <p >{userInfo.user.bio}</p>}
           </div>
         </div>
 
@@ -53,12 +53,12 @@ const Page = async ({ params, searchParams }: URLProps) => {
         <Tabs defaultValue='top-post' className='flex-1'>
           <TabsList className='background-light800_dark400 min-h-[42px] p-1'>
             <TabsTrigger value='top-post'>Top Posts</TabsTrigger>
-            <TabsTrigger value='top-answers'>Top Answers</TabsTrigger>
+            <TabsTrigger value='answers'>Top Answers</TabsTrigger>
           </TabsList>
-          <TabsContent value='account'>
-            Make changes to your account here.
+          <TabsContent value='top-posts'>
+            Posts
           </TabsContent>
-          <TabsContent value='password'>Change your password here.</TabsContent>
+          <TabsContent value='answer'>Answrs</TabsContent>
         </Tabs>
       </div>
     </>
