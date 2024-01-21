@@ -1,3 +1,4 @@
+import ProfileLink from '@/components/shared/ProfileLink'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getUserinfo } from '@/lib/actions/user.action'
@@ -27,9 +28,16 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <p className='paragraph-regular text-dark200_light800'>@{userInfo.user.username}</p>
 
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
-              {userInfo.user.locaion && <>Location</>}
+              {userInfo.user.locaion &&
+              <ProfileLink
+                imgUrl='/assets/icons/location.svg'
+                title={userInfo.user.locaion}
+              />}
+                <ProfileLink
+                imgUrl='/assets/icons/calendar.svg'
+                title={getJoinedDate(userInfo.user.joinedAt)}
+              />
 
-              {getJoinedDate(userInfo.user.joinedAt)}
             </div>
 
             {userInfo.user.bio && <p >{userInfo.user.bio}</p>}
@@ -51,16 +59,15 @@ const Page = async ({ params, searchParams }: URLProps) => {
 
       {/* stats */}
       <div className='mt-10 flex gap-10'>
-        <Tabs defaultValue='top-post' className='flex-1'>
-          <TabsList className='background-light800_dark400 min-h-[42px] p-1'>
-            <TabsTrigger value='top-post'>Top Posts</TabsTrigger>
-            <TabsTrigger value='answers'>Top Answers</TabsTrigger>
-          </TabsList>
-          <TabsContent value='top-posts'>
-            Posts
-          </TabsContent>
-          <TabsContent value='answer'>Answrs</TabsContent>
-        </Tabs>
+      <Tabs defaultValue="top-posts" className="w-[400px]">
+        <TabsList className='background-light800_dark400 min-h-[42px] p-1'>
+          <TabsTrigger value="top-posts">Top Posts</TabsTrigger>
+          <TabsTrigger value="answers">Answers</TabsTrigger>
+        </TabsList>
+        <TabsContent value="top-posts">Posts</TabsContent>
+        <TabsContent value="answers">Answers</TabsContent>
+      </Tabs>
+
       </div>
     </>
   )
