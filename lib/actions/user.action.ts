@@ -15,6 +15,7 @@ import {
 import { revalidatePath } from 'next/cache'
 import Question from '@/database/question.model'
 import Tag from '@/database/tags.question'
+import Answer from '@/database/answer.model'
 
 export async function getUserById (params: any) {
   try {
@@ -101,7 +102,7 @@ export async function getAllUsers (params: GetAllUsersParams) {
   }
 }
 
-export async function toggleSaveQuestion (params:ToggleSaveQuestionParams) {
+export async function toggleSaveQuestion (params: ToggleSaveQuestionParams) {
   try {
     connectionToDatabase()
 
@@ -116,12 +117,14 @@ export async function toggleSaveQuestion (params:ToggleSaveQuestionParams) {
 
     if (isQuestionsSaved) {
       // remove the questionid from the saved instance
-      await User.findByIdAndUpdate(userId,
+      await User.findByIdAndUpdate(
+        userId,
         { $pull: { saved: questionId } },
         { new: true }
       )
     } else {
-      await User.findByIdAndUpdate(userId,
+      await User.findByIdAndUpdate(
+        userId,
         { $addToSet: { saved: questionId } },
         { new: true }
       )
@@ -134,7 +137,7 @@ export async function toggleSaveQuestion (params:ToggleSaveQuestionParams) {
   }
 }
 
-export async function getSavedQuestions (params:GetSavedQuestionsParams) {
+export async function getSavedQuestions (params: GetSavedQuestionsParams) {
   try {
     connectionToDatabase()
     // page = 1, pageSize = 10, filter, gonna use later
@@ -143,12 +146,11 @@ export async function getSavedQuestions (params:GetSavedQuestionsParams) {
      * query for searching fitler who saved the items or not
      *
      */
-    const query : FilterQuery <typeof Question> = searchQuery
+    const query: FilterQuery<typeof Question> = searchQuery
       ? { title: { $regex: new RegExp(searchQuery, 'i') } }
-      : { }
+      : {}
 
     const user = await User.findOne({ clerkId }).populate({
-
       path: 'saved',
       match: query,
       options: {
@@ -173,7 +175,7 @@ export async function getSavedQuestions (params:GetSavedQuestionsParams) {
   }
 }
 
-export async function getUserinfo (params:GetUserByIdParams) {
+export async function getUserinfo (params: GetUserByIdParams) {
   try {
     connectionToDatabase()
     const { userId } = params
@@ -181,6 +183,11 @@ export async function getUserinfo (params:GetUserByIdParams) {
     const user = await User.findOne({ clerkId: userId })
 
     if (!user) throw new Error('user not found')
+
+    const totalQuestions = await Question.countDocuments({ author: user._id })
+    const totalAnswer = await Answer.countDocuments({ author: user._id })
+
+    return { user, totalAnswer, totalQuestions }
   } catch (error) {
     console.log(error)
     throw error
