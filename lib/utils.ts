@@ -1,6 +1,5 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { object } from 'zod'
 
 export function cn (...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -64,16 +63,12 @@ export const formatNumber = (num: number): string => {
   }
 }
 
-export const getJoinedDate = (date : Date) : string => {
-  // Extract year, month, and day from the Date object
+export const getJoinedDate = (date: Date): string => {
+  const month = date.toLocaleString('default', { month: 'long' })
   const year = date.getFullYear()
-  // Adding 1 to get the month (months are 0-indexed)
-  const month = date.getMonth() + 1
-  const day = date.getDate()
 
-  // Create a joined date string
-  const joinedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
+  // creating joinging date (e.g : September 2025)
+  const joinedDate = `${month} ${year}`
 
   return joinedDate
 }
-

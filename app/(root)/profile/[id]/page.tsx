@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getUserinfo } from '@/lib/actions/user.action'
+import { getJoinedDate } from '@/lib/utils'
 import { URLProps } from '@/types'
 import { SignedIn, auth } from '@clerk/nextjs'
 import Image from 'next/image'
@@ -28,7 +29,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
               {userInfo.user.locaion && <>Location</>}
 
-              {userInfo.user.joinedAt.toString()}
+              {getJoinedDate(userInfo.user.joinedAt)}
             </div>
 
             {userInfo.user.bio && <p >{userInfo.user.bio}</p>}
