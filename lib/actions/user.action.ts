@@ -8,6 +8,7 @@ import {
   DeleteUserParams,
   GetAllUsersParams,
   GetSavedQuestionsParams,
+  GetUserByIdParams,
   ToggleSaveQuestionParams,
   UpdateUserParams
 } from './shared.types'
@@ -166,6 +167,20 @@ export async function getSavedQuestions (params:GetSavedQuestionsParams) {
     const savedQuestions = user.saved
 
     return { question: savedQuestions }
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function getUserinfo (params:GetUserByIdParams) {
+  try {
+    connectionToDatabase()
+    const { userId } = params
+
+    const user = await User.findOne({ clerkId: userId })
+
+    if (!user) throw new Error('user not found')
   } catch (error) {
     console.log(error)
     throw error
