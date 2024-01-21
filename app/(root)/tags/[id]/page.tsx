@@ -12,19 +12,19 @@ const Page = async ({ params, searchParams } : URLProps) => {
     page: 1,
     searchQuery: searchParams.q
   })
+
   return (
     <>
-    <h1 className='h1-bold text-dark100_light900'></h1>
+    <h1 className='h1-bold text-dark100_light900'>{result.tagtitle}</h1>
 
   <div className='mt-11 w-full'>
     <LocalSearch
       route='/'
       iconPosition='left'
       imgSrc='/assets/icons/search.svg'
-      placeholder='Search for questions'
+      placeholder='Search Tag questions'
       otherclasses='flex-1'
     />
-    
   </div>
 
   <div className='mt-10 flex w-full flex-col gap-6'>
@@ -35,12 +35,16 @@ const Page = async ({ params, searchParams } : URLProps) => {
         <QuestionsCard
           key={question._id}
           _id={question._id}
-          title={question.tagTitle}
+          title={question.title}
+          // @ts-ignore
+          // @todo fix the issue of type error
           tags={question.tags}
+          // @ts-ignore
           author={question.author}
-          upvotes={formatNumber(question.upvotes.length)}
+          // @ts-ignore
+          upvotes={formatNumber(question.upvote)}
           views={formatNumber(question.views)}
-          answers={question.answers}
+          answers={question.answer}
           createdAt={question.createdAt}
         />
           ))

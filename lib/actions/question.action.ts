@@ -1,8 +1,8 @@
 'use server'
-import mongoose from 'mongoose'
 import Question from '@/database/question.model'
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
+import mongoose from 'mongoose'
 import {
   CreateQuestionParams,
   GetAnswersParams,
@@ -37,7 +37,7 @@ export async function createQuestion (params: CreateQuestionParams) {
     const question = await Question.create({
       title,
       content,
-      tags: [], // Initialize tags as an empty array
+      tags:[], // Initialize tags as an empty array
       author
     })
 
