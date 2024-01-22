@@ -1,4 +1,5 @@
 import ProfileLink from '@/components/shared/ProfileLink'
+import Stats from '@/components/shared/Stats'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getUserinfo } from '@/lib/actions/user.action'
@@ -24,7 +25,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             className='rounded-full object-cover'
           />
           <div className='mt-3'>
-            <h3>{userInfo.user.name}</h3>
+            <h3 className='h2-bold text-dark100_light900'>{userInfo.user.name}</h3>
             <p className='paragraph-regular text-dark200_light800'>@{userInfo.user.username}</p>
 
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
@@ -57,7 +58,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
         </div>
       </div>
 
-      {/* stats */}
+      <Stats totalQuestions={userInfo.totalQuestions} totalAnswers={userInfo.totalAnswer} />
       <div className='mt-10 flex gap-10'>
       <Tabs defaultValue="top-posts" className="flex-1">
         <TabsList className='background-light800_dark400 min-h-[42px] p-1'>
