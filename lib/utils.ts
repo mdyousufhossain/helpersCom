@@ -62,3 +62,13 @@ export const formatNumber = (num: number): string => {
     return (num / 1000000).toFixed(1) + 'm'
   }
 }
+
+export const getJoinedDate = (date: Date): string => {
+  const month = date.toLocaleString('default', { month: 'long' })
+  const year = date.getFullYear()
+
+  // creating joinging date (e.g : September 2025)
+  const joinedDate = `${month} ${year}`
+
+  return joinedDate
+}

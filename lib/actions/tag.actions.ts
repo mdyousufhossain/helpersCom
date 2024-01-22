@@ -76,7 +76,6 @@ export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
     }
 
     const questions = tag.questions
-
     return { tagtitle: tag.name, questions }
   } catch (error) {
     console.log(error)

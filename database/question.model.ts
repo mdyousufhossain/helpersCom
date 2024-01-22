@@ -7,7 +7,7 @@ export interface IQuestion extends Document {
   views: number
   upvote: Schema.Types.ObjectId[]
   author: Schema.Types.ObjectId[]
-  answer: Schema.Types.ObjectId[] 
+  answer: Schema.Types.ObjectId[]
   createdAt: Date
 }
 
