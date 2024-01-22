@@ -63,7 +63,10 @@ export interface JobFilterParams {
 }
 
 export interface GetQuestionByIdParams {
-  questionId: string
+  tagId:string
+  page?:number
+  pageSize?:number
+  searchQuery?:string
 }
 export interface QuestionVoteParams {
   questionId: string

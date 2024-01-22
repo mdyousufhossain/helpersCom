@@ -15,7 +15,7 @@ interface QuestionProps {
     name: string
     picture: string
   }
-  upvotes:string[] | number[] | string
+  upvotes:string
   views: number | string
   answers: Array<object>
   createdAt: Date
@@ -25,6 +25,7 @@ interface QuestionProps {
 /**
  *
  * @param param0 views:fun count the click or views coount so it dosnt neccerlery get from the users
+ * @todo fix the upvote and answer system
  * @returns
  */
 const QuestionsCard = ({
@@ -74,7 +75,7 @@ const QuestionsCard = ({
         />
         <Metric
           imgUrl='/assets/icons/message.svg'
-          value={formatNumber(answers.length)}
+          value={formatNumber(upvotes.length)}
           alt={'message'}
           title='answers'
           textStyles='small-medium text-dark400_light800'
