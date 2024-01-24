@@ -1,9 +1,7 @@
 import QuestionsCard from '@/components/cards/QuestionsCard'
 import NoResult from '@/components/shared/NoResult'
 import LocalSearch from '@/components/shared/search/LocalSearch'
-import { IQuestion } from '@/database/question.model'
 import { getQuestionsByTagId } from '@/lib/actions/tag.actions'
-import { formatNumber } from '@/lib/utils'
 import { URLProps } from '@/types'
 
 const Page = async ({ params, searchParams } : URLProps) => {
@@ -31,20 +29,16 @@ const Page = async ({ params, searchParams } : URLProps) => {
     {/* looping through question */}
     {result.questions.length > 0
       ? (
-          result.questions.map((question : IQuestion) => (
+          result.questions.map((question : any) => (
         <QuestionsCard
           key={question._id}
           _id={question._id}
           title={question.title}
-          // @ts-ignore
-          // @todo fix the issue of type error
           tags={question.tags}
-          // @ts-ignore
           author={question.author}
-          // @ts-ignore
-          upvotes={formatNumber(question.upvote)}
-          views={formatNumber(question.views)}
-          answers={question.answer}
+          upvotes={question.upvotes}
+          views={question.views}
+          answers={question.answers}
           createdAt={question.createdAt}
         />
           ))
