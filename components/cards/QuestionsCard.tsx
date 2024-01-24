@@ -15,10 +15,11 @@ interface QuestionProps {
     name: string
     picture: string
   }
-  upvotes:string
-  views: number | string
+  upvotes: string
+  views: number
   answers: Array<object>
   createdAt: Date
+  clerkId?: string
 }
 // making questions cards
 
@@ -36,6 +37,7 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
+  clerkId,
   createdAt
 }: QuestionProps) => {
   return (
@@ -68,21 +70,21 @@ const QuestionsCard = ({
         />
         <Metric
           imgUrl='/assets/icons/like.svg'
-          value={upvotes.length}
+          value={formatNumber(upvotes.length)}
           alt={'Upvotes'}
           title='Votes'
           textStyles='small-medium text-dark400_light800'
         />
         <Metric
           imgUrl='/assets/icons/message.svg'
-          value={formatNumber(upvotes.length)}
+          value={formatNumber(answers.length)}
           alt={'message'}
           title='answers'
           textStyles='small-medium text-dark400_light800'
         />
         <Metric
           imgUrl='/assets/icons/eye.svg'
-          value={views}
+          value={formatNumber(views)}
           alt={'eye'}
           title='views'
           textStyles='small-medium text-dark400_light800'

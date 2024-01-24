@@ -6,7 +6,6 @@ import { HomePageFilters } from '@/constants/filters'
 import HomeFilter from '@/components/home/HomeFilter'
 import NoResult from '@/components/shared/NoResult'
 import QuestionsCard from '@/components/cards/QuestionsCard'
-import { formatNumber } from '@/lib/utils'
 import { getQuestions } from '@/lib/actions/question.action'
 // bal
 export default async function Home () {
@@ -49,8 +48,8 @@ export default async function Home () {
               title={question.title}
               tags={question.tags}
               author={question.author}
-              upvotes={formatNumber(question.upvotes)}
-              views={formatNumber(question.views)}
+              upvotes={question.upvotes}
+              views={question.views}
               answers={question.answers}
               createdAt={question.createdAt}
             />

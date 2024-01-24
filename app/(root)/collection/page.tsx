@@ -3,7 +3,6 @@ import Filter from '@/components/shared/Filter'
 import { QuestionFilters } from '@/constants/filters'
 import NoResult from '@/components/shared/NoResult'
 import QuestionsCard from '@/components/cards/QuestionsCard'
-import { formatNumber } from '@/lib/utils'
 import { getSavedQuestions } from '@/lib/actions/user.action'
 import { auth } from '@clerk/nextjs'
 // bal
@@ -43,8 +42,8 @@ export default async function Home () {
               title={question.title}
               tags={question.tags}
               author={question.author}
-              upvotes={formatNumber(question.upvotes.length)}
-              views={formatNumber(question.views)}
+              upvotes={question.upvotes}
+              views={question.views}
               answers={question.answers}
               createdAt={question.createdAt}
             />
