@@ -1,7 +1,6 @@
 import { getUserQuestions } from '@/lib/actions/user.action'
 import { SearchParamsProps } from '@/types'
 import QuestionsCard from '../cards/QuestionsCard'
-import { formatNumber } from '@/lib/utils'
 
 interface Props extends SearchParamsProps {
     userId : string
