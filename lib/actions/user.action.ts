@@ -214,6 +214,25 @@ export async function getUserQuestions (params:GetUserStatsParams) {
     throw error
   }
 }
+export async function getUserAnswers (params:GetUserStatsParams) {
+  try {
+    connectionToDatabase()
+
+    const { userId } = params // , page = 1, pageSize = 10
+
+    const totalAnswer = await Answer.countDocuments({ author: userId })
+
+    const userAnswers = await Answer.find({ author: userId })
+      .sort({ upvote: -1 })
+      .populate('question', '_id title')
+      .populate('author', '_id clerkId name picture')
+
+    return { totalAnswer, answers: userAnswers }
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
 // export async function getAllUsers(params:GetAllUsersParams) {
 
 //   try {
