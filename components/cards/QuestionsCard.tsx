@@ -73,7 +73,7 @@ const QuestionsCard = ({
           value={author.name}
           alt={'user'}
           title={`- asked ${getTimestamp(createdAt)} ago `}
-          href={`/profile/${author._id}`}
+          href={`/profile/${author.clerkId}`}
           textStyles='small-medium text-dark400_light800'
         />
         <Metric
