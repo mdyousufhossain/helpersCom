@@ -65,11 +65,8 @@ const Questions = ({ mongoUserId }: Props) => {
         tags: values.tags,
         author: JSON.parse(mongoUserId),
       })
-      console.log(' this is running')
-
       router.push('/')
     } catch (error) {
-      console.log('this is questions create question error', error)
     } finally {
       setIsSubmiting(false)
     }
