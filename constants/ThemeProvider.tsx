@@ -31,7 +31,6 @@ export function ThemeProvider ({ children }: { children: React.ReactNode }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode])
 
-  console.log('mode', mode)
   return (
     <ThemeContext.Provider value={{ mode, setMode }}>
       {children}
