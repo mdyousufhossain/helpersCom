@@ -1,6 +1,9 @@
 'use client'
 
+import { deleteAnswer } from '@/lib/actions/answer.action'
+import { deleteQuestions } from '@/lib/actions/question.action'
 import Image from 'next/image'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface Props {
   type: string
@@ -8,8 +11,22 @@ interface Props {
 }
 
 const EditDeleteActions = ({ type, itemId }: Props) => {
-  const handleEdit = () => {}
-  // const handleDelete = () => {}
+  const pathname = usePathname()
+  const router = useRouter()
+
+  // edit questions
+  const handleEdit = () => {
+    router.push(`/question/edit/${JSON.parse(itemId)}`)
+  }
+
+  const handleDelete = async () => {
+    if (type === 'Questions') {
+      await deleteQuestions({ questionId: JSON.parse(itemId), path: pathname })
+    } else if (type === 'Answer') {
+      await deleteAnswer({ answerId: JSON.parse(itemId), path: pathname })
+    }
+  }
+
   return (
     <div className='flex items-center justify-end gap-3 max-sm:w-full'>
       {type === 'Questions' && (
@@ -22,6 +39,15 @@ const EditDeleteActions = ({ type, itemId }: Props) => {
           onClick={handleEdit}
         />
       )}
+
+        <Image
+        src='/assets/icons/trash.svg'
+        alt='Delete'
+        width={14}
+        height={14}
+        className='cursor-pointer object-contain'
+        onClick={handleDelete}
+      />
     </div>
   )
 }
