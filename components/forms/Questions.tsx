@@ -21,12 +21,10 @@ import { Button } from '../ui/button'
 import { QuestionsSchema } from '@/lib/validation'
 import { Badge } from '../ui/badge'
 import Image from 'next/image'
-import { createQuestion } from '@/lib/actions/question.action'
+import { createQuestion, editQuestions } from '@/lib/actions/question.action'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useTheme } from '@/constants/ThemeProvider'
-// usePathname
-const type: any = 'create'
 /**
  *
  * @returns 'javascript',"funcitonal programming",'algorithm
@@ -38,20 +36,26 @@ const type: any = 'create'
 
 interface Props {
   mongoUserId: string
+  type?:string
+  questionDetails?:string
 }
-const Questions = ({ mongoUserId }: Props) => {
+const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
   const { mode } = useTheme()
   const editorRef = useRef(null)
   const [isSubmiting, setIsSubmiting] = useState(false)
   const router = useRouter()
-  // const pathname = usePathname()
+  const pathname = usePathname()
   // 1. Define your form.
+
+  const parsedQuestionDetails = JSON.parse(questionDetails || '')
+  const groupedTags = parsedQuestionDetails.tags.map((tag: { name: any }) => tag.name)
+
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-      title: '',
-      explanation: '',
-      tags: [],
+      title: parsedQuestionDetails.title || '',
+      explanation: parsedQuestionDetails.content || '',
+      tags: groupedTags || []
     },
   })
 
@@ -59,13 +63,23 @@ const Questions = ({ mongoUserId }: Props) => {
   async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
     try {
-      await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(mongoUserId),
-      })
-      router.push('/')
+      if (type === 'Edit') {
+        await editQuestions({
+          questionId: parsedQuestionDetails._id,
+          title: values.title,
+          content: values.explanation,
+          path: pathname
+        })
+        router.push(`/question/${parsedQuestionDetails._id}`)
+      } else {
+        await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(mongoUserId),
+        })
+        router.push('/')
+      }
     } catch (error) {
     } finally {
       setIsSubmiting(false)
@@ -152,7 +166,8 @@ const Questions = ({ mongoUserId }: Props) => {
                     }
                     onBlur={field.onBlur}
                     onEditorChange={(content) => field.onChange(content)}
-                    initialValue=''
+                    initialValue={parsedQuestionDetails.content || ''}
+
                     init={{
                       height: 350,
                       menubar: false,
@@ -206,6 +221,7 @@ const Questions = ({ mongoUserId }: Props) => {
                     <Input
                       placeholder='Add tags'
                       onKeyDown={(e) => handleInputKeyDown(e, field)}
+                      disabled={type === 'Edit'}
                       className='no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark400_light700 min-h-[56px] border'
                     />
 
@@ -215,16 +231,16 @@ const Questions = ({ mongoUserId }: Props) => {
                           <Badge
                             key={tag}
                             className='subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize'
-                            onClick={() => handleTagRemove(tag, field)}
+                            onClick={() => type !== 'Edit' ? handleTagRemove(tag, field) : () => {}}
                           >
                             {tag}
-                            <Image
+                            { type !== 'Edit' && (<Image
                               src='/assets/icons/close.svg'
                               alt='Close icon'
                               width={12}
                               height={12}
                               className='cursor-pointer object-contain invert-0 dark:invert'
-                            />
+                            />)}
                           </Badge>
                         ))}
                       </div>
@@ -247,10 +263,10 @@ const Questions = ({ mongoUserId }: Props) => {
           >
             {isSubmiting
               ? (
-              <>{type === 'edit' ? 'creating...' : 'Posting...'}</>
+              <>{type === 'Edit' ? 'Editing...' : 'Posting...'}</>
                 )
               : (
-              <>{type === 'edit' ? 'Edit Questions' : 'Ask a Questions'}</>
+              <>{type === 'Edit' ? 'Edit Questions' : 'Ask a Questions'}</>
                 )}
           </Button>
         </form>
