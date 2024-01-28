@@ -58,7 +58,7 @@ const AnswerCard = ({
             href={`/profile/${author.clerkId}`}
             textStyles="body-medium text-dark400_light700"
             isAuthor
-          /> 
+          />
 
           <div className="flex-center gap-3">
             <Metric
