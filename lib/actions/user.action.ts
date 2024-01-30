@@ -233,6 +233,22 @@ export async function getUserAnswers (params:GetUserStatsParams) {
     throw error
   }
 }
+
+// export async function updateUser (params:UpdateUserParams) {
+//   try {
+//     connectionToDatabase()
+
+//     const { clerkId, updateData, path } = params
+
+//     await User.findByIdAndUpdate({ clerkId }, updateData, {
+//       new: true
+//     })
+//   } catch (error) {
+//     console.log(error)
+//     throw error
+//   }
+// }
+
 // export async function getAllUsers(params:GetAllUsersParams) {
 
 //   try {
