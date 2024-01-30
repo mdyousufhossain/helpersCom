@@ -234,20 +234,20 @@ export async function getUserAnswers (params:GetUserStatsParams) {
   }
 }
 
-export async function updateUser (params:UpdateUserParams) {
-  try {
-    connectionToDatabase()
+// export async function updateUser (params:UpdateUserParams) {
+//   try {
+//     connectionToDatabase()
 
-    const { clerkId, updateData, path } = params
+//     const { clerkId, updateData, path } = params
 
-    await User.findByIdAndUpdate({ clerkId }, updateData, {
-      new: true
-    })
-  } catch (error) {
-    console.log(error)
-    throw error
-  }
-}
+//     await User.findByIdAndUpdate({ clerkId }, updateData, {
+//       new: true
+//     })
+//   } catch (error) {
+//     console.log(error)
+//     throw error
+//   }
+// }
 
 // export async function getAllUsers(params:GetAllUsersParams) {
 

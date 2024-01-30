@@ -6,7 +6,6 @@ import * as z from 'zod'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +16,8 @@ import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
 import { useState } from 'react'
 import { ProfileSchema } from '@/lib/validation'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { updateUser } from '@/lib/actions/user.action'
 
 interface Params {
   clerkId: string
@@ -27,7 +27,8 @@ interface Params {
 const Profile = ({ clerkId, user }: Params) => {
   const parsedUser = JSON.parse(user)
   const [isSubmiting, setIsSubmitting] = useState(false)
-  const router  = useRouter()
+  const router = useRouter()
+  const pathname = usePathname()
   const form = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
@@ -39,19 +40,29 @@ const Profile = ({ clerkId, user }: Params) => {
     }
   })
 
-  function onSubmit (values: z.infer<typeof ProfileSchema>) {
+  async function onSubmit (values: z.infer<typeof ProfileSchema>) {
     setIsSubmitting(true)
 
     try {
-
       // update user server actions
+
+      await updateUser({
+        clerkId,
+        updateData: {
+          name: values.name,
+          username: values.username,
+          portfolioWebsite: values.portfolioWebsite,
+          location: values.location,
+          bio: values.bio
+        },
+        path: pathname
+      })
       router.back()
     } catch (error) {
       console.log(error)
     } finally {
       setIsSubmitting(false)
     }
-
   }
   return (
     <>
@@ -75,9 +86,6 @@ const Profile = ({ clerkId, user }: Params) => {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -98,9 +106,6 @@ const Profile = ({ clerkId, user }: Params) => {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -121,9 +126,6 @@ const Profile = ({ clerkId, user }: Params) => {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -135,19 +137,15 @@ const Profile = ({ clerkId, user }: Params) => {
             render={({ field }) => (
               <FormItem className='space-y-3.5'>
                 <FormLabel>
-                  Portfolio link<span className='text-primary-500'></span>
+                  location<span className='text-primary-500'></span>
                 </FormLabel>
                 <FormControl>
                   <Input
-                    type='url'
                     placeholder='Where are you from ? '
                     className='no-focus paragraph-regular light-border-2  background-light700_dark300 text-dark300_light700 min-h-[56px] border'
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -168,9 +166,6 @@ const Profile = ({ clerkId, user }: Params) => {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
