@@ -1,5 +1,5 @@
 import Profile from '@/components/forms/Profile'
-import { getQuestionsById } from '@/lib/actions/question.action'
+// import { getQuestionsById } from '@/lib/actions/question.action'
 import { getUserById } from '@/lib/actions/user.action'
 import { ParamsProps } from '@/types'
 import { auth } from '@clerk/nextjs'
@@ -10,7 +10,7 @@ const page = async ({ params }:ParamsProps) => {
   if (!userId) return null
 
   const mongoUser = await getUserById({ userId })
-  const result = await getQuestionsById({ questionId: params.id })
+  // const result = await getQuestionsById({ questionId: params.id })
 
   return (
     <>
