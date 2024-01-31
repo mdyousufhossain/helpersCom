@@ -3,7 +3,6 @@ import Image from 'next/image'
 import RenderTag from './RenderTag'
 import { getHotQuestions } from '@/lib/actions/question.action'
 
-
 const popularTags = [
   { _id: 0, name: 'javascript', totalQuestions: 5 },
   { _id: 2, name: 'javascript', totalQuestions: 5 },
