@@ -86,7 +86,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     imgURL: '/assets/icons/blog.svg',
-    route: '/blog',
-    label: 'blog posts'
+    route: '/blogs',
+    label: 'Blogs'
   }
 ]

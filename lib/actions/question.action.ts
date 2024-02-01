@@ -15,7 +15,13 @@ import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
 import Answer from '@/database/answer.model'
 import Interaction from '@/database/interaction.model'
-
+/**
+ *
+ * @param params
+ * @returns
+ *
+ * @todo so let get questions and blog post and mix them togethar and sort
+ */
 export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
