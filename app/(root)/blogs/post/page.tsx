@@ -12,7 +12,7 @@ const page = async ({ params }:ParamsProps) => {
 
   return (
     <>
-    <Post />
+    <Post userId={JSON.stringify(mongoUser)} type='nothing' />
     </>
   )
 }

@@ -42,7 +42,7 @@ const Post = ({ userId, type } : Props) => {
   const { mode } = useTheme()
   const [isSubmiting, setIsSubmiting] = useState(false)
   const router = useRouter()
-  const pathname = usePathname()
+  // const pathname = usePathname()
 
   const form = useForm<z.infer<typeof BlogSchema>>({
     resolver: zodResolver(BlogSchema),
@@ -68,6 +68,8 @@ const Post = ({ userId, type } : Props) => {
         tags: values.tags, // Initialize tags as an empty array
         author: JSON.parse(userId)
       })
+
+      router.push('/')
     } catch (error) {
       console.log(error)
     }
