@@ -53,33 +53,63 @@ const Post = ({ userId, type } : Props) => {
     }
   })
 
-
-  async function onSubmit(values:z.infer<typeof BlogSchema>) {
+  async function onSubmit (values:z.infer<typeof BlogSchema>) {
     setIsSubmiting(true)
 
     try {
       // adds info
       /**
-       * @todo add if statment to edit and post editor 
-       * 
+       * @todo add if statment to edit and post editor
+       *
        */
       await createBlogPost({
-        title : values.title,
-      content,
-      tags: [], // Initialize tags as an empty array
-      author
+        title: values.title,
+        content: values.content,
+        tags: values.tags, // Initialize tags as an empty array
+        author: JSON.parse(userId)
       })
     } catch (error) {
-      
+      console.log(error)
     }
-    
+  }
+
+  const handleInputKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    field: any
+  ) => {
+    if (e.key === 'Enter' && field.name === 'tags') {
+      e.preventDefault()
+      const tagInput = e.target as HTMLInputElement
+      const tagValue = tagInput.value.trim()
+      if (tagValue !== '') {
+        if (tagValue.length > 15) {
+          return form.setError('tags', {
+            type: 'required',
+            message: 'Tag must be less than 15 charadcter'
+          })
+        }
+        if (!field.value.includes(tagValue as never)) {
+          form.setValue('tags', [...field.value, tagValue])
+          tagInput.value = ''
+          form.clearErrors('tags')
+        } else {
+          form.trigger()
+        }
+      }
+    }
+  }
+
+  const handleTagRemove = (tag: string, field: any) => {
+    const newTags = field.value.filter((t: string) => t !== tag)
+
+    form.setValue('tags', newTags)
   }
 
   return (
         <div>
       <Form {...form}>
         <form
-          onSubmit={ () => {}}
+          onSubmit={form.handleSubmit(onSubmit)}
           className='flex w-full flex-col gap-10'
         >
           <FormField
@@ -178,7 +208,7 @@ const Post = ({ userId, type } : Props) => {
                   <>
                     <Input
                       placeholder='Add tags'
-                      onKeyDown={() => {} } // (e) => handleInputKeyDown(e, field)
+                      onKeyDown={(e) => handleInputKeyDown(e, field) } // (e) => handleInputKeyDown(e, field)
                       disabled={type === 'Edit'}
                       className='no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark400_light700 min-h-[56px] border'
                     />
@@ -189,7 +219,7 @@ const Post = ({ userId, type } : Props) => {
                           <Badge
                             key={tag}
                             className='subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize'
-                            onClick={ () => {}} // handleTagRemove(tag, field) : () => {} handleTagRemove(tag, field) : () => {}
+                            onClick={() => handleTagRemove(tag, field)} // handleTagRemove(tag, field) : () => {} handleTagRemove(tag, field) : () => {}
                           >
                             {tag}
                             { type !== 'Edit' && (<Image
@@ -216,7 +246,7 @@ const Post = ({ userId, type } : Props) => {
             type='submit'
             // eslint-disable-next-line tailwindcss/no-custom-classname
             className='primary-gradient !text-dark200_light900'
-            // disabled={}
+            disabled={isSubmiting}
           >
             {
               isSubmiting
@@ -225,9 +255,7 @@ const Post = ({ userId, type } : Props) => {
                   )
                 : (
               <>{type === 'Edit' ? 'Edit Questions' : 'Ask a Questions'}</>
-                  )
-
-            }
+                  )}
           </Button>
         </form>
       </Form>
