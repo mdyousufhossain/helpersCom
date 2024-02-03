@@ -21,6 +21,7 @@ import { BlogSchema } from '@/lib/validation'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTheme } from '@/constants/ThemeProvider'
 import { Badge } from '../ui/badge'
+import { createBlogPost } from '@/lib/actions/blog.action'
 
 /**
  * @param { userid, type , path ,post }
@@ -51,6 +52,28 @@ const Post = ({ userId, type } : Props) => {
       tags: []
     }
   })
+
+
+  async function onSubmit(values:z.infer<typeof BlogSchema>) {
+    setIsSubmiting(true)
+
+    try {
+      // adds info
+      /**
+       * @todo add if statment to edit and post editor 
+       * 
+       */
+      await createBlogPost({
+        title : values.title,
+      content,
+      tags: [], // Initialize tags as an empty array
+      author
+      })
+    } catch (error) {
+      
+    }
+    
+  }
 
   return (
         <div>
@@ -196,7 +219,6 @@ const Post = ({ userId, type } : Props) => {
             // disabled={}
           >
             {
-                
               isSubmiting
                 ? (
               <>{type === 'Edit' ? 'Editing...' : 'Posting...'}</>
