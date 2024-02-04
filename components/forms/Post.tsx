@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { BlogSchema } from '@/lib/validation'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation' // usePathname
 import { useTheme } from '@/constants/ThemeProvider'
 import { Badge } from '../ui/badge'
 import { createBlogPost } from '@/lib/actions/blog.action'
@@ -42,8 +42,8 @@ const Post = ({ userId, type } : Props) => {
   const { mode } = useTheme()
   const [isSubmiting, setIsSubmiting] = useState(false)
   const router = useRouter()
-  // 
-  const pathname = usePathname()
+
+  // const pathname = usePathname()
 
   const form = useForm<z.infer<typeof BlogSchema>>({
     resolver: zodResolver(BlogSchema),
