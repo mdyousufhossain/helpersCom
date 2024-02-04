@@ -8,12 +8,12 @@ import { getPosts } from '@/lib/actions/blog.action'
 import Link from 'next/link'
 
 const page = async () => {
-  const bal = await getPosts({})
+  const bal : any = await getPosts({})
 
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
-        <h1 className='h1-bold text-dark100_light900'>All Questions </h1>
+        <h1 className='h1-bold text-dark100_light900'>All Posts</h1>
         <Link href={'/blogs/post'} className='flex justify-end max-sm:w-full'>
           <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
             Post
@@ -37,7 +37,7 @@ const page = async () => {
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
-        
+
         {bal.posts.length > 0
 
           ? (
@@ -50,7 +50,7 @@ const page = async () => {
             author={post.author}
             upvotes={post.upvotes}
             views={post.views}
-            answers={post.answers}
+            answers={post.comments}
             createdAt={post.createdAt}
              />
               ))
