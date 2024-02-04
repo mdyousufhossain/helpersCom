@@ -8,13 +8,66 @@ export interface GetQuestionsParams {
   filter?: string
 }
 
+export interface CreateBlogParams {
+  title: string;
+  content: string;
+  tags: string[];
+  author: Schema.Types.ObjectId | IUser;
+  path?: string;
+}
+
+export interface GetBlogParams {
+  page?: number
+  pageSize?: number
+  searchQuery?: string
+  filter?: string
+}
+
+export interface DeleteBlogParams {
+  postId: string
+  path: string
+}
+
+export interface EditBlogParams {
+  postId: string
+  title: string
+  content: string
+  path: string
+}
+
+export interface ViewBlogParams {
+  postId: string
+  userId: string | undefined
+}
+
+export interface GetBlogByIdParams {
+  tagId:string
+  page?:number
+  pageSize?:number
+  searchQuery?:string
+}
+
+export interface blogVoteParams {
+  postId: string
+  userId: string
+  hasupVoted: boolean
+  hasdownVoted: boolean
+  path: string
+}
+
+export interface CreateCommentsParams {
+  content: string
+  author: string
+  post: string
+  path: string
+}
+
 export interface CreateAnswerParams {
   content: string
   author: string
   question: string
   path: string
 }
-
 export interface CreateQuestionParams {
   title: string
   content: string
@@ -75,6 +128,7 @@ export interface QuestionVoteParams {
   hasdownVoted: boolean
   path: string
 }
+
 export interface DeleteQuestionParams {
   questionId: string
   path: string

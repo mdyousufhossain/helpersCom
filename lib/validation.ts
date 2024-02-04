@@ -19,3 +19,10 @@ export const ProfileSchema = z.object({
   portfolioWebsite: z.string().url(),
   location: z.string().min(5).max(50)
 })
+
+export const BlogSchema = z.object({
+  title: z.string().min(4, 'Title must be more that 3 letter')
+    .max(120, 'title cannot be this long'),
+  content: z.string().min(120, 'a Post must be larger than 120 character'),
+  tags: z.array(z.string().min(3).max(15)).min(1).max(3)
+})

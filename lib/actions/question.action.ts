@@ -15,7 +15,13 @@ import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
 import Answer from '@/database/answer.model'
 import Interaction from '@/database/interaction.model'
-
+/**
+ *
+ * @param params
+ * @returns
+ *
+ * @todo so let get questions and blog post and mix them togethar and sort
+ */
 export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
@@ -195,6 +201,21 @@ export async function editQuestions (params:EditQuestionParams) {
     await question.save()
 
     revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function getHotQuestions () {
+  try {
+    connectionToDatabase()
+
+    const topQuestions = await Question.find({})
+      .sort({ views: -1, upvotes: -1 })
+      .limit(5)
+
+    return topQuestions
   } catch (error) {
     console.log(error)
     throw error

@@ -36,3 +36,9 @@ export const GlobalSearchFilters = [
   { name: 'User', value: 'user' },
   { name: 'Tag', value: 'tag' }
 ]
+
+export const BlogPostFilters = [
+  { name: 'Newest', value: 'newest' },
+  { name: 'Recommended', value: 'recommended' },
+  { name: 'Frequent', value: 'frequent' }
+]
