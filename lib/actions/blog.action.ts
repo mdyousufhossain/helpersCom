@@ -3,8 +3,9 @@
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
 import mongoose from 'mongoose'
-import { CreateBlogParams } from './shared.types'
+import { CreateBlogParams, GetBlogParams } from './shared.types'
 import Blog from '@/database/blog.model'
+import User from '@/database/user.question'
 
 export async function createBlogPost (params:CreateBlogParams) {
   try {
@@ -45,5 +46,22 @@ export async function createBlogPost (params:CreateBlogParams) {
   } catch (error) {
     console.log(error)
     throw error
+  }
+}
+
+// getting all the post
+
+export async function getPosts (params:GetBlogParams) {
+  try {
+    connectionToDatabase()
+
+    const posts = await Blog.find({})
+      .populate({ path: 'tags', model: Tag })
+      .populate({ path: 'author', model: User })
+      .sort({ createdAt: -1 })
+
+    return { posts }
+  } catch (error) {
+    console.log(error)
   }
 }

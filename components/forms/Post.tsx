@@ -42,7 +42,8 @@ const Post = ({ userId, type } : Props) => {
   const { mode } = useTheme()
   const [isSubmiting, setIsSubmiting] = useState(false)
   const router = useRouter()
-  // const pathname = usePathname()
+  // 
+  const pathname = usePathname()
 
   const form = useForm<z.infer<typeof BlogSchema>>({
     resolver: zodResolver(BlogSchema),
