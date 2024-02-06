@@ -37,7 +37,7 @@ import { useTheme } from '@/constants/ThemeProvider'
 interface Props {
   mongoUserId: string
   type?:string
-  questionDetails?:string
+  questionDetails:string
 }
 const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
   const { mode } = useTheme()
@@ -47,8 +47,8 @@ const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
   const pathname = usePathname()
   // 1. Define your form.
 
-  const parsedQuestionDetails = JSON.parse(questionDetails || '')
-  const groupedTags = parsedQuestionDetails.tags.map((tag: { name: any }) => tag.name)
+  const parsedQuestionDetails = type === 'Edit' ? JSON.parse(questionDetails) : ''
+  const groupedTags = type === 'Edit' ? parsedQuestionDetails.tags.map((tag: { name: any }) => tag.name) : ''
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),

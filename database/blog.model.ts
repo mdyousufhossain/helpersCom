@@ -7,7 +7,7 @@ export interface Iblog extends Document {
   views: number
   upvotes: Schema.Types.ObjectId[]
   author: Schema.Types.ObjectId[]
-  comments: Schema.Types.ObjectId[]
+  answers: Schema.Types.ObjectId[]
   createdAt: Date
 }
 
@@ -19,7 +19,7 @@ const blogSchema = new Schema({
   upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   author: { type: Schema.Types.ObjectId, ref: 'User' },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Answers' }],
+  answers: [{ type: Schema.Types.ObjectId, ref: 'Answers' }],
   createdAt: { type: Date, default: Date.now }
 })
 
