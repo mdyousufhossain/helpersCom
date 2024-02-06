@@ -50,7 +50,7 @@ const page = async () => {
             author={post.author}
             upvotes={post.upvotes}
             views={post.views}
-            answers={post.comments}
+            answers={post.answers}
             createdAt={post.createdAt}
              />
               ))

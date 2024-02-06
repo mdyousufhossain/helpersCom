@@ -11,6 +11,7 @@ import Tag, { ITag } from '@/database/tags.question'
 
 import { FilterQuery } from 'mongoose'
 import Question from '@/database/question.model'
+import Blog from '@/database/blog.model'
 
 export async function getTopInterectedTags (params: GetTopInteractedTagsParams) {
   try {
@@ -69,13 +70,29 @@ export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
         { path: 'tags', model: Tag, select: '_id name' },
         { path: 'author', model: User, select: '_id clerkId name picture' }
       ]
+    }).populate({
+      path: 'blogs',
+      model: Blog,
+      match: searchQuery
+        ? { title: { $regex: searchQuery, $options: 'i' } }
+        : {},
+      options: {
+        sort: { createdAt: -1 }
+      },
+      populate: [
+        { path: 'tags', model: Tag, select: '_id name' },
+        { path: 'author', model: User, select: '_id clerkId name picture' }
+      ]
     })
 
     if (!tag) {
       throw new Error('Tag not found')
     }
 
-    const questions = tag.questions
+    const questionsTags = tag.questions
+    const blogsTags = tag.blogs
+    const questions = [...questionsTags, ...blogsTags]
+
     return { tagtitle: tag.name, questions }
   } catch (error) {
     console.log(error)

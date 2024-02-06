@@ -70,7 +70,7 @@ const Post = ({ userId, type } : Props) => {
         author: JSON.parse(userId)
       })
 
-      router.push('/')
+      router.push('/blogs')
     } catch (error) {
       console.log(error)
     }
@@ -257,7 +257,7 @@ const Post = ({ userId, type } : Props) => {
               <>{type === 'Edit' ? 'Editing...' : 'Posting...'}</>
                   )
                 : (
-              <>{type === 'Edit' ? 'Edit Questions' : 'Ask a Questions'}</>
+              <>{type === 'Edit' ? 'Edit Questions' : 'Write a post'}</>
                   )}
           </Button>
         </form>

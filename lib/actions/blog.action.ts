@@ -13,7 +13,7 @@ export async function createBlogPost (params:CreateBlogParams) {
 
     const { title, content, tags, author } = params // path
 
-    const question = await Blog.create({
+    const blog = await Blog.create({
       title,
       content,
       tags: [], // Initialize tags as an empty array
@@ -25,19 +25,19 @@ export async function createBlogPost (params:CreateBlogParams) {
     for (const tag of tags) {
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, 'i') } },
-        { $setOnInsert: { name: tag }, $push: { questions: question._id } },
+        { $setOnInsert: { name: tag }, $push: { blogs: blog._id } },
         { upsert: true, new: true }
       )
       tagDocuments.push(existingTag._id)
     }
 
-    // Convert tagDocuments to an array of ObjectId using the new keyword
+    // tagDocuments to an array of ObjectId
     const tagsAsObjectId = tagDocuments.map(
       (tagId) => new mongoose.Types.ObjectId(tagId)
     )
 
     await Blog.findByIdAndUpdate(
-      question._id,
+      blog._id,
       {
         $push: { tags: { $each: tagsAsObjectId } }
       },
