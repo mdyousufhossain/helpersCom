@@ -18,6 +18,7 @@ interface QuestionProps {
     clerkId :string
     picture: string
   }
+  type:string
   upvotes: string
   views: number
   answers: Array<object>
@@ -40,6 +41,7 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
+  type,
   clerkId,
   createdAt
 }: QuestionProps) => {
@@ -50,7 +52,7 @@ const QuestionsCard = ({
         {/* <span className='subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden'>
           {`- asked ${getTimestamp(createdAt)} ago `}
         </span> */}
-        <Link href={`/question/${_id}`}>
+        <Link href={`/${type}/${_id}`}>
           <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
             {title}
           </h3>
