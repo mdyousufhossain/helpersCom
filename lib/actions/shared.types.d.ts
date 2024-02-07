@@ -75,6 +75,12 @@ export interface CreateQuestionParams {
   author: Schema.Types.ObjectId | IUser
   path?: string
 }
+export interface ToggleSavePostParams {
+  userId: string
+  postId: string
+  blogId:string
+  path: string
+}
 
 export interface GetAnswersParams {
   questionId: string

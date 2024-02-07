@@ -10,6 +10,7 @@ import {
   GetSavedQuestionsParams,
   GetUserByIdParams,
   GetUserStatsParams,
+  ToggleSavePostParams,
   ToggleSaveQuestionParams,
   UpdateUserParams
 } from './shared.types'
@@ -17,6 +18,7 @@ import { revalidatePath } from 'next/cache'
 import Question from '@/database/question.model'
 import Tag from '@/database/tags.question'
 import Answer from '@/database/answer.model'
+import Blog from '@/database/blog.model'
 
 export async function getUserById (params: any) {
   try {
@@ -76,7 +78,7 @@ export async function deleteUser (params: DeleteUserParams) {
     // )
 
     await Question.deleteMany({ author: user._id })
-
+    await Blog.deleteMany({ author: user._id })
     // @todo: Later delete user answers, comments, and other related data if needed
 
     const deletedUser = await User.findByIdAndDelete(user._id)
@@ -127,6 +129,41 @@ export async function toggleSaveQuestion (params: ToggleSaveQuestionParams) {
       await User.findByIdAndUpdate(
         userId,
         { $addToSet: { saved: questionId } },
+        { new: true }
+      )
+    }
+
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function toggleSavePost (params: ToggleSavePostParams) {
+  try {
+    connectionToDatabase()
+
+    const { userId, postId, path } = params
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+      throw new Error('User not found')
+    }
+    const isSavedPost = user.saved.includes(postId)
+
+    if (isSavedPost) {
+      // remove the postId from the saved instance
+      await User.findByIdAndUpdate(
+        userId,
+        { $pull: { saved: postId } },
+        { new: true }
+      )
+    } else {
+      await User.findByIdAndUpdate(
+        userId,
+        { $addToSet: { saved: postId } },
         { new: true }
       )
     }

@@ -44,7 +44,8 @@ const Voting = ({
     await toggleSaveQuestion({
       userId: JSON.parse(userId),
       questionId: JSON.parse(itemId),
-      path: pathname
+      path: pathname,
+      blogId: JSON.parse(itemId)
     })
   }
 
