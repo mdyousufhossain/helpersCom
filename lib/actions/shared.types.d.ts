@@ -37,7 +37,7 @@ export interface EditBlogParams {
 
 export interface ViewBlogParams {
   postId: string
-  userId: string | undefined
+  userId?: string | undefined
 }
 
 export interface GetBlogByIdParams {

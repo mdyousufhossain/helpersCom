@@ -8,6 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 // import { useRouter } from 'next/router'
 import { viewQuestion } from '@/lib/actions/interaction.action'
+import { downvotePost, upvotePost } from '@/lib/actions/blog.action'
 
 interface Props {
   type: string
@@ -81,6 +82,14 @@ const Voting = ({
           hasdownVoted,
           path: pathname
         })
+      } else if (type === 'Post') {
+        await upvotePost({
+          postId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
 
       /**
@@ -106,10 +115,15 @@ const Voting = ({
           hasdownVoted,
           path: pathname
         })
+      } else if (type === 'Post') {
+        await downvotePost({
+          postId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
-      /**
-       * @todo do a toaster
-       */
     }
   }
 
