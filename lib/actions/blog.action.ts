@@ -3,10 +3,12 @@
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
 import mongoose from 'mongoose'
-import { CreateBlogParams, GetBlogParams, ViewBlogParams, blogVoteParams } from './shared.types'
+import { CreateBlogParams, DeleteBlogParams, GetBlogParams, ViewBlogParams, blogVoteParams } from './shared.types'
 import Blog from '@/database/blog.model'
 import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
+import Interaction from '@/database/interaction.model'
+import Comments from '@/database/comment.model'
 
 export async function createBlogPost (params:CreateBlogParams) {
   try {
@@ -150,6 +152,24 @@ export async function downvotePost (params:blogVoteParams) {
     }
 
     // increament the auhtor reputation by some point
+
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function deleteQuestions (params:DeleteBlogParams) {
+  try {
+    connectionToDatabase()
+
+    const { postId, path } = params
+
+    await Blog.deleteOne({ _id: postId })
+    await Comments.deleteMany({ post: postId })
+    await Interaction.deleteMany({ post: postId })
+    await Tag.updateMany({ blogs: postId }, { $pull: { blogs: postId } })
 
     revalidatePath(path)
   } catch (error) {

@@ -1,17 +1,22 @@
 import { Schema, models, model, Document } from 'mongoose'
 
-export interface IComment extends Document {
-  text: string;
-  author: Schema.Types.ObjectId;
-  createdAt: Date;
+export interface IAnswer extends Document {
+  author: Schema.Types.ObjectId
+  question: Schema.Types.ObjectId
+  content: string
+  upvotes: Schema.Types.ObjectId[]
+  downvotes: Schema.Types.ObjectId[]
+  createdAt: Date
 }
 
-const commentSchema = new Schema({
-  text: { type: String, required: true },
+const CommentsSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  post: { type: Schema.Types.ObjectId, ref: 'Blog', required: true },
+  content: { type: String, required: true },
+  upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   createdAt: { type: Date, default: Date.now }
 })
 
-const Comment = models.Comment || model<IComment>('Comment', commentSchema)
-
-export default Comment
+const Comments = models.Comments || model('Comments', CommentsSchema)
+export default Comments
