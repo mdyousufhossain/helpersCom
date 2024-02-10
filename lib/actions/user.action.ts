@@ -188,9 +188,23 @@ export async function getSavedQuestions (params: GetSavedQuestionsParams) {
       ? { title: { $regex: new RegExp(searchQuery, 'i') } }
       : {}
 
+    const search: FilterQuery<typeof Blog> = searchQuery
+      ? { title: { $regex: new RegExp(searchQuery, 'i') } }
+      : {}
+
     const user = await User.findOne({ clerkId }).populate({
       path: 'saved',
       match: query,
+      options: {
+        sort: { createdAt: -1 }
+      },
+      populate: [
+        { path: 'tags', model: Tag, select: '_id name' },
+        { path: 'author', model: User, select: '_id clerkId name picture' }
+      ]
+    }).populate({
+      path: 'savePost',
+      match: search,
       options: {
         sort: { createdAt: -1 }
       },
@@ -205,8 +219,9 @@ export async function getSavedQuestions (params: GetSavedQuestionsParams) {
     }
 
     const savedQuestions = user.saved
-
-    return { question: savedQuestions }
+    const savedPost = user.savedPost
+    const itemArray = [...savedQuestions, ...savedPost]
+    return { question: itemArray }
   } catch (error) {
     console.log(error)
     throw error
@@ -232,7 +247,7 @@ export async function getUserinfo (params: GetUserByIdParams) {
   }
 }
 
-export async function getUserQuestions (params:GetUserStatsParams) {
+export async function getUserQuestions (params: GetUserStatsParams) {
   try {
     connectionToDatabase()
 
@@ -251,7 +266,7 @@ export async function getUserQuestions (params:GetUserStatsParams) {
     throw error
   }
 }
-export async function getUserAnswers (params:GetUserStatsParams) {
+export async function getUserAnswers (params: GetUserStatsParams) {
   try {
     connectionToDatabase()
 

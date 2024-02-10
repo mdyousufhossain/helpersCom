@@ -1,7 +1,7 @@
 'use client'
 import { upvoteAnswer, downvoteAnswer } from '@/lib/actions/answer.action'
 import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
-import { toggleSaveQuestion } from '@/lib/actions/user.action'
+import { toggleSavePost, toggleSaveQuestion } from '@/lib/actions/user.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
@@ -45,6 +45,14 @@ const Voting = ({
     await toggleSaveQuestion({
       userId: JSON.parse(userId),
       questionId: JSON.parse(itemId),
+      path: pathname
+    })
+  }
+
+  const handleSavePost = async () => {
+    await toggleSavePost({
+      userId: JSON.parse(userId),
+      postId: JSON.parse(itemId),
       path: pathname
     })
   }
@@ -193,6 +201,23 @@ const Voting = ({
           onClick={handleSave}
         />
       )}
+
+      {
+        type === 'Post' && (
+          <Image
+          src={
+            hasSaved
+              ? '/assets/icons/star-filled.svg'
+              : '/assets/icons/star-red.svg'
+          }
+          width={18}
+          height={18}
+          alt='star'
+          className='cursor-pointer'
+          onClick={handleSavePost}
+          />
+        )
+      }
     </div>
   )
 }

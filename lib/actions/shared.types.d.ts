@@ -78,7 +78,6 @@ export interface CreateQuestionParams {
 export interface ToggleSavePostParams {
   userId: string
   postId: string
-  blogId:string
   path: string
 }
 
