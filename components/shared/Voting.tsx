@@ -7,7 +7,8 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 // import { useRouter } from 'next/router'
-import { viewQuestion } from '@/lib/actions/interaction.action'
+import { ViewBlog, viewQuestion } from '@/lib/actions/interaction.action'
+import { downvotePost, upvotePost } from '@/lib/actions/blog.action'
 
 interface Props {
   type: string
@@ -47,7 +48,6 @@ const Voting = ({
       path: pathname
     })
   }
-
   /**
    *
    * @param action 'upvote'
@@ -81,6 +81,14 @@ const Voting = ({
           hasdownVoted,
           path: pathname
         })
+      } else if (type === 'Post') {
+        await upvotePost({
+          postId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
 
       /**
@@ -106,10 +114,15 @@ const Voting = ({
           hasdownVoted,
           path: pathname
         })
+      } else if (type === 'Post') {
+        await downvotePost({
+          postId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname
+        })
       }
-      /**
-       * @todo do a toaster
-       */
     }
   }
 
@@ -117,6 +130,11 @@ const Voting = ({
     viewQuestion({
       questionId: JSON.parse(itemId),
       userId: userId ? JSON.parse(userId) : undefined
+    })
+
+    ViewBlog({
+      userId: userId ? JSON.parse(userId) : undefined,
+      postId: JSON.parse(itemId)
     })
   }, [itemId, userId, pathname, router])
   return (
@@ -165,7 +183,8 @@ const Voting = ({
           </div>
         </div>
       </div>
-      {type === 'Question' && (
+      {type === 'Question'
+        ? (
         <Image
           src={
             hasSaved
@@ -178,7 +197,9 @@ const Voting = ({
           className='cursor-pointer'
           onClick={handleSave}
         />
-      )}
+          )
+        : ('')}
+
     </div>
   )
 }

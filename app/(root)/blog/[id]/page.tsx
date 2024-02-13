@@ -1,4 +1,4 @@
-import { getQuestionsById } from '@/lib/actions/question.action'
+import { getPostById } from '@/lib/actions/blog.action'
 import Link from 'next/link'
 import Image from 'next/image'
 import Metric from '@/components/shared/Metric'
@@ -20,7 +20,7 @@ const Page = async ({ params }: any) => {
     mongoUser = await getUserById({ userId: clerkId })
   }
 
-  const result = await getQuestionsById({ questionId: params.id })
+  const result = await getPostById({ postId: params.id })
   return (
     <>
       <div className='flex-start w-full flex-col'>
@@ -42,14 +42,14 @@ const Page = async ({ params }: any) => {
           </Link>
           <div className='flex items-start justify-end'>
           <Voting
-            type='Question'
+            type='Post'
             itemId={JSON.stringify(result._id)}
             userId={JSON.stringify(mongoUser._id)}
             upvotes={result.upvotes.length}
             hasupVoted={result.upvotes.includes(mongoUser._id)}
             downvotes={result.downvotes.length}
             hasdownVoted={result.downvotes.includes(mongoUser._id)}
-            hasSaved={mongoUser?.saved.includes(result._id)}
+            hasSaved={false}
           /></div>
         </div>
         <h2 className='h2-semibold text-dark200_light900 mt-3.5 w-full text-left'>
@@ -105,7 +105,7 @@ const Page = async ({ params }: any) => {
          question={result.content}
          questionId={JSON.stringify(result._id)}
          authorId={JSON.stringify(mongoUser._id)}
-         content='Write Your Answer'
+         content={'Write Your Comments'}
        />
     </>
   )

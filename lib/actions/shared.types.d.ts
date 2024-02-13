@@ -37,7 +37,7 @@ export interface EditBlogParams {
 
 export interface ViewBlogParams {
   postId: string
-  userId: string | undefined
+  userId?: string | undefined
 }
 
 export interface GetBlogByIdParams {
@@ -74,6 +74,11 @@ export interface CreateQuestionParams {
   tags: string[]
   author: Schema.Types.ObjectId | IUser
   path?: string
+}
+export interface ToggleSavePostParams {
+  userId: string
+  postId: string
+  path: string
 }
 
 export interface GetAnswersParams {

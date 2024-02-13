@@ -18,6 +18,7 @@ interface QuestionProps {
     clerkId :string
     picture: string
   }
+  type:string
   upvotes: string
   views: number
   answers: Array<object>
@@ -40,17 +41,18 @@ const QuestionsCard = ({
   upvotes,
   views,
   answers,
+  type,
   clerkId,
   createdAt
 }: QuestionProps) => {
   const showActionButtons = clerkId && clerkId === author.clerkId
   return (
-    <div className='card-wrapper rounded-[10px] p-9 sm:px-11'>
+    <div className='card-wrapper rounded-[10px] border-2 p-9 dark:border-gray-800 sm:px-11'>
       <div className='flex flex-col-reverse items-center justify-between gap-5 sm:flex-row'>
         {/* <span className='subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden'>
           {`- asked ${getTimestamp(createdAt)} ago `}
         </span> */}
-        <Link href={`/question/${_id}`}>
+        <Link href={`/${type}/${_id}`}>
           <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
             {title}
           </h3>
@@ -58,7 +60,7 @@ const QuestionsCard = ({
 
         <SignedIn>
            {showActionButtons && (
-            <EditDeleteActions type='Questions' itemId={JSON.stringify(_id)}/>
+            <EditDeleteActions type='Questions' itemId={JSON.stringify(_id)} path={type}/>
            )}
         </SignedIn>
       </div>
