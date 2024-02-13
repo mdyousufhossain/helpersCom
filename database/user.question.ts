@@ -12,6 +12,7 @@ export interface IUser extends Document {
   portfolioWebsite: string
   reputation?: number
   saved: Schema.Types.ObjectId[]
+  savePost:Schema.Types.ObjectId[]
   joinedAt: Date
 }
 

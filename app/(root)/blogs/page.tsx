@@ -14,9 +14,9 @@ const page = async () => {
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
         <h1 className='h1-bold text-dark100_light900'>All Posts</h1>
-        <Link href={'/blogs/post'} className='flex justify-end max-sm:w-full'>
+        <Link href={'/post'} className='flex justify-end max-sm:w-full'>
           <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
-            Post
+            Write Post
           </Button>
         </Link>
       </div>
@@ -43,16 +43,16 @@ const page = async () => {
           ? (
               bal?.posts.map((post: any) => (
             <QuestionsCard
-            key={post._id}
-            _id={post._id}
-            title={post.title}
-            tags={post.tags}
-            author={post.author}
-            upvotes={post.upvotes}
-            views={post.views}
-            answers={post.answers}
-            createdAt={post.createdAt}
-             />
+                  key={post._id}
+                  _id={post._id}
+                  title={post.title}
+                  tags={post.tags}
+                  author={post.author}
+                  upvotes={post.upvotes}
+                  views={post.views}
+                  answers={post.answers}
+                  createdAt={post.createdAt}
+                  type={'blog'} />
               ))
             )
           : (
@@ -61,8 +61,8 @@ const page = async () => {
             description='Be first to break the silence and make a post and kickstart the
           discusstion. our query could be the next big thing others learn from.
           Get involved💡'
-            link='/blogs/post'
-            linkTitle='Ask a Question'
+            link='/post'
+            linkTitle='Make a Post'
           />
             )}
       </div>

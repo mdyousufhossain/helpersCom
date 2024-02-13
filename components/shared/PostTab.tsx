@@ -1,4 +1,4 @@
-import { getUserQuestions } from '@/lib/actions/user.action'
+import { getUserPosts } from '@/lib/actions/user.action'
 import { SearchParamsProps } from '@/types'
 import QuestionsCard from '../cards/QuestionsCard'
 
@@ -7,8 +7,8 @@ interface Props extends SearchParamsProps {
     clerkId?:string
 }
 
-const QuestionTab = async ({ userId, clerkId } : Props) => {
-  const result = await getUserQuestions({
+const PostsTab = async ({ searchParams, userId, clerkId } : Props) => {
+  const result = await getUserPosts({
     userId,
     page: 1
   })
@@ -24,9 +24,8 @@ const QuestionTab = async ({ userId, clerkId } : Props) => {
         upvotes={item.upvotes}
         views={item.views}
         answers={item.answers}
-        createdAt={item.createdAt}
-        type={'Question'}/>
+        createdAt={item.createdAt} type={'Post'}/>
     ))}</div>
   )
 }
-export default QuestionTab
+export default PostsTab
