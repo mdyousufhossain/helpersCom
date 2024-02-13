@@ -160,7 +160,7 @@ export async function downvotePost (params:blogVoteParams) {
   }
 }
 
-export async function deleteQuestions (params:DeleteBlogParams) {
+export async function deletePost (params:DeleteBlogParams) {
   try {
     connectionToDatabase()
 
