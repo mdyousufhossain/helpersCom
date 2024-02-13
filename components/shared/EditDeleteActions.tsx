@@ -8,15 +8,21 @@ import { usePathname, useRouter } from 'next/navigation'
 interface Props {
   type: string
   itemId: string
+  path: string
 }
 
-const EditDeleteActions = ({ type, itemId }: Props) => {
+const EditDeleteActions = ({ type, itemId, path }: Props) => {
   const pathname = usePathname()
   const router = useRouter()
 
   // edit questions
+
   const handleEdit = () => {
     router.push(`/question/edit/${JSON.parse(itemId)}`)
+  }
+
+  const handlePostEdit = () => {
+    router.push(`/blog/edit/${JSON.parse(itemId)}`)
   }
 
   const handleDelete = async () => {
@@ -36,11 +42,12 @@ const EditDeleteActions = ({ type, itemId }: Props) => {
           width={14}
           height={14}
           className='cursor-pointer object-contain'
-          onClick={handleEdit}
+          onClick={path === 'Question' ? handleEdit : handlePostEdit }
+
         />
       )}
 
-        <Image
+      <Image
         src='/assets/icons/trash.svg'
         alt='Delete'
         width={14}

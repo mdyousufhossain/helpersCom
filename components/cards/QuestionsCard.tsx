@@ -60,7 +60,7 @@ const QuestionsCard = ({
 
         <SignedIn>
            {showActionButtons && (
-            <EditDeleteActions type='Questions' itemId={JSON.stringify(_id)}/>
+            <EditDeleteActions type='Questions' itemId={JSON.stringify(_id)} path={type}/>
            )}
         </SignedIn>
       </div>

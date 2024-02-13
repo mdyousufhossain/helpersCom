@@ -18,10 +18,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { BlogSchema } from '@/lib/validation'
-import { useRouter } from 'next/navigation' // usePathname
+import { usePathname, useRouter } from 'next/navigation' // usePathname
 import { useTheme } from '@/constants/ThemeProvider'
 import { Badge } from '../ui/badge'
-import { createBlogPost } from '@/lib/actions/blog.action'
+import { createBlogPost, editPosts } from '@/lib/actions/blog.action'
 
 /**
  * @param { userid, type , path ,post }
@@ -34,23 +34,27 @@ import { createBlogPost } from '@/lib/actions/blog.action'
  */
 interface Props {
     userId : string
-    type : string
+    type?: string
+    postDetails:string
 }
 
-const Post = ({ userId, type } : Props) => {
+const Post = ({ userId, type, postDetails } : Props) => {
   const editorRef = useRef(null)
   const { mode } = useTheme()
   const [isSubmiting, setIsSubmiting] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
 
-  // const pathname = usePathname()
+  const parsedPostDetails = type === 'Edit' ? JSON.parse(postDetails) : ''
+
+  const groupedTags = type === 'Edit' ? parsedPostDetails.tags.map((tag: { name: any }) => tag.name) : ''
 
   const form = useForm<z.infer<typeof BlogSchema>>({
     resolver: zodResolver(BlogSchema),
     defaultValues: {
-      title: '',
-      content: '',
-      tags: []
+      title: parsedPostDetails.title || '',
+      content: parsedPostDetails.content || '',
+      tags: groupedTags || []
     }
   })
 
@@ -58,19 +62,24 @@ const Post = ({ userId, type } : Props) => {
     setIsSubmiting(true)
 
     try {
-      // adds info
-      /**
-       * @todo add if statment to edit and post editor
-       *
-       */
-      await createBlogPost({
-        title: values.title,
-        content: values.content,
-        tags: values.tags, // Initialize tags as an empty array
-        author: JSON.parse(userId)
-      })
+      if (type === 'Edit') {
+        await editPosts({
+          postId: parsedPostDetails._id,
+          title: values.title,
+          content: values.content,
+          path: pathname
+        })
+        router.push(`/blog/${parsedPostDetails._id}`)
+      } else {
+        await createBlogPost({
+          title: values.title,
+          content: values.content,
+          tags: values.tags, // Initialize tags as an empty array
+          author: JSON.parse(userId)
+        })
 
-      router.push('/blogs')
+        router.push('/blogs')
+      }
     } catch (error) {
       console.log(error)
     }

@@ -3,7 +3,7 @@
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
 import mongoose from 'mongoose'
-import { CreateBlogParams, DeleteBlogParams, GetBlogParams, ViewBlogParams, blogVoteParams } from './shared.types'
+import { CreateBlogParams, DeleteBlogParams, EditBlogParams, GetBlogParams, ViewBlogParams, blogVoteParams } from './shared.types'
 import Blog from '@/database/blog.model'
 import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
@@ -170,6 +170,28 @@ export async function deleteQuestions (params:DeleteBlogParams) {
     await Comments.deleteMany({ post: postId })
     await Interaction.deleteMany({ post: postId })
     await Tag.updateMany({ blogs: postId }, { $pull: { blogs: postId } })
+
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function editPosts (params:EditBlogParams) {
+  try {
+    connectionToDatabase()
+
+    const { postId, path, title, content } = params
+
+    const post = await Blog.findById(postId)
+
+    if (!post) throw new Error('post not found')
+
+    post.title = title
+    post.content = content
+
+    await post.save()
 
     revalidatePath(path)
   } catch (error) {
