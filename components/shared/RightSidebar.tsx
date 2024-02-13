@@ -11,7 +11,7 @@ const RightSidebar = async () => {
   return (
     <section className='background-light900_dark200 light-border custom-scrollbar sticky right-0 top-0 flex h-screen flex-col  overflow-y-auto border-l p-6 pt-16 shadow-light-300 dark:[box-shadow:none] max-xl:hidden lg:w-[356px] '>
       <div>
-        <h3 className='h3-bold text-dark200_light900 pt-16'>Top Questions</h3>
+        <h3 className='h3-bold text-dark200_light900 pt-16'>Top Posts</h3>
         <div className='mt-7 flex w-full flex-col gap-[30px]'>
           {topQuestions.map((question) => (
             <Link

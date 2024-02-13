@@ -15,6 +15,7 @@ import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
 import Answer from '@/database/answer.model'
 import Interaction from '@/database/interaction.model'
+import Blog from '@/database/blog.model'
 
 /**
  *
@@ -212,9 +213,18 @@ export async function getHotQuestions () {
   try {
     connectionToDatabase()
 
-    const topQuestions = await Question.find({})
+    const Questions = await Question.find({})
       .sort({ views: -1, upvotes: -1 })
       .limit(5)
+    const Blogs = await Blog.find({})
+      .sort({ views: -1 })
+      .limit(5)
+
+    const topQuestions = [...Questions, ...Blogs].sort((a, b) => {
+      if (a.views > b.views) return -1
+      if (a.views < b.views) return 1
+      return 0
+    }).slice(0, 5)
 
     return topQuestions
   } catch (error) {
