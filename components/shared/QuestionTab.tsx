@@ -7,7 +7,7 @@ interface Props extends SearchParamsProps {
     clerkId?:string
 }
 
-const QuestionTab = async ({ searchParams, userId, clerkId } : Props) => {
+const QuestionTab = async ({ userId, clerkId } : Props) => {
   const result = await getUserQuestions({
     userId,
     page: 1
@@ -24,7 +24,8 @@ const QuestionTab = async ({ searchParams, userId, clerkId } : Props) => {
         upvotes={item.upvotes}
         views={item.views}
         answers={item.answers}
-        createdAt={item.createdAt} type={'Question'}/>
+        createdAt={item.createdAt}
+        type={'Question'}/>
     ))}</div>
   )
 }
