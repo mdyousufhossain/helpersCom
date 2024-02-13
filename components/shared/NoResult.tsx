@@ -8,7 +8,7 @@ interface Props {
   link: string
   linkTitle: string
 }
-
+// some change
 const NoResult = ({ title, description, link, linkTitle }: Props) => {
   return (
     <div className='mt-10 flex w-full flex-col items-center '>
