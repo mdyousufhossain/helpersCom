@@ -39,9 +39,9 @@ export default async function Home () {
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
-        {result.questions.length > 0
+        {result.items.length > 0
           ? (
-              result.questions.map((question : any) => (
+              result.items.map((question : any) => (
             <QuestionsCard
                   key={question._id}
                   _id={question._id}

@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 // import { useRouter } from 'next/router'
-import { viewQuestion } from '@/lib/actions/interaction.action'
+import { ViewBlog, viewQuestion } from '@/lib/actions/interaction.action'
 import { downvotePost, upvotePost } from '@/lib/actions/blog.action'
 
 interface Props {
@@ -130,6 +130,11 @@ const Voting = ({
     viewQuestion({
       questionId: JSON.parse(itemId),
       userId: userId ? JSON.parse(userId) : undefined
+    })
+
+    ViewBlog({
+      userId: userId ? JSON.parse(userId) : undefined,
+      postId: JSON.parse(itemId)
     })
   }, [itemId, userId, pathname, router])
   return (

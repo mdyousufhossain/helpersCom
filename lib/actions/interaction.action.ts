@@ -43,14 +43,14 @@ export async function ViewBlog (params:ViewBlogParams) {
       const existingInteraction = await Interaction.findOne({
         user: userId,
         action: 'views',
-        quesiton: postId
+        post: postId
       })
       if (existingInteraction) return console.log('User has already viewed')
 
       await Interaction.create({
         user: userId,
         action: 'views',
-        question: postId
+        post: postId
       })
     }
   } catch (error) {

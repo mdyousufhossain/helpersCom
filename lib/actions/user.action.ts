@@ -187,8 +187,9 @@ export async function getUserinfo (params: GetUserByIdParams) {
 
     const totalQuestions = await Question.countDocuments({ author: user._id })
     const totalAnswer = await Answer.countDocuments({ author: user._id })
+    const totalPost = await Blog.countDocuments({ author: user._id })
 
-    return { user, totalAnswer, totalQuestions }
+    return { user, totalAnswer, totalQuestions, totalPost }
   } catch (error) {
     console.log(error)
     throw error
@@ -228,6 +229,26 @@ export async function getUserAnswers (params: GetUserStatsParams) {
       .populate('author', '_id clerkId name picture')
 
     return { totalAnswer, answers: userAnswers }
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function getUserPosts (params: GetUserStatsParams) {
+  try {
+    connectionToDatabase()
+
+    const { userId } = params // , page = 1, pageSize = 10
+
+    const totalQuestions = await Blog.countDocuments({ author: userId })
+
+    const userQuestions = await Blog.find({ author: userId })
+      .sort({ views: -1, upvote: -1 })
+      .populate('tags', '_id name')
+      .populate('author', '_id clerkId name picture')
+
+    return { totalQuestions, questions: userQuestions }
   } catch (error) {
     console.log(error)
     throw error

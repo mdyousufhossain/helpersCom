@@ -16,7 +16,7 @@ const page = async () => {
         <h1 className='h1-bold text-dark100_light900'>All Posts</h1>
         <Link href={'/post'} className='flex justify-end max-sm:w-full'>
           <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
-            Post
+            Write Post
           </Button>
         </Link>
       </div>
@@ -61,8 +61,8 @@ const page = async () => {
             description='Be first to break the silence and make a post and kickstart the
           discusstion. our query could be the next big thing others learn from.
           Get involved💡'
-            link='/blogs/post'
-            linkTitle='Ask a Question'
+            link='/post'
+            linkTitle='Make a Post'
           />
             )}
       </div>

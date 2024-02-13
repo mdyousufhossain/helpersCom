@@ -1,4 +1,5 @@
 import AnswersTab from '@/components/shared/AnswersTab'
+import PostsTab from '@/components/shared/PostTab'
 import ProfileLink from '@/components/shared/ProfileLink'
 import QuestionTab from '@/components/shared/QuestionTab'
 import Stats from '@/components/shared/Stats'
@@ -60,18 +61,21 @@ const Page = async ({ params, searchParams }: URLProps) => {
         </div>
       </div>
 
-      <Stats totalQuestions={userInfo.totalQuestions} totalAnswers={userInfo.totalAnswer} />
+      <Stats totalQuestions={userInfo.totalQuestions} totalAnswers={userInfo.totalAnswer} totalPosts={userInfo.totalPost} />
       <div className='mt-10 flex gap-10'>
       <Tabs defaultValue="top-posts" className="flex-1">
         <TabsList className='background-light800_dark400 min-h-[42px] p-1'>
-          <TabsTrigger value="top-posts" className='tab'>Top Posts</TabsTrigger>
+          <TabsTrigger value="top-questions" className='tab'>Top Questions</TabsTrigger>
           <TabsTrigger value="answers" className='tab'>Answers</TabsTrigger>
+          <TabsTrigger value="top-post" className='tab'>Top Post</TabsTrigger>
         </TabsList>
-        <TabsContent value="top-posts">
+        <TabsContent value="top-questions">
           <QuestionTab searchParams={searchParams} userId={userInfo.user._id} clerkId={ userInfo.user.clerkId} />
         </TabsContent>
         <TabsContent value="answers" className='flex w-full flex-col gap-6'>
           <AnswersTab userId={userInfo.user._id} clerkId={userInfo.user.clerkId} searchParams={searchParams} /></TabsContent>
+        <TabsContent value="top-post" className='flex w-full flex-col gap-6'>
+          <PostsTab userId={userInfo.user._id} clerkId={userInfo.user.clerkId} searchParams={searchParams} /></TabsContent>
       </Tabs>
 
       </div>

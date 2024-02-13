@@ -15,6 +15,7 @@ import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
 import Answer from '@/database/answer.model'
 import Interaction from '@/database/interaction.model'
+
 /**
  *
  * @param params
@@ -26,12 +27,12 @@ export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
 
-    const questions = await Question.find({})
+    const items = await Question.find({})
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort({ createdAt: -1 })
 
-    return { questions }
+    return { items }
   } catch (error) {
     console.log(error)
   }
