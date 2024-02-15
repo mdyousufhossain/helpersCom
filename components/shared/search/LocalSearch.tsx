@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { formUrlQuery } from '@/lib/utils'
+import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils'
 
 interface customProps {
   route: string
@@ -38,8 +38,16 @@ const LocalSearch = ({
           value: search
         })
         router.push(newUrl, { scroll: false })
+      } else {
+        if (pathname === route) {
+          const newUrl = removeKeysFromQuery({
+            params: searchParams.toString(),
+            keysToRemove: ['q']
+          })
+          router.push(newUrl, { scroll: false })
+        }
       }
-    }, 300) 
+    }, 300)
 
     return () => clearTimeout(delayDebounceFn)
   }, [search, route, pathname, router, searchParams, query])
