@@ -2,7 +2,7 @@
 import Question from '@/database/question.model'
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
-import mongoose from 'mongoose'
+import mongoose, { FilterQuery } from 'mongoose'
 import {
   CreateQuestionParams,
   DeleteQuestionParams,
@@ -28,7 +28,17 @@ export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
 
-    const items = await Question.find({})
+    const { searchQuery } = params
+
+    const query: FilterQuery<typeof Question> = {}
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, 'i') } },
+        { content: { $regex: new RegExp(searchQuery, 'i') } }
+      ]
+    }
+    const items = await Question.find(query)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort({ createdAt: -1 })
