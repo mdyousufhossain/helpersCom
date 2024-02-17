@@ -57,33 +57,35 @@ export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
 
     const tagFilter: FilterQuery<ITag> = { _id: tagId }
 
-    const tag = await Tag.findOne(tagFilter).populate({
-      path: 'questions',
-      model: Question,
-      match: searchQuery
-        ? { title: { $regex: searchQuery, $options: 'i' } }
-        : {},
-      options: {
-        sort: { createdAt: -1 }
-      },
-      populate: [
-        { path: 'tags', model: Tag, select: '_id name' },
-        { path: 'author', model: User, select: '_id clerkId name picture' }
-      ]
-    }).populate({
-      path: 'blogs',
-      model: Blog,
-      match: searchQuery
-        ? { title: { $regex: searchQuery, $options: 'i' } }
-        : {},
-      options: {
-        sort: { createdAt: -1 }
-      },
-      populate: [
-        { path: 'tags', model: Tag, select: '_id name' },
-        { path: 'author', model: User, select: '_id clerkId name picture' }
-      ]
-    })
+    const tag = await Tag.findOne(tagFilter)
+      .populate({
+        path: 'questions',
+        model: Question,
+        match: searchQuery
+          ? { title: { $regex: searchQuery, $options: 'i' } }
+          : {},
+        options: {
+          sort: { createdAt: -1 }
+        },
+        populate: [
+          { path: 'tags', model: Tag, select: '_id name' },
+          { path: 'author', model: User, select: '_id clerkId name picture' }
+        ]
+      })
+      .populate({
+        path: 'blogs',
+        model: Blog,
+        match: searchQuery
+          ? { title: { $regex: searchQuery, $options: 'i' } }
+          : {},
+        options: {
+          sort: { createdAt: -1 }
+        },
+        populate: [
+          { path: 'tags', model: Tag, select: '_id name' },
+          { path: 'author', model: User, select: '_id clerkId name picture' }
+        ]
+      })
 
     if (!tag) {
       throw new Error('Tag not found')
@@ -97,5 +99,25 @@ export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
   } catch (error) {
     console.log(error)
     throw error
+  }
+}
+
+export async function getTopPopularTags () {
+  try {
+    connectionToDatabase()
+    const popularTags = await Tag.aggregate([
+      {
+        $project: {
+          name: 1,
+          numberOfQuestions: { $add: [{ $size: '$questions' }, { $size: '$blogs' }] }
+        }
+      },
+      { $sort: { numberOfQuestions: -1 } },
+      { $limit: 5 }
+    ])
+
+    return popularTags
+  } catch (error) {
+    console.log(error)
   }
 }

@@ -2,7 +2,7 @@
 import Question from '@/database/question.model'
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
-import mongoose from 'mongoose'
+import mongoose, { FilterQuery } from 'mongoose'
 import {
   CreateQuestionParams,
   DeleteQuestionParams,
@@ -15,6 +15,7 @@ import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
 import Answer from '@/database/answer.model'
 import Interaction from '@/database/interaction.model'
+import Blog from '@/database/blog.model'
 
 /**
  *
@@ -27,7 +28,17 @@ export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
 
-    const items = await Question.find({})
+    const { searchQuery } = params
+
+    const query: FilterQuery<typeof Question> = {}
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, 'i') } },
+        { content: { $regex: new RegExp(searchQuery, 'i') } }
+      ]
+    }
+    const items = await Question.find(query)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort({ createdAt: -1 })
@@ -212,9 +223,18 @@ export async function getHotQuestions () {
   try {
     connectionToDatabase()
 
-    const topQuestions = await Question.find({})
+    const Questions = await Question.find({})
       .sort({ views: -1, upvotes: -1 })
       .limit(5)
+    const Blogs = await Blog.find({})
+      .sort({ views: -1 })
+      .limit(5)
+
+    const topQuestions = [...Questions, ...Blogs].sort((a, b) => {
+      if (a.views > b.views) return -1
+      if (a.views < b.views) return 1
+      return 0
+    }).slice(0, 5)
 
     return topQuestions
   } catch (error) {
