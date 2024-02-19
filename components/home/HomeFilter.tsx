@@ -1,16 +1,42 @@
 'use client'
 import { HomePageFilters } from '@/constants/filters'
 import { Button } from '../ui/button'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils'
 
 const HomeFilter = () => {
-  const active = 'newest'
+  const searchParams = useSearchParams()
 
+  const [active, setActive] = useState('')
+
+  const router = useRouter()
+
+  const handleClick = (item:string) => {
+    if (active === item) {
+      setActive('')
+      const newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: 'filter',
+        value: null
+      })
+      router.push(newUrl, { scroll: false })
+    } else {
+      setActive(item)
+      const newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: 'filter',
+        value: item.toLowerCase()
+      })
+      router.push(newUrl, { scroll: false })
+    }
+  }
   return (
     <div className='max-md::hidden mt-10 flex flex-wrap gap-3  max-md:hidden'>
       {HomePageFilters.map((item) => (
         <Button
           key={item.value}
-          onClick={() => {}}
+          onClick={() => handleClick(item.value)}
           className={`body-medium [box-shadow-none] rounded-lg px-6 py-3 capitalize ${
             active === item.value
               ? ' bg-primary-100 text-primary-500'
