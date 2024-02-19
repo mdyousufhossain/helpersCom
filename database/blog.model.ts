@@ -1,5 +1,8 @@
 import { Schema, models, model, Document } from 'mongoose'
 
+/**
+ * some update on ui based on answerd granted or not or none answered
+ */
 export interface Iblog extends Document {
   title: string
   content: string

@@ -1,4 +1,9 @@
 import { Schema, models, model, Document } from 'mongoose'
+/**
+ * improvement for the next update
+ * answer is granted ability
+ *
+ */
 
 export interface IAnswer extends Document {
   author: Schema.Types.ObjectId
