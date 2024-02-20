@@ -8,6 +8,8 @@ import {
   SelectValue,
   SelectGroup
 } from '@/components/ui/select'
+import { formUrlQuery } from '@/lib/utils'
+import { useSearchParams, useRouter } from 'next/navigation'
 
 interface Props {
   filters: {
@@ -19,9 +21,27 @@ interface Props {
 }
 
 const Filter = ({ filters, otherclasses, containerclasses }: Props) => {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  const paramsFilter = searchParams.get('filter')
+
+  const handleUpdate = (value: string) => {
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: 'filter',
+      value
+
+    })
+
+    router.push(newUrl, { scroll: false })
+  }
   return (
     <div className={`relative ${containerclasses}`}>
-      <Select>
+      <Select
+        onValueChange={handleUpdate}
+        defaultValue={ paramsFilter || undefined }
+      >
         <SelectTrigger
           className={`${otherclasses} body-regular light-border background-light800_dark300 text-dark500_light700 border px-5 py-2.5 `}
         >
@@ -32,7 +52,7 @@ const Filter = ({ filters, otherclasses, containerclasses }: Props) => {
         <SelectContent>
           <SelectGroup>
             {filters.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
+              <SelectItem key={item.value} value={item.value} className='text-dark500_light700'>
                 {item.name}
               </SelectItem>
             ))}
