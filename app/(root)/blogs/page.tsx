@@ -5,10 +5,13 @@ import LocalSearch from '@/components/shared/search/LocalSearch'
 import { Button } from '@/components/ui/button'
 import { BlogPostFilters } from '@/constants/filters'
 import { getPosts } from '@/lib/actions/blog.action'
+import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
 
-const page = async () => {
-  const bal : any = await getPosts({})
+const page = async ({ searchParams }:SearchParamsProps) => {
+  const bal : any = await getPosts({
+    searchQuery: searchParams.q
+  })
 
   return (
     <>

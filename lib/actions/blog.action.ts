@@ -2,7 +2,7 @@
 
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
-import mongoose from 'mongoose'
+import mongoose, { FilterQuery } from 'mongoose'
 import { CreateBlogParams, DeleteBlogParams, EditBlogParams, GetBlogParams, ViewBlogParams, blogVoteParams } from './shared.types'
 import Blog from '@/database/blog.model'
 import User from '@/database/user.question'
@@ -57,8 +57,17 @@ export async function createBlogPost (params:CreateBlogParams) {
 export async function getPosts (params:GetBlogParams) {
   try {
     connectionToDatabase()
+    const { searchQuery } = params
 
-    const posts = await Blog.find({})
+    const query: FilterQuery<typeof Blog> = {}
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, 'i') } },
+        { content: { $regex: new RegExp(searchQuery, 'i') } }
+      ]
+    }
+    const posts = await Blog.find(query)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort({ createdAt: -1 })

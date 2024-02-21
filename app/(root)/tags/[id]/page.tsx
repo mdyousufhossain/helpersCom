@@ -17,7 +17,7 @@ const Page = async ({ params, searchParams } : URLProps) => {
 
   <div className='mt-11 w-full'>
     <LocalSearch
-      route='/'
+      route={`/tags/${params.id}`}
       iconPosition='left'
       imgSrc='/assets/icons/search.svg'
       placeholder='Search Tag questions'
@@ -45,7 +45,7 @@ const Page = async ({ params, searchParams } : URLProps) => {
       : (
       <NoResult
         title=' No result founded or something unexpected occured 🚀'
-        description='Save Question from home page to see content'
+        description='Save content from home page to see content'
         link='/'
         linkTitle='saved content'
       />

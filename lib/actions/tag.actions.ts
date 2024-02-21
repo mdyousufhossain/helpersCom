@@ -39,8 +39,40 @@ export async function getTopInterectedTags (params: GetTopInteractedTagsParams) 
 export async function getAllTags (params: GetAllTagsParams) {
   try {
     connectionToDatabase()
+    const { searchQuery, filter } = params
 
-    const tags = await Tag.find({})
+    const query: FilterQuery<typeof Tag> = {}
+
+    /**
+     * { name: 'Popular', value: 'popular' },
+  { name: 'Recent', value: 'recent' },
+  { name: 'Name', value: 'name' },
+  { name: 'Old', value: 'old' }
+     */
+
+    let sortOptions = {}
+
+    switch (filter) {
+      case 'popular':
+        sortOptions = { question: -1 }
+        break
+      case 'recent':
+        sortOptions = { createdAt: -1 }
+        break
+      case 'name':
+        sortOptions = { name: 1 }
+        break
+      case 'old':
+        sortOptions = { createdAt: -1 }
+        break
+      default:
+        break
+    }
+
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
+    }
+    const tags = await Tag.find(query).sort(sortOptions)
 
     return { tags }
   } catch (error) {
@@ -109,7 +141,9 @@ export async function getTopPopularTags () {
       {
         $project: {
           name: 1,
-          numberOfQuestions: { $add: [{ $size: '$questions' }, { $size: '$blogs' }] }
+          numberOfQuestions: {
+            $add: [{ $size: '$questions' }, { $size: '$blogs' }]
+          }
         }
       },
       { $sort: { numberOfQuestions: -1 } },
