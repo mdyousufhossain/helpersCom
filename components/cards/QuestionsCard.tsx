@@ -35,10 +35,8 @@ interface QuestionProps {
  */
 
 /**
- * 
  * major @bug to in http://localhost:3000/tags/items/goes to only id click cause props takes from the type..  it was simple solution
  * @todo
- * 
  * we need to make new database and add type to ensure questions and blog post together
  * and other functionality
  *
