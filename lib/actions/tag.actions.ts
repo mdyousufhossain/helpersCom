@@ -4,7 +4,7 @@ import User from '@/database/user.question'
 import {
   GetAllTagsParams,
   GetQuestionByIdParams,
-  GetTopInteractedTagsParams
+  GetTopInteractedTagsParams,
 } from './shared.types'
 import { connectionToDatabase } from '../mongoose'
 import Tag, { ITag } from '@/database/tags.question'
@@ -13,7 +13,7 @@ import { FilterQuery } from 'mongoose'
 import Question from '@/database/question.model'
 import Blog from '@/database/blog.model'
 
-export async function getTopInterectedTags (params: GetTopInteractedTagsParams) {
+export async function getTopInterectedTags(params: GetTopInteractedTagsParams) {
   try {
     connectionToDatabase()
 
@@ -28,7 +28,7 @@ export async function getTopInterectedTags (params: GetTopInteractedTagsParams) 
     return [
       { _id: '1', name: 'demo tag' },
       { _id: '2', name: 'demo tag 2' },
-      { _id: '3', name: 'demo tag 3' }
+      { _id: '3', name: 'demo tag 3' },
     ]
   } catch (error) {
     console.log(error)
@@ -36,19 +36,43 @@ export async function getTopInterectedTags (params: GetTopInteractedTagsParams) 
   }
 }
 
-export async function getAllTags (params: GetAllTagsParams) {
+export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectionToDatabase()
-    const { searchQuery } = params
+    const { searchQuery, filter } = params
 
     const query: FilterQuery<typeof Tag> = {}
 
-    if (searchQuery) {
-      query.$or = [
-        { name: { $regex: new RegExp(searchQuery, 'i') } }
-      ]
+    /**
+     * { name: 'Popular', value: 'popular' },
+  { name: 'Recent', value: 'recent' },
+  { name: 'Name', value: 'name' },
+  { name: 'Old', value: 'old' }
+     */
+
+    let sortOptions = {}
+
+    switch (filter) {
+      case 'popular':
+        sortOptions = { question: -1 }
+        break
+      case 'recent':
+        sortOptions = { createdAt: -1 }
+        break
+      case 'name':
+        sortOptions = { name: 1 }
+        break
+      case 'old':
+        sortOptions = { createdAt: -1 }
+        break
+      default:
+        break
     }
-    const tags = await Tag.find(query)
+
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
+    }
+    const tags = await Tag.find(query).sort(sortOptions)
 
     return { tags }
   } catch (error) {
@@ -57,7 +81,7 @@ export async function getAllTags (params: GetAllTagsParams) {
   }
 }
 
-export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
+export async function getQuestionsByTagId(params: GetQuestionByIdParams) {
   try {
     connectionToDatabase()
 
@@ -73,12 +97,12 @@ export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
           ? { title: { $regex: searchQuery, $options: 'i' } }
           : {},
         options: {
-          sort: { createdAt: -1 }
+          sort: { createdAt: -1 },
         },
         populate: [
           { path: 'tags', model: Tag, select: '_id name' },
-          { path: 'author', model: User, select: '_id clerkId name picture' }
-        ]
+          { path: 'author', model: User, select: '_id clerkId name picture' },
+        ],
       })
       .populate({
         path: 'blogs',
@@ -87,12 +111,12 @@ export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
           ? { title: { $regex: searchQuery, $options: 'i' } }
           : {},
         options: {
-          sort: { createdAt: -1 }
+          sort: { createdAt: -1 },
         },
         populate: [
           { path: 'tags', model: Tag, select: '_id name' },
-          { path: 'author', model: User, select: '_id clerkId name picture' }
-        ]
+          { path: 'author', model: User, select: '_id clerkId name picture' },
+        ],
       })
 
     if (!tag) {
@@ -110,18 +134,20 @@ export async function getQuestionsByTagId (params: GetQuestionByIdParams) {
   }
 }
 
-export async function getTopPopularTags () {
+export async function getTopPopularTags() {
   try {
     connectionToDatabase()
     const popularTags = await Tag.aggregate([
       {
         $project: {
           name: 1,
-          numberOfQuestions: { $add: [{ $size: '$questions' }, { $size: '$blogs' }] }
-        }
+          numberOfQuestions: {
+            $add: [{ $size: '$questions' }, { $size: '$blogs' }],
+          },
+        },
       },
       { $sort: { numberOfQuestions: -1 } },
-      { $limit: 5 }
+      { $limit: 5 },
     ])
 
     return popularTags
