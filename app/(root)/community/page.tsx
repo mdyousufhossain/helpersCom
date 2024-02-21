@@ -4,10 +4,13 @@ import LocalSearch from '@/components/shared/search/LocalSearch'
 
 import { UserFilters } from '@/constants/filters'
 import { getAllUsers } from '@/lib/actions/user.action'
+import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
 
-const Page = async () => {
-  const reuslt = await getAllUsers({})
+const Page = async ({ searchParams }:SearchParamsProps) => {
+  const reuslt = await getAllUsers({
+    searchQuery: searchParams.q
+  })
   return (
     <>
       <h1 className='h1-bold text-dark100_light900'>All Users </h1>

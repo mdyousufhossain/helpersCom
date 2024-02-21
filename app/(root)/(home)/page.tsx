@@ -11,7 +11,8 @@ import { SearchParamsProps } from '@/types'
 // bal
 export default async function Home ({ searchParams }:SearchParamsProps) {
   const result : any = await getQuestions({
-    searchQuery: searchParams.q
+    searchQuery: searchParams.q,
+    filter: searchParams.filter
   })
 
   return (

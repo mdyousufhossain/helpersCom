@@ -2,7 +2,12 @@
 
 import Answer from '@/database/answer.model'
 import { connectionToDatabase } from '../mongoose'
-import { AnswerVoteParams, CreateAnswerParams, DeleteAnswerParams, GetAnswersParams } from './shared.types'
+import {
+  AnswerVoteParams,
+  CreateAnswerParams,
+  DeleteAnswerParams,
+  GetAnswersParams
+} from './shared.types'
 import Question from '@/database/question.model'
 import { revalidatePath } from 'next/cache'
 import Interaction from '@/database/interaction.model'
@@ -36,14 +41,34 @@ export async function createAnswer (params: CreateAnswerParams) {
   }
 }
 
-export async function getAnswers (params:GetAnswersParams) {
+export async function getAnswers (params: GetAnswersParams) {
   try {
     connectionToDatabase()
 
-    const { questionId } = params
+    const { questionId, sortBy } = params
 
-    const answers = await Answer.find({ question: questionId }).populate('author', '_id clerkId name picture')
-      .sort({ createdAt: -1 })
+    let sortOptions = {}
+
+    switch (sortBy) {
+      case 'highestUpvotes':
+        sortOptions = { upvotes: -1 }
+        break
+      case 'lowestUpvotes':
+        sortOptions = { downvotes: -1 }
+        break
+      case 'recent':
+        sortOptions = { createdAt: -1 }
+        break
+      case 'old':
+        sortOptions = { createdAt: 1 }
+        break
+      default:
+        break
+    }
+
+    const answers = await Answer.find({ question: questionId })
+      .populate('author', '_id clerkId name picture')
+      .sort(sortOptions)
 
     return { answers }
   } catch (error) {
@@ -70,7 +95,9 @@ export async function upvoteAnswer (params: AnswerVoteParams) {
       updateQuery = { $addToSet: { upvotes: userId } }
     }
 
-    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
+      new: true
+    })
 
     if (!answer) {
       throw new Error('answer not found')
@@ -104,7 +131,9 @@ export async function downvoteAnswer (params: AnswerVoteParams) {
       updateQuery = { $addToSet: { upvotes: userId } }
     }
 
-    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
+      new: true
+    })
 
     if (!answer) {
       throw new Error('answer not found')
@@ -119,7 +148,7 @@ export async function downvoteAnswer (params: AnswerVoteParams) {
   }
 }
 
-export async function deleteAnswer (params:DeleteAnswerParams) {
+export async function deleteAnswer (params: DeleteAnswerParams) {
   try {
     connectionToDatabase()
 
@@ -131,7 +160,10 @@ export async function deleteAnswer (params:DeleteAnswerParams) {
 
     await Answer.deleteOne({ _id: answerId })
 
-    await Question.updateMany({ _id: answer.question }, { $pull: { answers: answerId } })
+    await Question.updateMany(
+      { _id: answer.question },
+      { $pull: { answers: answerId } }
+    )
 
     await Interaction.deleteMany({ answer: answerId })
 

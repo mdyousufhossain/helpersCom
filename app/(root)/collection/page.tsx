@@ -5,17 +5,19 @@ import NoResult from '@/components/shared/NoResult'
 import QuestionsCard from '@/components/cards/QuestionsCard'
 import { getSavedQuestions } from '@/lib/actions/user.action'
 import { auth } from '@clerk/nextjs'
+import { SearchParamsProps } from '@/types'
 // bal
-export default async function Home () {
+export default async function Home ({ searchParams }: SearchParamsProps) {
   const { userId } = auth()
   const result = await getSavedQuestions({
-    clerkId: userId
-
+    clerkId: userId,
+    searchQuery: searchParams.q,
+    filter: searchParams.filter
   })
 
   return (
     <>
-        <h1 className='h1-bold text-dark100_light900'>Saved Question</h1>
+      <h1 className='h1-bold text-dark100_light900'>Saved Question</h1>
 
       <div className='mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center'>
         <LocalSearch
@@ -35,17 +37,19 @@ export default async function Home () {
         {/* looping through question */}
         {result.question.length > 0
           ? (
-              result.question.map((question : any) => (
+              result.question.map((question: any) => (
             <QuestionsCard
-                  key={question._id}
-                  _id={question._id}
-                  title={question.title}
-                  tags={question.tags}
-                  author={question.author}
-                  upvotes={question.upvotes}
-                  views={question.views}
-                  answers={question.answers}
-                  createdAt={question.createdAt} type={''}/>
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes}
+              views={question.views}
+              answers={question.answers}
+              createdAt={question.createdAt}
+              type={''}
+            />
               ))
             )
           : (

@@ -29,9 +29,17 @@ interface QuestionProps {
 
 /**
  *
- * @param param0 views:fun count the click or views coount so it dosnt neccerlery get from the users
+ * @param param views:fun count the click or views coount so it dosnt neccerlery get from the users
  * @todo fix the upvote and answer system
  * @returns
+ */
+
+/**
+ * major @bug to in http://localhost:3000/tags/items/goes to only id click cause props takes from the type..  it was simple solution
+ * @todo
+ * we need to make new database and add type to ensure questions and blog post together
+ * and other functionality
+ *
  */
 const QuestionsCard = ({
   _id,
@@ -64,11 +72,6 @@ const QuestionsCard = ({
            )}
         </SignedIn>
       </div>
-      <div className=' mt-3.5 flex flex-wrap gap-2'>
-        {tags.map((tag) => (
-          <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
-        ))}
-      </div>
       <div className='flex-between mt-6 w-full flex-wrap gap-3'>
         <Metric
           imgUrl={author.picture}
@@ -99,6 +102,11 @@ const QuestionsCard = ({
           title='views'
           textStyles='small-medium text-dark400_light800'
         />
+      </div>
+      <div className=' mt-3.5 flex flex-wrap gap-2'>
+        {tags.map((tag) => (
+          <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+        ))}
       </div>
     </div>
   )
