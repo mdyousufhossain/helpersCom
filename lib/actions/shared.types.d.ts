@@ -13,6 +13,7 @@ export interface CreateBlogParams {
   content: string;
   tags: string[];
   author: Schema.Types.ObjectId | IUser;
+  type : string
   path?: string;
 }
 
@@ -72,6 +73,7 @@ export interface CreateQuestionParams {
   title: string
   content: string
   tags: string[]
+  type:string
   author: Schema.Types.ObjectId | IUser
   path?: string
 }

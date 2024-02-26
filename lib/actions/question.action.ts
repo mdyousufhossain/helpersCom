@@ -73,13 +73,14 @@ export async function createQuestion (params: CreateQuestionParams) {
     connectionToDatabase()
 
     // eslint-disable-next-line no-unused-vars
-    const { title, content, tags, author, path } = params
+    const { title, content, tags, author, type, path } = params
 
     const question = await Question.create({
       title,
       content,
       tags: [], // Initialize tags as an empty array
-      author
+      author,
+      type: 'question'
     })
 
     const tagDocuments = []

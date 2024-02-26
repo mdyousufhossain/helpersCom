@@ -20,6 +20,7 @@ export async function createBlogPost (params:CreateBlogParams) {
       title,
       content,
       tags: [], // Initialize tags as an empty array
+      type: 'blogpost',
       author
     })
 
@@ -57,7 +58,7 @@ export async function createBlogPost (params:CreateBlogParams) {
 export async function getPosts (params:GetBlogParams) {
   try {
     connectionToDatabase()
-    const { searchQuery } = params
+    const { searchQuery, filter } = params
 
     const query: FilterQuery<typeof Blog> = {}
 
@@ -67,10 +68,26 @@ export async function getPosts (params:GetBlogParams) {
         { content: { $regex: new RegExp(searchQuery, 'i') } }
       ]
     }
+
+    let sortOptions = {}
+
+    switch (filter) {
+      case 'newest':
+        sortOptions = { createdAt: -1 }
+
+        break
+      case 'frequent':
+        sortOptions = { views: -1 }
+        break
+
+      default:
+        break
+    }
+
     const posts = await Blog.find(query)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
-      .sort({ createdAt: -1 })
+      .sort(sortOptions)
 
     return { posts }
   } catch (error) {
