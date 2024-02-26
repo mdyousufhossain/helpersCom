@@ -80,7 +80,7 @@ export async function createQuestion (params: CreateQuestionParams) {
       content,
       tags: [], // Initialize tags as an empty array
       author,
-      type: 'question'
+      type
     })
 
     const tagDocuments = []

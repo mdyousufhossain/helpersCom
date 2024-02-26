@@ -36,10 +36,10 @@ import { useTheme } from '@/constants/ThemeProvider'
 
 interface Props {
   mongoUserId: string
-  type?:string
+  typed?:string
   questionDetails:string
 }
-const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
+const Questions = ({ mongoUserId, typed, questionDetails }: Props) => {
   const { mode } = useTheme()
   const editorRef = useRef(null)
   const [isSubmiting, setIsSubmiting] = useState(false)
@@ -47,23 +47,25 @@ const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
   const pathname = usePathname()
   // 1. Define your form.
 
-  const parsedQuestionDetails = type === 'Edit' ? JSON.parse(questionDetails) : ''
-  const groupedTags = type === 'Edit' ? parsedQuestionDetails.tags.map((tag: { name: any }) => tag.name) : ''
+  const parsedQuestionDetails = typed === 'Edit' ? JSON.parse(questionDetails) : ''
+  const groupedTags = typed === 'Edit' ? parsedQuestionDetails.tags.map((tag: { name: any }) => tag.name) : ''
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
       title: parsedQuestionDetails.title || '',
       explanation: parsedQuestionDetails.content || '',
-      tags: groupedTags || []
+      tags: groupedTags || [],
+      type: 'question'
     },
   })
 
   // 2. Define a submit handler.
   async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
+    console.log('function is running 1')
     try {
-      if (type === 'Edit') {
+      if (typed === 'Edit') {
         await editQuestions({
           questionId: parsedQuestionDetails._id,
           title: values.title,
@@ -72,11 +74,14 @@ const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
         })
         router.push(`/question/${parsedQuestionDetails._id}`)
       } else {
+        console.log('function is running 2')
         await createQuestion({
           title: values.title,
           content: values.explanation,
           tags: values.tags,
           author: JSON.parse(mongoUserId),
+          type: 'question'
+
         })
         router.push('/')
       }
@@ -221,7 +226,7 @@ const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
                     <Input
                       placeholder='Add tags'
                       onKeyDown={(e) => handleInputKeyDown(e, field)}
-                      disabled={type === 'Edit'}
+                      disabled={typed === 'Edit'}
                       className='no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark400_light700 min-h-[56px] border'
                     />
 
@@ -231,10 +236,10 @@ const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
                           <Badge
                             key={tag}
                             className='subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize'
-                            onClick={() => type !== 'Edit' ? handleTagRemove(tag, field) : () => {}}
+                            onClick={() => typed !== 'Edit' ? handleTagRemove(tag, field) : () => {}}
                           >
                             {tag}
-                            { type !== 'Edit' && (<Image
+                            { typed !== 'Edit' && (<Image
                               src='/assets/icons/close.svg'
                               alt='Close icon'
                               width={12}
@@ -263,10 +268,10 @@ const Questions = ({ mongoUserId, type, questionDetails }: Props) => {
           >
             {isSubmiting
               ? (
-              <>{type === 'Edit' ? 'Editing...' : 'Posting...'}</>
+              <>{typed === 'Edit' ? 'Editing...' : 'Posting...'}</>
                 )
               : (
-              <>{type === 'Edit' ? 'Edit Questions' : 'Ask a Questions'}</>
+              <>{typed === 'Edit' ? 'Edit Questions' : 'Ask a Questions'}</>
                 )}
           </Button>
         </form>

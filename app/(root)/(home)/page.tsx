@@ -55,7 +55,7 @@ export default async function Home ({ searchParams }:SearchParamsProps) {
                   upvotes={question.upvotes}
                   views={question.views}
                   answers={question.answers}
-                  createdAt={question.createdAt} type={'question'}/>
+                  createdAt={question.createdAt} type={question.type}/>
               ))
             )
           : (

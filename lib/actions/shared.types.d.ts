@@ -73,7 +73,7 @@ export interface CreateQuestionParams {
   title: string
   content: string
   tags: string[]
-  type:string
+  type : string
   author: Schema.Types.ObjectId | IUser
   path?: string
 }

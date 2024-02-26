@@ -54,8 +54,9 @@ const QuestionsCard = ({
   createdAt
 }: QuestionProps) => {
   const showActionButtons = clerkId && clerkId === author.clerkId
+
   return (
-    <div className='card-wrapper mt-8 rounded-[10px] border-2 p-9 dark:border-gray-800 sm:px-11'>
+    <div className={`card-wrapper ${type === 'question' ? 'border-2 border-red-600' : 'border-2 border-green-600'} mt-8 rounded-[10px] border-2 p-9 dark:border-gray-800 sm:px-11`} >
       <div className='flex flex-col-reverse items-center justify-between gap-5 sm:flex-row'>
         {/* <span className='subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden'>
           {`- asked ${getTimestamp(createdAt)} ago `}
