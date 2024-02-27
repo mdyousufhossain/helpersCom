@@ -31,6 +31,7 @@ export async function getQuestions (params: GetQuestionsParams) {
     const { searchQuery, filter } = params
 
     const query: FilterQuery<typeof Question> = {}
+    const query2: FilterQuery<typeof Blog> = {}
 
     if (searchQuery) {
       query.$or = [
@@ -40,7 +41,6 @@ export async function getQuestions (params: GetQuestionsParams) {
     }
 
     let sortOptions = {}
-
     switch (filter) {
       case 'newest':
         sortOptions = { createdAt: -1 }
@@ -53,14 +53,27 @@ export async function getQuestions (params: GetQuestionsParams) {
       case 'unanswered':
         query.answers = { $size: 0 }
         break
-
+      case 'questions' :
+        sortOptions = { type: -1 }
+        break
+      case 'blogpost' :
+        sortOptions = { type: 1 }
+        break
       default:
         break
     }
-    const items = await Question.find(query)
+
+    const question = await Question.find(query)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort(sortOptions)
+
+    const blogpost = await Blog.find(query2)
+      .populate({ path: 'tags', model: Tag })
+      .populate({ path: 'author', model: User })
+      .sort(sortOptions)
+
+    const items = [...question, ...blogpost]
 
     return { items }
   } catch (error) {

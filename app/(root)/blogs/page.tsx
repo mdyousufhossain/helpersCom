@@ -55,7 +55,7 @@ const page = async ({ searchParams }:SearchParamsProps) => {
                   views={post.views}
                   answers={post.answers}
                   createdAt={post.createdAt}
-                  type={'blog'} />
+                  type={post.type} />
               ))
             )
           : (

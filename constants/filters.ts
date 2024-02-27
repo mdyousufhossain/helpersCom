@@ -28,7 +28,9 @@ export const HomePageFilters = [
   { name: 'Newest', value: 'newest' },
   { name: 'Recommended', value: 'recommended' },
   { name: 'Frequent', value: 'frequent' },
-  { name: 'Unanswered', value: 'unanswered' }
+  { name: 'Unanswered', value: 'unanswered' },
+  { name: 'Questions', value: 'questions' },
+  { name: 'Blogpost', value: 'blogpost' }
 ]
 export const GlobalSearchFilters = [
   { name: 'Question', value: 'question' },
