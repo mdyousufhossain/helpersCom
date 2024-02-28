@@ -8,6 +8,7 @@ import {
   DeleteQuestionParams,
   EditQuestionParams,
   GetAnswersParams,
+  GetAuthor,
   GetQuestionsParams,
   QuestionVoteParams
 } from './shared.types'
@@ -78,6 +79,29 @@ export async function getQuestions (params: GetQuestionsParams) {
     return { items }
   } catch (error) {
     console.log(error)
+  }
+}
+
+export async function isQuestionAuthor (params : GetAuthor) {
+  try {
+    // Fetch the question
+    const { questionid, userid } = params
+    const question = await Question.findById(questionid).populate({
+      path: 'author',
+      model: User,
+      select: 'clerkId'
+    })
+
+    // If the question doesn't exist, return false
+    if (!question) {
+      return false
+    }
+    const author = question.author.clerkId === userid
+
+    return author
+  } catch (error) {
+    console.error('Error checking question author:', error)
+    throw error
   }
 }
 

@@ -1,4 +1,7 @@
-import { getQuestionsById } from '@/lib/actions/question.action'
+import {
+  getQuestionsById,
+  isQuestionAuthor
+} from '@/lib/actions/question.action'
 import Link from 'next/link'
 import Image from 'next/image'
 import Metric from '@/components/shared/Metric'
@@ -6,21 +9,27 @@ import { formatNumber, getTimestamp } from '@/lib/utils'
 import ParseHTML from '@/components/shared/ParseHTML'
 import RenderTag from '@/components/shared/RenderTag'
 import Answer from '@/components/forms/Answer'
-import { auth } from '@clerk/nextjs'
+import { SignedIn, auth } from '@clerk/nextjs'
 import { getUserById } from '@/lib/actions/user.action'
 import AllAnswer from '@/components/shared/AllAnswer'
 import Voting from '@/components/shared/Voting'
+import EditDeleteActions from '@/components/shared/EditDeleteActions'
 
 const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = auth()
 
-  let mongoUser : any
+  let mongoUser: any
 
   if (clerkId) {
     mongoUser = await getUserById({ userId: clerkId })
   }
+  const isAuthor = await isQuestionAuthor({
+    questionid: params.id,
+    userid: clerkId
+  })
 
   const result = await getQuestionsById({ questionId: params.id })
+
   return (
     <>
       <div className='flex-start w-full flex-col'>
@@ -40,17 +49,18 @@ const Page = async ({ params, searchParams }: any) => {
               {result.author.name}
             </p>
           </Link>
-          <div className='flex items-start justify-end'>
-          <Voting
-            type='Question'
-            itemId={JSON.stringify(result._id)}
-            userId={JSON.stringify(mongoUser._id)}
-            upvotes={result.upvotes.length}
-            hasupVoted={result.upvotes.includes(mongoUser._id)}
-            downvotes={result.downvotes.length}
-            hasdownVoted={result.downvotes.includes(mongoUser._id)}
-            hasSaved={mongoUser?.saved.includes(result._id)}
-          /></div>
+          <div className='flex items-start justify-around'>
+            <Voting
+              type='Question'
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              upvotes={result.upvotes.length}
+              hasupVoted={result.upvotes.includes(mongoUser._id)}
+              downvotes={result.downvotes.length}
+              hasdownVoted={result.downvotes.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(result._id)}
+            />
+          </div>
         </div>
         <h2 className='h2-semibold text-dark200_light900 mt-3.5 w-full text-left'>
           {' '}
@@ -80,6 +90,17 @@ const Page = async ({ params, searchParams }: any) => {
           title='views'
           textStyles='small-medium text-dark400_light800'
         />
+         <div>
+          <SignedIn>
+          {isAuthor && (
+            <EditDeleteActions
+              type='Questions'
+              itemId={JSON.stringify(params.id)}
+              path={'Question'}
+            />
+          )}
+        </SignedIn>
+          </div>
       </div>
 
       <ParseHTML data={result.content} />
@@ -96,18 +117,18 @@ const Page = async ({ params, searchParams }: any) => {
       </div>
 
       <AllAnswer
-
         questionId={result._id}
         userId={mongoUser._id}
-        totalAnswers={result.answers.length} page={searchParams?.page}
+        totalAnswers={result.answers.length}
+        page={searchParams?.page}
         filter={searchParams?.filter}
       />
       <Answer
-         question={result.content}
-         questionId={JSON.stringify(result._id)}
-         authorId={JSON.stringify(mongoUser._id)}
-         content='Write Your Answer'
-       />
+        question={result.content}
+        questionId={JSON.stringify(result._id)}
+        authorId={JSON.stringify(mongoUser._id)}
+        content='Write Your Answer'
+      />
     </>
   )
 }

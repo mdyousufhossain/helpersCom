@@ -8,7 +8,7 @@ import { Schema, models, model, Document } from 'mongoose'
 export interface IAnswer extends Document {
   author: Schema.Types.ObjectId
   question: Schema.Types.ObjectId
-  accepted: boolean
+  accepted: Boolean
   content: string
   upvotes: Schema.Types.ObjectId[]
   downvotes: Schema.Types.ObjectId[]

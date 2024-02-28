@@ -8,6 +8,11 @@ export interface GetQuestionsParams {
   filter?: string
 }
 
+export interface GetAuthor {
+  questionid : string
+  userid?: string | null
+}
+
 export interface CreateBlogParams {
   title: string;
   content: string;
