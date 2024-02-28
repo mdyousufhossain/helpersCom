@@ -5,6 +5,8 @@ import { formatNumber, getTimestamp } from '@/lib/utils'
 import { SignedIn } from '@clerk/nextjs'
 import EditDeleteActions from '../shared/EditDeleteActions'
 import { Badge } from '../ui/badge'
+import { getQuestionsById } from '@/lib/actions/question.action'
+import Image from 'next/image'
 
 interface QuestionProps {
   _id?: string | number
@@ -23,6 +25,7 @@ interface QuestionProps {
   upvotes: string
   views: number
   answers: Array<object>
+  answered: Boolean
   createdAt: Date
   clerkId?: string
 }
@@ -52,14 +55,15 @@ const QuestionsCard = ({
   answers,
   type,
   clerkId,
+  answered,
   createdAt
 }: QuestionProps) => {
   const showActionButtons = clerkId && clerkId === author.clerkId
-  console.log(showActionButtons)
+  console.log(answered)
   return (
     <div
       className={
-        'card-wrapper  mt-8 rounded-[10px] border-2 p-9 dark:border-gray-800 sm:px-11'
+        `card-wrapper ${answered ? 'border-green-400 dark:border-2 border-green-300' : 'dark:border-gray-800'} mt-8 rounded-[10px] border-2 p-9  sm:px-11`
       }
     >
       <div className='flex flex-col-reverse items-center justify-between gap-5 sm:flex-row'>
@@ -84,7 +88,8 @@ const QuestionsCard = ({
         <Badge
           className={`${
             type === 'question' ? 'border border-violet-400' : 'border border-emerald-200'
-          } subtle-medium background-light800_dark300 text-light400_light500 rounded-md px-4 py-2 uppercase`}
+          } subtle-medium background-light800_dark300 text-light400_light500  rounded-md px-4 py-2 uppercase`}
+
         >
           {type}
         </Badge>
@@ -119,11 +124,24 @@ const QuestionsCard = ({
           title='views'
           textStyles='small-medium text-dark400_light800'
         />
+
       </div>
       <div className=' mt-3.5 flex flex-wrap gap-2'>
         {tags.map((tag) => (
           <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
         ))}
+        {answered
+          ? (
+            <Image
+    src={'/assets/icons/done-all.svg'}
+
+    width={16}
+    height={16}
+    alt='checkmark'
+    />
+            )
+          : ('')
+        }
       </div>
     </div>
   )

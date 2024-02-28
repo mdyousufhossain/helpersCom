@@ -222,8 +222,8 @@ const Voting = ({
     ? (<Image
   src={
     hasAccepted
-      ? '/assets/icons/star-filled.svg'
-      : '/assets/icons/star-red.svg'
+      ? '/assets/icons/done-all.svg'
+      : '/assets/icons/undone-all.svg'
   }
   width={18}
   height={18}
@@ -234,6 +234,18 @@ const Voting = ({
     : ('')
 }
 
+{
+  hasAccepted && !isAuth && (
+    <Image
+    src={'/assets/icons/done-all.svg'}
+
+    width={18}
+    height={18}
+    alt='checkmark'
+    />
+  )
+
+}
     </div>
   )
 }
