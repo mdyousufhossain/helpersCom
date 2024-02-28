@@ -8,9 +8,19 @@ export interface GetQuestionsParams {
   filter?: string
 }
 
+export interface answerProps {
+  answerId : string
+}
+
 export interface GetAuthor {
   questionid : string
   userid?: string | null
+}
+
+export interface AcceptedSolutions {
+  questionid : string
+  answerid : string
+  answerAuthor : string
 }
 
 export interface CreateBlogParams {

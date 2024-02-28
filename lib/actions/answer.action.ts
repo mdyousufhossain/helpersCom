@@ -3,10 +3,12 @@
 import Answer from '@/database/answer.model'
 import { connectionToDatabase } from '../mongoose'
 import {
+  AcceptedSolutions,
   AnswerVoteParams,
   CreateAnswerParams,
   DeleteAnswerParams,
-  GetAnswersParams
+  GetAnswersParams,
+  answerProps
 } from './shared.types'
 import Question from '@/database/question.model'
 import { revalidatePath } from 'next/cache'
@@ -171,5 +173,51 @@ export async function deleteAnswer (params: DeleteAnswerParams) {
   } catch (error) {
     console.log(error)
     throw error
+  }
+}
+
+export async function markAnswerAccepted (params : AcceptedSolutions) {
+  try {
+    const { questionid, answerid } = params
+
+    const answer = await Answer.findById(answerid)
+    const question = await Question.findById(questionid)
+    if (!answerid) {
+      throw new Error('Answer not found')
+    }
+
+    if (!question.answers.includes(answer._id)) {
+      throw new Error('The provided answer does not belong to this question')
+    }
+
+    if (question.answered.length > 0) {
+      throw new Error('This question already has an accepted answer')
+    }
+    // Mark the answer as accepted
+    answer.accepted = true
+    await answer.save()
+
+    // Update the question to reflect the accepted answer
+    question.answered = [answer._id]
+    await question.save()
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+export async function isAnswerAccepted (params : answerProps) {
+  try {
+    // Find the answer by its ID
+    const { answerId } = params
+    const answer = await Answer.findById(answerId)
+
+    if (!answer) {
+      throw new Error('Answer not found')
+    }
+
+    // Check if the answer is accepted
+    return answer.accepted
+  } catch (error) {
+    console.log(error)
   }
 }

@@ -58,8 +58,7 @@ const Page = async ({ params, searchParams }: any) => {
               hasupVoted={result.upvotes.includes(mongoUser._id)}
               downvotes={result.downvotes.length}
               hasdownVoted={result.downvotes.includes(mongoUser._id)}
-              hasSaved={mongoUser?.saved.includes(result._id)}
-            />
+              hasSaved={mongoUser?.saved.includes(result._id)} questionId={''} answersId={''}/>
           </div>
         </div>
         <h2 className='h2-semibold text-dark200_light900 mt-3.5 w-full text-left'>
@@ -122,6 +121,7 @@ const Page = async ({ params, searchParams }: any) => {
         totalAnswers={result.answers.length}
         page={searchParams?.page}
         filter={searchParams?.filter}
+        qauthor={mongoUser.clerkId}
       />
       <Answer
         question={result.content}

@@ -4,6 +4,7 @@ import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
 import mongoose, { FilterQuery } from 'mongoose'
 import {
+  AcceptedSolutions,
   CreateQuestionParams,
   DeleteQuestionParams,
   EditQuestionParams,
@@ -104,6 +105,36 @@ export async function isQuestionAuthor (params : GetAuthor) {
     throw error
   }
 }
+
+// question id , answerid , question author id , answer author id
+export async function markAnswerAccepted (params : AcceptedSolutions) {
+  try {
+    const { questionid, answerid } = params
+
+    const answer = await Answer.findById(answerid)
+    const question = await Question.findById(questionid)
+    if (!answerid) {
+      throw new Error('Answer not found')
+    }
+
+    if (!question.answers.includes(answer._id)) {
+      throw new Error('The provided answer does not belong to this question')
+    }
+
+    if (question.answered.length > 0) {
+      throw new Error('This question already has an accepted answer')
+    }
+    // Mark the answer as accepted
+    answer.accepted = true
+    await answer.save()
+
+    // Update the question to reflect the accepted answer
+    question.answered = [answer._id]
+    await question.save()
+  } catch (error) {
+    console.log(error)
+  }
+};
 
 export async function createQuestion (params: CreateQuestionParams) {
   try {
