@@ -5,7 +5,6 @@ import { formatNumber, getTimestamp } from '@/lib/utils'
 import { SignedIn } from '@clerk/nextjs'
 import EditDeleteActions from '../shared/EditDeleteActions'
 import { Badge } from '../ui/badge'
-import { getQuestionsById } from '@/lib/actions/question.action'
 import Image from 'next/image'
 
 interface QuestionProps {
