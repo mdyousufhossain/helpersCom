@@ -32,17 +32,22 @@ export async function getQuestions (params: GetQuestionsParams) {
 
     const { searchQuery, filter } = params
 
-    const query: FilterQuery<typeof Question> = {}
-    const query2: FilterQuery<typeof Blog> = {}
+    const questionQuery: FilterQuery<typeof Question> = {}
+    const blogQuery: FilterQuery<typeof Blog> = {}
 
     if (searchQuery) {
-      query.$or = [
+      questionQuery.$or = [
+        { title: { $regex: new RegExp(searchQuery, 'i') } },
+        { content: { $regex: new RegExp(searchQuery, 'i') } }
+      ]
+      blogQuery.$or = [
         { title: { $regex: new RegExp(searchQuery, 'i') } },
         { content: { $regex: new RegExp(searchQuery, 'i') } }
       ]
     }
 
     let sortOptions = {}
+    let items
     switch (filter) {
       case 'newest':
         sortOptions = { createdAt: -1 }
@@ -53,30 +58,33 @@ export async function getQuestions (params: GetQuestionsParams) {
         break
 
       case 'unanswered':
-        query.answers = { $size: 0 }
+        questionQuery.answers = { $size: 0 }
         break
-      case 'questions' :
-        sortOptions = { type: -1 }
-        break
-      case 'blogpost' :
-        sortOptions = { type: 1 }
+      case 'solved':
+        questionQuery.answered = { $size: 1 }
         break
       default:
         break
     }
 
-    const question = await Question.find(query)
+    const question = await Question.find(questionQuery)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort(sortOptions)
 
-    const blogpost = await Blog.find(query2)
+    const blogpost = await Blog.find(blogQuery)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort(sortOptions)
 
-    const items = [...question, ...blogpost]
-
+    if (filter === 'questions') {
+      items = question
+    }
+    if (filter === 'blogpost') {
+      items = blogpost
+    } else {
+      items = [...question, ...blogpost]
+    }
     return { items }
   } catch (error) {
     console.log(error)

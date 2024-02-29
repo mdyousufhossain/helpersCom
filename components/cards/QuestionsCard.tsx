@@ -88,7 +88,9 @@ const QuestionsCard = ({
         <Badge
           className={`${
             type === 'question' ? 'border border-violet-400' : 'border border-emerald-200'
-          } subtle-medium background-light800_dark300 text-light400_light500  rounded-md px-4 py-2 uppercase`}
+          } subtle-medium background-light800_dark300 text-light400_light500  rounded-md px-4 py-2 uppercase
+          max-sm:hidden
+          `}
 
         >
           {type}
@@ -126,7 +128,7 @@ const QuestionsCard = ({
         />
 
       </div>
-      <div className=' mt-3.5 flex flex-wrap gap-2'>
+      <div className=' mt-3.5 flex flex-wrap gap-2 max-sm:relative'>
         {tags.map((tag) => (
           <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
         ))}
@@ -142,6 +144,15 @@ const QuestionsCard = ({
             )
           : ('')
         }
+
+<Badge
+          className={`${
+            type === 'question' ? 'border border-violet-400' : 'border border-emerald-200'
+          } subtle-medium background-light800_dark300 text-light400_light500  rounded-md px-4 py-2 uppercase hidden max-sm:flex absolute right-0`}
+
+        >
+          {type}
+        </Badge>
       </div>
     </div>
   )

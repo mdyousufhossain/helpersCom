@@ -29,6 +29,7 @@ export const HomePageFilters = [
   { name: 'Recommended', value: 'recommended' },
   { name: 'Frequent', value: 'frequent' },
   { name: 'Unanswered', value: 'unanswered' },
+  { name: 'Solved', value: 'solved' },
   { name: 'Questions', value: 'questions' },
   { name: 'Blogpost', value: 'blogpost' }
 ]
