@@ -8,7 +8,7 @@ import NoResult from '@/components/shared/NoResult'
 import QuestionsCard from '@/components/cards/QuestionsCard'
 import { getQuestions } from '@/lib/actions/question.action'
 import { SearchParamsProps } from '@/types'
-// bal
+
 export default async function Home ({ searchParams }:SearchParamsProps) {
   const result : any = await getQuestions({
     searchQuery: searchParams.q,
@@ -44,6 +44,7 @@ export default async function Home ({ searchParams }:SearchParamsProps) {
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
         {result.items.length > 0
+
           ? (
               result.items.map((question : any) => (
             <QuestionsCard
@@ -55,7 +56,10 @@ export default async function Home ({ searchParams }:SearchParamsProps) {
                   upvotes={question.upvotes}
                   views={question.views}
                   answers={question.answers}
-                  createdAt={question.createdAt} type={'question'}/>
+                  createdAt={question.createdAt}
+                  type={question.type}
+                  answered={question.answered && question.answered.length > 0}
+                  />
               ))
             )
           : (

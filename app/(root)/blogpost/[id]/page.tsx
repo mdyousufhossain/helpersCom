@@ -42,15 +42,14 @@ const Page = async ({ params }: any) => {
           </Link>
           <div className='flex items-start justify-end'>
           <Voting
-            type='Post'
-            itemId={JSON.stringify(result._id)}
-            userId={JSON.stringify(mongoUser._id)}
-            upvotes={result.upvotes.length}
-            hasupVoted={result.upvotes.includes(mongoUser._id)}
-            downvotes={result.downvotes.length}
-            hasdownVoted={result.downvotes.includes(mongoUser._id)}
-            hasSaved={false}
-          /></div>
+              type='Post'
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              upvotes={result.upvotes.length}
+              hasupVoted={result.upvotes.includes(mongoUser._id)}
+              downvotes={result.downvotes.length}
+              hasdownVoted={result.downvotes.includes(mongoUser._id)}
+              hasSaved={false} questionId={''} answersId={''} /></div>
         </div>
         <h2 className='h2-semibold text-dark200_light900 mt-3.5 w-full text-left'>
           {' '}
@@ -99,8 +98,7 @@ const Page = async ({ params }: any) => {
 
         questionId={result._id}
         userId={mongoUser._id}
-        totalAnswers={result.answers.length} page={''} filter={''}
-      />
+        totalAnswers={result.answers.length} page={''} filter={''} qauthor={''} />
       <Answer
          question={result.content}
          questionId={JSON.stringify(result._id)}

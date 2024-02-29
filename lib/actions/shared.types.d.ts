@@ -8,11 +8,27 @@ export interface GetQuestionsParams {
   filter?: string
 }
 
+export interface answerProps {
+  answerId : string
+}
+
+export interface GetAuthor {
+  questionid : string
+  userid?: string | null
+}
+
+export interface AcceptedSolutions {
+  questionid : string
+  answerid : string
+  answerAuthor : string
+}
+
 export interface CreateBlogParams {
   title: string;
   content: string;
   tags: string[];
   author: Schema.Types.ObjectId | IUser;
+  type : string
   path?: string;
 }
 
@@ -72,6 +88,7 @@ export interface CreateQuestionParams {
   title: string
   content: string
   tags: string[]
+  type : string
   author: Schema.Types.ObjectId | IUser
   path?: string
 }

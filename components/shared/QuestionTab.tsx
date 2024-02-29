@@ -25,7 +25,7 @@ const QuestionTab = async ({ userId, clerkId } : Props) => {
         views={item.views}
         answers={item.answers}
         createdAt={item.createdAt}
-        type={'Question'}/>
+        type={'question'} answered={item.answered && item.answered.length > 0}/>
     ))}</div>
   )
 }

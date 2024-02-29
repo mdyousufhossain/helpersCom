@@ -54,7 +54,8 @@ const Post = ({ userId, type, postDetails } : Props) => {
     defaultValues: {
       title: parsedPostDetails.title || '',
       content: parsedPostDetails.content || '',
-      tags: groupedTags || []
+      tags: groupedTags || [],
+      type: 'blogpost'
     }
   })
 
@@ -75,7 +76,8 @@ const Post = ({ userId, type, postDetails } : Props) => {
           title: values.title,
           content: values.content,
           tags: values.tags, // Initialize tags as an empty array
-          author: JSON.parse(userId)
+          author: JSON.parse(userId),
+          type: 'blogpost'
         })
 
         router.push('/blogs')
