@@ -63,7 +63,7 @@ const QuestionsCard = ({
   return (
     <div
       className={
-        `card-wrapper ${answered ? 'border-green-400 dark:border-2 border-green-300' : 'dark:border-gray-800'} mt-8 rounded-[10px] border-2 p-9  sm:px-11`
+        `card-wrapper ${answered ? 'border-green-400 dark:border-2' : 'dark:border-gray-800'} mt-8 rounded-[10px] border-2 p-9  sm:px-11`
       }
     >
       <div className='flex flex-col-reverse items-center justify-between gap-5 sm:flex-row'>
@@ -148,7 +148,7 @@ const QuestionsCard = ({
 <Badge
           className={`${
             type === 'question' ? 'border border-violet-400' : 'border border-emerald-200'
-          } subtle-medium background-light800_dark300 text-light400_light500  rounded-md px-4 py-2 uppercase hidden max-sm:flex absolute right-0`}
+          } subtle-medium background-light800_dark300 text-light400_light500  absolute right-0 hidden rounded-md px-4 py-2 uppercase max-sm:flex`}
 
         >
           {type}
