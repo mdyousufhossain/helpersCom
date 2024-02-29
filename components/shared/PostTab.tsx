@@ -24,7 +24,7 @@ const PostsTab = async ({ searchParams, userId, clerkId } : Props) => {
         upvotes={item.upvotes}
         views={item.views}
         answers={item.answers}
-        createdAt={item.createdAt} type={'Post'}/>
+        createdAt={item.createdAt} type={'Post'} answered={false}/>
     ))}</div>
   )
 }

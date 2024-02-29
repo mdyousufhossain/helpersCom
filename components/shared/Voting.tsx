@@ -1,6 +1,6 @@
 'use client'
 import { upvoteAnswer, downvoteAnswer } from '@/lib/actions/answer.action'
-import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
+import { downvoteQuestion, markAnswerAccepted, upvoteQuestion } from '@/lib/actions/question.action'
 import { toggleSaveQuestion } from '@/lib/actions/user.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
@@ -19,7 +19,12 @@ interface Props {
   downvotes: number
   hasdownVoted: boolean
   hasSaved?: boolean
+  isAuth? : boolean
+  hasAccepted? : boolean
+  questionId:string
+  answersId:string
 }
+
 /**
  *
  *
@@ -36,7 +41,11 @@ const Voting = ({
   upvotes,
   hasupVoted,
   hasdownVoted,
-  hasSaved
+  hasSaved,
+  isAuth,
+  hasAccepted,
+  questionId,
+  answersId
 }: Props) => {
   const pathname = usePathname()
   const router = useRouter()
@@ -48,6 +57,14 @@ const Voting = ({
       path: pathname
     })
   }
+  const handleAcceptSolution = async () => {
+    await markAnswerAccepted({
+      questionid: JSON.parse(questionId),
+      answerid: JSON.parse(answersId),
+      answerAuthor: ''
+    })
+  }
+
   /**
    *
    * @param action 'upvote'
@@ -181,6 +198,7 @@ const Voting = ({
               {formatNumber(downvotes)}
             </p>
           </div>
+
         </div>
       </div>
       {type === 'Question'
@@ -199,7 +217,35 @@ const Voting = ({
         />
           )
         : ('')}
+{
+  isAuth
+    ? (<Image
+  src={
+    hasAccepted
+      ? '/assets/icons/done-all.svg'
+      : '/assets/icons/undone-all.svg'
+  }
+  width={18}
+  height={18}
+  alt='upvote'
+  className='cursor-pointer'
+  onClick={() => handleAcceptSolution()}
+/>)
+    : ('')
+}
 
+{
+  hasAccepted && !isAuth && (
+    <Image
+    src={'/assets/icons/done-all.svg'}
+
+    width={18}
+    height={18}
+    alt='checkmark'
+    />
+  )
+
+}
     </div>
   )
 }

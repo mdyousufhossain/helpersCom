@@ -7,10 +7,12 @@ import Image from 'next/image'
 import { getTimestamp } from '@/lib/utils'
 import ParseHTML from './ParseHTML'
 import Voting from './Voting'
+import { getQuestionsById, isQuestionAuthor } from '@/lib/actions/question.action'
 
 interface Props {
   questionId: string
   userId: string
+  qauthor:string
   totalAnswers: string
   page?: string
   filter?: string
@@ -21,13 +23,24 @@ const AllAnswer = async ({
   userId,
   totalAnswers,
   page,
-  filter
+  filter,
+  qauthor
 }: Props) => {
   const result = await getAnswers({
     questionId,
     page: page ? +page : 1,
     sortBy: filter
   })
+
+  const getQuestion = await getQuestionsById({
+    questionId
+  })
+
+  const isAuthor = await isQuestionAuthor({
+    questionid: questionId,
+    userid: qauthor
+  })
+
   return (
     <div className='mt-11'>
       <div className='flex items-center justify-between'>
@@ -76,7 +89,11 @@ const AllAnswer = async ({
                     hasupVoted={answer.upvotes.includes(userId)}
                     downvotes={answer.downvotes.length}
                     hasdownVoted={answer.downvotes.includes(userId)}
+                    isAuth={isAuthor}
+                    questionId={JSON.stringify(questionId)} answersId={JSON.stringify(answer._id)}
+                    hasAccepted={getQuestion?.answered.includes(answer._id)}
                   />
+
                 </div>
               </div>
             </div>
