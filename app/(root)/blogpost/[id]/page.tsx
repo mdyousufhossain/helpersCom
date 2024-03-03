@@ -95,19 +95,19 @@ const Page = async ({ params }: any) => {
         ))}
       </div>
 
-       <AllComments
+       {/* <AllComments
 
         questionId={result._id}
         userId={mongoUser._id}
-        totalAnswers={result.answers.length} qauthor={''} />
+        totalAnswers={result.answers.length} qauthor={''} /> */}
 
-       <Comment
-          post={result.content}
+       {/* <Comment
+          post={''}
           postId={JSON.stringify(result._id)}
          authorId={JSON.stringify(mongoUser._id)}
          content={'Write Your Comments'}
 
-       />
+       /> */}
     </>
   )
 }
