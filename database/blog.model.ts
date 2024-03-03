@@ -1,8 +1,5 @@
 import { Schema, models, model, Document } from 'mongoose'
 
-/**
- * some update on ui based on answerd granted or not or none answered
- */
 export interface Iblog extends Document {
   title: string
   content: string
@@ -11,7 +8,7 @@ export interface Iblog extends Document {
   upvotes: Schema.Types.ObjectId[]
   author: Schema.Types.ObjectId[]
   answers: Schema.Types.ObjectId[]
-  type : string
+  type: string
   createdAt: Date
 }
 
@@ -23,11 +20,11 @@ const blogSchema = new Schema({
   upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   author: { type: Schema.Types.ObjectId, ref: 'User' },
-  answers: [{ type: Schema.Types.ObjectId, ref: 'Answers' }],
+  answers: [{ type: Schema.Types.ObjectId, ref: 'Comments' }],
   type: { type: String, required: true },
   createdAt: { type: Date, default: Date.now }
 })
 
-const Blog = models.blog || model('blog', blogSchema)
+const Blog = models.Blog || model('Blog', blogSchema)
 
 export default Blog

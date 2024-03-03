@@ -3,7 +3,7 @@
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
 import mongoose, { FilterQuery } from 'mongoose'
-import { CreateBlogParams, DeleteBlogParams, EditBlogParams, GetBlogParams, ViewBlogParams, blogVoteParams } from './shared.types'
+import { CreateBlogParams, DeleteBlogParams, EditBlogParams, GetBlogParams, GetPostAuthor, ViewBlogParams, blogVoteParams } from './shared.types'
 import Blog from '@/database/blog.model'
 import User from '@/database/user.question'
 import { revalidatePath } from 'next/cache'
@@ -115,6 +115,29 @@ export async function getPostById (params: ViewBlogParams) {
     return post
   } catch (error) {
     console.log(error)
+  }
+}
+
+export async function isPostAuthor (params : GetPostAuthor) {
+  try {
+    // Fetch the question
+    const { postid, userid } = params
+    const post = await Blog.findById(postid).populate({
+      path: 'author',
+      model: User,
+      select: 'clerkId'
+    })
+
+    // If the question doesn't exist, return false
+    if (!post) {
+      return false
+    }
+    const author = post.author.clerkId === userid
+
+    return author
+  } catch (error) {
+    console.error('Error checking question author:', error)
+    throw error
   }
 }
 

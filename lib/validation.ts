@@ -14,6 +14,7 @@ export const QuestionsSchema = z.object({
 
 // new start of the next chapter aka backend
 export const AnswerSchema = z.object({ answer: z.string().min(100) })
+export const CommentSchema = z.object({ comment: z.string().min(100) })
 
 export const ProfileSchema = z.object({
   name: z.string().min(5).max(50),
