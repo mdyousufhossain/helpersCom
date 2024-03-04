@@ -1,9 +1,8 @@
 'use client'
-import { boolean, number } from 'zod'
+
 import { Button } from '../ui/button'
 import { formUrlQuery } from '@/lib/utils'
-import { useRouter } from 'next/router'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 interface Props {
   pageNumber: number
