@@ -28,7 +28,7 @@ const Pagination = ({ pageNumber, isNext } : Props) => {
   return (
     <div className='flex w-full items-center justify-center gap-2'>
       <Button
-        disabled={!pageNumber === 1}
+        disabled={pageNumber === 1}
         onClick={() => handleNavigation('prev')}
         className='light-border-2 btn flex min-h-[36px] items-center justify-center gap-2 border'
       >
@@ -39,7 +39,7 @@ const Pagination = ({ pageNumber, isNext } : Props) => {
       </div>
       <Button
         disabled={!isNext}
-        onClick={() => handleNavigation('prev')}
+        onClick={() => handleNavigation('next')}
         className='light-border-2 btn flex min-h-[36px] items-center justify-center gap-2 border'
       >
         <p className='body-medium text-dark200_light800'>Next</p>

@@ -13,7 +13,8 @@ import Pagination from '@/components/shared/Pagination'
 export default async function Home ({ searchParams }:SearchParamsProps) {
   const result : any = await getQuestions({
     searchQuery: searchParams.q,
-    filter: searchParams.filter
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1
   })
 
   return (
