@@ -1,5 +1,5 @@
-import Comment from '@/components/forms/Comment'
-import AllComments from '@/components/shared/AllComments'
+// import Comment from '@/components/forms/Comment'
+// import AllComments from '@/components/shared/AllComments'
 import Metric from '@/components/shared/Metric'
 import ParseHTML from '@/components/shared/ParseHTML'
 import RenderTag from '@/components/shared/RenderTag'
