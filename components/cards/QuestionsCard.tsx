@@ -28,22 +28,7 @@ interface QuestionProps {
   createdAt: Date
   clerkId?: string
 }
-// making questions cards
 
-/**
- *
- * @param param views:fun count the click or views coount so it dosnt neccerlery get from the users
- * @todo fix the upvote and answer system
- * @returns
- */
-
-/**
- * major @bug to in http://localhost:3000/tags/items/goes to only id click cause props takes from the type..  it was simple solution
- * @todo
- * we need to make new database and add type to ensure questions and blog post together
- * and other functionality
- *
- */
 const QuestionsCard = ({
   _id,
   title,
@@ -100,7 +85,7 @@ const QuestionsCard = ({
           imgUrl={author.picture}
           value={author.name}
           alt={'user'}
-          title={`- asked ${getTimestamp(createdAt)} ago `}
+          title={type === 'question' ? `- asked ${getTimestamp(createdAt)} ago` : `posted ${getTimestamp(createdAt)} ago` }
           href={`/profile/${author.clerkId}`}
           textStyles='small-medium text-dark400_light800'
         />
@@ -115,7 +100,7 @@ const QuestionsCard = ({
           imgUrl='/assets/icons/message.svg'
           value={formatNumber(answers.length)}
           alt={'message'}
-          title='answers'
+          title={type === 'question' ? 'answers' : 'comments'}
           textStyles='small-medium text-dark400_light800'
         />
         <Metric

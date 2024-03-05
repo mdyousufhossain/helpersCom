@@ -58,7 +58,9 @@ export async function createBlogPost (params:CreateBlogParams) {
 export async function getPosts (params:GetBlogParams) {
   try {
     connectionToDatabase()
-    const { searchQuery, filter } = params
+    const { searchQuery, filter, page = 1, pageSize = 5 } = params
+
+    const skipAmount = (page - 1) * pageSize
 
     const query: FilterQuery<typeof Blog> = {}
 
@@ -87,9 +89,15 @@ export async function getPosts (params:GetBlogParams) {
     const posts = await Blog.find(query)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
+      .skip(skipAmount)
+      .limit(pageSize)
       .sort(sortOptions)
 
-    return { posts }
+    const postAmount = await Blog.countDocuments(query)
+
+    const isNext = postAmount > skipAmount + posts.length
+
+    return { posts, isNext }
   } catch (error) {
     console.log(error)
   }

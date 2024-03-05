@@ -3,6 +3,7 @@ import Image from 'next/image'
 import RenderTag from './RenderTag'
 import { getHotQuestions } from '@/lib/actions/question.action'
 import { getTopPopularTags } from '@/lib/actions/tag.actions'
+import { titleSlicer } from '@/lib/utils'
 
 const RightSidebar = async () => {
   const topQuestions = await getHotQuestions()
@@ -19,7 +20,7 @@ const RightSidebar = async () => {
               key={question._id}
               className='flex cursor-pointer items-center justify-between gap-7'
             >
-              <p className='body-medium text-dark500_light700'>{question.title}</p>
+              <p className='body-medium text-dark500_light700'>{titleSlicer(question.title)}{question.title.length > 30 ? '...' : ''}  </p>
 
               <Image
                 src='/assets/icons/chevron-right.svg'
