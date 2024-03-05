@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils'
+import GlobalResult from './GlobalResult'
 
 const GlobalSearch = () => {
   const router = useRouter()
@@ -62,6 +63,7 @@ const GlobalSearch = () => {
           className='placeholder background-light800_darkgradient [box-shadow-none]  text-dark400_light700 border-none outline-none focus-visible:ring-0 focus-visible:ring-transparent'
         />
       </div>
+      {isOpen && <GlobalResult />}
     </div>
   )
 }
