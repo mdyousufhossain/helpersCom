@@ -11,8 +11,7 @@ import { globalSearch } from '@/lib/actions/general.action'
 const GlobalResult = () => {
   const searchParams = useSearchParams()
   const [isLoading, setIsLoading] = useState(true)
-  const [result, setResult] = useState([{ type: 'bal', title: 'bal' }])
-
+  const [result, setResult] = useState([])
   const global = searchParams.get('global')
   const type = searchParams.get('type')
 
@@ -56,7 +55,7 @@ const GlobalResult = () => {
     }
   }
   return (
-    <div className='absolute top-full z-10 mt-3 w-full bg-light-800 drop-shadow-sm dark:bg-dark-400'>
+    <div className='absolute top-full z-10 mt-3 w-full bg-light-800 drop-shadow-sm dark:bg-dark-400' >
       <div className='my-5 h-[1px] bg-light-700/50 dark:bg-dark-500/50' />
       {/* golbalfilter */}
       <GlobalFilter />
