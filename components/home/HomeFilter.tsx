@@ -1,11 +1,11 @@
 'use client'
-import { HomePageFilters } from '@/constants/filters'
+
 import { Button } from '../ui/button'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { formUrlQuery } from '@/lib/utils'
 
-const HomeFilter = () => {
+const HomeFilter = ({ filters }:any) => {
   const searchParams = useSearchParams()
 
   const [active, setActive] = useState('')
@@ -33,7 +33,7 @@ const HomeFilter = () => {
   }
   return (
     <div className='max-md::hidden mt-10 flex flex-wrap gap-3  max-md:hidden'>
-      {HomePageFilters.map((item) => (
+      {filters.map((item:any) => (
         <Button
           key={item.value}
           onClick={() => handleClick(item.value)}

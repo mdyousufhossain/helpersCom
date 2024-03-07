@@ -61,6 +61,7 @@ const Voting = ({
     await markAnswerAccepted({
       questionid: JSON.parse(questionId),
       answerid: JSON.parse(answersId),
+      path: pathname,
       answerAuthor: ''
     })
   }
