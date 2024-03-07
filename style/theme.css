@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .primary-gradient {
     background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
@@ -14,12 +13,9 @@
       rgba(19, 22, 28, 0.7) 100%
     );
   }
- 
   .text-dark100_light900 {
     @apply text-dark-100 dark:text-light-900 !important;
   }
-
-
 
   .text-dark200_light900 {
     @apply text-dark-200 dark:text-light-900;

@@ -112,3 +112,7 @@ export const removeKeysFromQuery = ({ params, keysToRemove }: removeUrlQueryPara
   { skipNull: true }
   )
 }
+
+export const titleSlicer = (text: string): string => {
+  return text.slice(0, 20)
+}

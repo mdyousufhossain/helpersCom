@@ -30,7 +30,9 @@ export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
 
-    const { searchQuery, filter } = params
+    const { searchQuery, filter, page = 1, pageSize = 5 } = params
+    // calculate the number of the posts to skip
+    const skipAmount = (page - 1) * pageSize
 
     const questionQuery: FilterQuery<typeof Question> = {}
     const blogQuery: FilterQuery<typeof Blog> = {}
@@ -69,12 +71,12 @@ export async function getQuestions (params: GetQuestionsParams) {
 
     const question = await Question.find(questionQuery)
       .populate({ path: 'tags', model: Tag })
-      .populate({ path: 'author', model: User })
+      .populate({ path: 'author', model: User }).skip(skipAmount).limit(pageSize)
       .sort(sortOptions)
 
     const blogpost = await Blog.find(blogQuery)
       .populate({ path: 'tags', model: Tag })
-      .populate({ path: 'author', model: User })
+      .populate({ path: 'author', model: User }).skip(skipAmount).limit(pageSize)
       .sort(sortOptions)
 
     if (filter === 'questions') {
@@ -85,7 +87,15 @@ export async function getQuestions (params: GetQuestionsParams) {
     } else {
       items = [...question, ...blogpost]
     }
-    return { items }
+
+    const questionAmount = await Question.countDocuments(questionQuery)
+    const blogAmount = await Blog.countDocuments(blogQuery)
+
+    const totalItem = questionAmount + blogAmount
+
+    const isNext = totalItem > skipAmount + items.length
+
+    return { items, isNext }
   } catch (error) {
     console.log(error)
   }

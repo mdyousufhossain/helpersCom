@@ -16,11 +16,16 @@ export interface GetAuthor {
   questionid : string
   userid?: string | null
 }
+export interface GetPostAuthor {
+  postid : string
+  userid?: string | null
+}
 
 export interface AcceptedSolutions {
   questionid : string
   answerid : string
   answerAuthor : string
+  path:string
 }
 
 export interface CreateBlogParams {
@@ -84,6 +89,14 @@ export interface CreateAnswerParams {
   question: string
   path: string
 }
+
+export interface CreateCommentParams {
+  content: string
+  author: string
+  postid: string
+  path: string
+}
+
 export interface CreateQuestionParams {
   title: string
   content: string

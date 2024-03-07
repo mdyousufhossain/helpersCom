@@ -1,15 +1,15 @@
-import { getPostById } from '@/lib/actions/blog.action'
-import Link from 'next/link'
-import Image from 'next/image'
+// import Comment from '@/components/forms/Comment'
+// import AllComments from '@/components/shared/AllComments'
 import Metric from '@/components/shared/Metric'
-import { formatNumber, getTimestamp } from '@/lib/utils'
 import ParseHTML from '@/components/shared/ParseHTML'
 import RenderTag from '@/components/shared/RenderTag'
-import Answer from '@/components/forms/Answer'
-import { auth } from '@clerk/nextjs'
-import { getUserById } from '@/lib/actions/user.action'
-import AllAnswer from '@/components/shared/AllAnswer'
 import Voting from '@/components/shared/Voting'
+import { getPostById } from '@/lib/actions/blog.action'
+import { getUserById } from '@/lib/actions/user.action'
+import { formatNumber, getTimestamp } from '@/lib/utils'
+import { auth } from '@clerk/nextjs'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const Page = async ({ params }: any) => {
   const { userId: clerkId } = auth()
@@ -21,6 +21,7 @@ const Page = async ({ params }: any) => {
   }
 
   const result = await getPostById({ postId: params.id })
+
   return (
     <>
       <div className='flex-start w-full flex-col'>
@@ -94,17 +95,19 @@ const Page = async ({ params }: any) => {
         ))}
       </div>
 
-      <AllAnswer
+       {/* <AllComments
 
         questionId={result._id}
         userId={mongoUser._id}
-        totalAnswers={result.answers.length} page={''} filter={''} qauthor={''} />
-      <Answer
-         question={result.content}
-         questionId={JSON.stringify(result._id)}
+        totalAnswers={result.answers.length} qauthor={''} /> */}
+
+       {/* <Comment
+          post={''}
+          postId={JSON.stringify(result._id)}
          authorId={JSON.stringify(mongoUser._id)}
          content={'Write Your Comments'}
-       />
+
+       /> */}
     </>
   )
 }

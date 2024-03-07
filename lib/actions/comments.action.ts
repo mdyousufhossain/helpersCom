@@ -1,40 +1,27 @@
-'use server'
-
-import Answer from '@/database/answer.model'
-import { connectionToDatabase } from '../mongoose'
-import {
-  AcceptedSolutions,
-  AnswerVoteParams,
-  CreateAnswerParams,
-  DeleteAnswerParams,
-  GetAnswersParams,
-  answerProps
-} from './shared.types'
-import Question from '@/database/question.model'
 import { revalidatePath } from 'next/cache'
+
+import { connectionToDatabase } from '../mongoose'
+import { AnswerVoteParams, CreateCommentParams, DeleteAnswerParams, GetAnswersParams } from './shared.types'
+import Comments from '@/database/comment.model'
+import Blog from '@/database/blog.model'
 import Interaction from '@/database/interaction.model'
 
-export async function createAnswer (params: CreateAnswerParams) {
+export async function createComments (params: CreateCommentParams) {
   connectionToDatabase()
 
   try {
-    const { content, author, question, path } = params
+    const { content, author, postid, path } = params
 
-    const newAnswer = await Answer.create({
+    const newAnswer = await Comments.create({
       content,
       author,
-      question
+      postid
     })
-
-    await Question.findByIdAndUpdate(question, {
+    console.log(Comments)
+    // Use await to ensure Blog is defined before update
+    await Blog.findByIdAndUpdate(postid, {
       $push: { answers: newAnswer._id }
     })
-
-    /**
-     * @todo
-     * @add interaction
-     * @user repution
-     */
 
     revalidatePath(path)
   } catch (error) {
@@ -43,7 +30,7 @@ export async function createAnswer (params: CreateAnswerParams) {
   }
 }
 
-export async function getAnswers (params: GetAnswersParams) {
+export async function getComments (params: GetAnswersParams) {
   try {
     connectionToDatabase()
 
@@ -68,7 +55,7 @@ export async function getAnswers (params: GetAnswersParams) {
         break
     }
 
-    const answers = await Answer.find({ question: questionId })
+    const answers = await Comments.find({ post: questionId })
       .populate('author', '_id clerkId name picture')
       .sort(sortOptions)
 
@@ -78,7 +65,7 @@ export async function getAnswers (params: GetAnswersParams) {
   }
 }
 
-export async function upvoteAnswer (params: AnswerVoteParams) {
+export async function upvoteComments (params: AnswerVoteParams) {
   try {
     connectionToDatabase()
 
@@ -97,7 +84,7 @@ export async function upvoteAnswer (params: AnswerVoteParams) {
       updateQuery = { $addToSet: { upvotes: userId } }
     }
 
-    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
+    const answer = await Comments.findByIdAndUpdate(answerId, updateQuery, {
       new: true
     })
 
@@ -114,7 +101,7 @@ export async function upvoteAnswer (params: AnswerVoteParams) {
   }
 }
 
-export async function downvoteAnswer (params: AnswerVoteParams) {
+export async function downvoteComments (params: AnswerVoteParams) {
   try {
     connectionToDatabase()
 
@@ -133,7 +120,7 @@ export async function downvoteAnswer (params: AnswerVoteParams) {
       updateQuery = { $addToSet: { upvotes: userId } }
     }
 
-    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
+    const answer = await Comments.findByIdAndUpdate(answerId, updateQuery, {
       new: true
     })
 
@@ -150,76 +137,28 @@ export async function downvoteAnswer (params: AnswerVoteParams) {
   }
 }
 
-export async function deleteAnswer (params: DeleteAnswerParams) {
+export async function deleteComments (params: DeleteAnswerParams) {
   try {
     connectionToDatabase()
 
     const { answerId, path } = params
 
-    const answer = await Answer.findById(answerId)
+    const answer = await Comments.findById(answerId)
 
     if (!answer) throw new Error('answer not found')
 
-    await Answer.deleteOne({ _id: answerId })
+    await Comments.deleteOne({ _id: answerId })
 
-    await Question.updateMany(
-      { _id: answer.question },
+    await Blog.updateMany(
+      { _id: answer.post },
       { $pull: { answers: answerId } }
     )
 
-    await Interaction.deleteMany({ answer: answerId })
+    await Interaction.deleteMany({ comment: answerId })
 
     revalidatePath(path)
   } catch (error) {
     console.log(error)
     throw error
-  }
-}
-
-export async function markAnswerAccepted (params : AcceptedSolutions) {
-  try {
-    const { questionid, answerid, path } = params
-
-    const answer = await Answer.findById(answerid)
-    const question = await Question.findById(questionid)
-    if (!answerid) {
-      throw new Error('Answer not found')
-    }
-
-    if (!question.answers.includes(answer._id)) {
-      throw new Error('The provided answer does not belong to this question')
-    }
-
-    if (question.answered.length > 0) {
-      throw new Error('This question already has an accepted answer')
-    }
-    // Mark the answer as accepted
-    answer.accepted = true
-    await answer.save()
-
-    // Update the question to reflect the accepted answer
-    question.answered = [answer._id]
-    await question.save()
-
-    revalidatePath(path)
-  } catch (error) {
-    console.log(error)
-  }
-};
-
-export async function isAnswerAccepted (params : answerProps) {
-  try {
-    // Find the answer by its ID
-    const { answerId } = params
-    const answer = await Answer.findById(answerId)
-
-    if (!answer) {
-      throw new Error('Answer not found')
-    }
-
-    // Check if the answer is accepted
-    return answer.accepted
-  } catch (error) {
-    console.log(error)
   }
 }
