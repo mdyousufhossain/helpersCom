@@ -20,7 +20,7 @@ const RightSidebar = async () => {
               key={question._id}
               className='flex cursor-pointer items-center justify-between gap-7'
             >
-              <p className='body-medium text-dark500_light700'>{titleSlicer(question.title)}{question.title.length > 30 ? '...' : ''}  </p>
+              <p className='body-medium text-dark500_light700'>{titleSlicer(question.title, 30)}{question.title.length > 30 ? '...' : ''}  </p>
 
               <Image
                 src='/assets/icons/chevron-right.svg'

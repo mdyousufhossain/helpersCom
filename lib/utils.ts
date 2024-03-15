@@ -113,6 +113,6 @@ export const removeKeysFromQuery = ({ params, keysToRemove }: removeUrlQueryPara
   )
 }
 
-export const titleSlicer = (text: string): string => {
-  return text.slice(0, 20)
+export const titleSlicer = (text: string, size : number): string => {
+  return text.slice(0, size)
 }
