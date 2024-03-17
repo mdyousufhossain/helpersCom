@@ -77,7 +77,8 @@ const Post = ({ userId, type, postDetails } : Props) => {
           content: values.content,
           tags: values.tags, // Initialize tags as an empty array
           author: JSON.parse(userId),
-          type: 'blogpost'
+          type: 'blogpost',
+          path: pathname
         })
 
         router.push('/blogs')

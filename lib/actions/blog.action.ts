@@ -14,12 +14,12 @@ export async function createBlogPost (params:CreateBlogParams) {
   try {
     connectionToDatabase()
 
-    const { title, content, tags, author } = params // path
+    const { title, content, tags, author, path } = params
 
     const blog = await Blog.create({
       title,
       content,
-      tags: [], // Initialize tags as an empty array
+      tags: [],
       type: 'blogpost',
       author
     })
@@ -47,6 +47,19 @@ export async function createBlogPost (params:CreateBlogParams) {
       },
       { new: true }
     )
+    // creating interaction for the record of users who posted a post
+
+    await Interaction.create({
+      user: author,
+      action: 'blog_post',
+      post: blog._id,
+      tags: tagDocuments
+
+    })
+    // increment the authors reputation by 5 for creating the  damn quesiton
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } })
+
+    revalidatePath(path)
   } catch (error) {
     console.log(error)
     throw error
