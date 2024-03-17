@@ -50,16 +50,19 @@ const QuestionsCard = ({
         `card-wrapper ${answered ? 'border-green-400 dark:border-2' : 'dark:border-gray-800'} mt-8 rounded-[10px] border-2 p-9  sm:px-11`
       }
     >
-      <div className='flex flex-col-reverse items-center justify-between gap-5 sm:flex-row '>
+      <div className='flex flex-col-reverse justify-between gap-5 sm:flex-row'>
         {/* <span className='subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden'>
           {`- asked ${getTimestamp(createdAt)} ago `}
         </span> */}
         <Link href={`/${type}/${_id}`}>
-          {/* <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
-            {JSON.stringify(title)}
+          <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1  flex-1 capitalize'>
+
+          {titleSlicer(title, 10)}{title.length > 10 ? '...' : '' }
+          </h3>
+          {/* <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1 flex-wrap max-lg:hidden'>
+            {title}
           </h3> */}
         </Link>
-
         <SignedIn>
           {showActionButtons && (
             <EditDeleteActions
