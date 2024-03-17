@@ -10,4 +10,6 @@ const page = () => {
     </div>
   )
 }
+
+// this is for the dev
 export default page
