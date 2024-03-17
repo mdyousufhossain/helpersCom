@@ -74,14 +74,13 @@ const Questions = ({ mongoUserId, typed, questionDetails }: Props) => {
         })
         router.push(`/question/${parsedQuestionDetails._id}`)
       } else {
-        console.log('function is running 2')
         await createQuestion({
           title: values.title,
           content: values.explanation,
           tags: values.tags,
           author: JSON.parse(mongoUserId),
-          type: 'question'
-
+          type: 'question',
+          path: pathname
         })
         router.push('/')
       }

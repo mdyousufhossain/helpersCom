@@ -42,7 +42,7 @@ const GlobalResult = () => {
       case 'question':
         return `/question/${id}`
       case 'blog':
-        return `/blog/${id}`
+        return `/blogpost/${id}`
       case 'answer':
         return `/question/${id}`
       case 'tag':

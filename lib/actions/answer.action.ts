@@ -13,6 +13,7 @@ import {
 import Question from '@/database/question.model'
 import { revalidatePath } from 'next/cache'
 import Interaction from '@/database/interaction.model'
+import User from '@/database/user.question'
 
 export async function createAnswer (params: CreateAnswerParams) {
   connectionToDatabase()
@@ -193,6 +194,8 @@ export async function markAnswerAccepted (params : AcceptedSolutions) {
     if (question.answered.length > 0) {
       throw new Error('This question already has an accepted answer')
     }
+
+    console.log('this is answer accepted :', answer.author)
     // Mark the answer as accepted
     answer.accepted = true
     await answer.save()
@@ -200,6 +203,8 @@ export async function markAnswerAccepted (params : AcceptedSolutions) {
     // Update the question to reflect the accepted answer
     question.answered = [answer._id]
     await question.save()
+
+    await User.findByIdAndUpdate(answer.author, { $inc: { reputation: 15 } })
 
     revalidatePath(path)
   } catch (error) {

@@ -34,7 +34,7 @@ export interface CreateBlogParams {
   tags: string[];
   author: Schema.Types.ObjectId | IUser;
   type : string
-  path?: string;
+  path: string;
 }
 
 export interface GetBlogParams {
@@ -103,7 +103,7 @@ export interface CreateQuestionParams {
   tags: string[]
   type : string
   author: Schema.Types.ObjectId | IUser
-  path?: string
+  path: string
 }
 export interface ToggleSavePostParams {
   userId: string

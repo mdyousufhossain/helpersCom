@@ -1,6 +1,6 @@
 'use client'
-import { upvoteAnswer, downvoteAnswer } from '@/lib/actions/answer.action'
-import { downvoteQuestion, markAnswerAccepted, upvoteQuestion } from '@/lib/actions/question.action'
+import { upvoteAnswer, downvoteAnswer, markAnswerAccepted } from '@/lib/actions/answer.action'
+import { downvoteQuestion, upvoteQuestion } from '@/lib/actions/question.action'
 import { toggleSaveQuestion } from '@/lib/actions/user.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
