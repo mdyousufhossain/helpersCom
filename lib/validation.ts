@@ -25,7 +25,9 @@ export const ProfileSchema = z.object({
 })
 
 export const BlogSchema = z.object({
-  title: z.string().min(4, 'Title must be more that 3 letter')
+  title: z
+    .string()
+    .min(4, 'Title must be more that 3 letter')
     .max(100, 'title cannot be this long'),
   content: z.string().min(120, 'a Post must be larger than 120 character').max(2000, 'exeeding the 2000 character'),
   tags: z.array(z.string().min(3).max(15)).min(1).max(3),

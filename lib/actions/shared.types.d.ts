@@ -34,7 +34,7 @@ export interface CreateBlogParams {
   tags: string[];
   author: Schema.Types.ObjectId | IUser;
   type : string
-  path?: string;
+  path: string;
 }
 
 export interface GetBlogParams {

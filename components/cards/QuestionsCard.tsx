@@ -55,13 +55,14 @@ const QuestionsCard = ({
           {`- asked ${getTimestamp(createdAt)} ago `}
         </span> */}
         <Link href={`/${type}/${_id}`}>
-          <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1  flex-1 capitalize'>
+          {/* <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1  flex-1 capitalize'>
 
           {titleSlicer(title, 10)}{title.length > 10 ? '...' : '' }
-          </h3>
-          {/* <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1 flex-wrap max-lg:hidden'>
-            {title}
           </h3> */}
+
+          <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
+            {title}
+          </h3>
         </Link>
         <SignedIn>
           {showActionButtons && (
