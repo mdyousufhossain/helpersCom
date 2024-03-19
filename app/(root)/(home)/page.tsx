@@ -9,9 +9,14 @@ import QuestionsCard from '@/components/cards/QuestionsCard'
 import { getQuestions } from '@/lib/actions/question.action'
 import { SearchParamsProps } from '@/types'
 import Pagination from '@/components/shared/Pagination'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
 
-export default async function Home ({ searchParams }:SearchParamsProps) {
-  const result : any = await getQuestions({
+export default async function Home ({ searchParams }: SearchParamsProps) {
+  const result: any = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1
@@ -19,13 +24,39 @@ export default async function Home ({ searchParams }:SearchParamsProps) {
 
   return (
     <>
-      <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
+      <div className='flex w-full justify-between gap-4 sm:flex-row sm:items-center'>
+      <div className='flex w-full justify-between'>
         <h1 className='h1-bold text-dark100_light900'>Feeds</h1>
-        <Link href={'/ask-question'} className='flex justify-end max-sm:w-full'>
+        <div>
+        <Popover>
+          <PopoverTrigger>
           <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
-            Ask a Question
-          </Button>
-        </Link>
+                Write a Post
+              </Button>
+          </PopoverTrigger>
+          <PopoverContent className='flex justify-around gap-2'>
+            {/* <div className='flex flex-col items-center gap-2'> */}
+            <Link
+              href={'/ask-question'}
+              className='flex justify-end max-sm:w-full'
+            >
+              <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
+                Ask a Question
+              </Button>
+            </Link>
+            <Link
+              href={'/post'}
+              className='flex justify-end max-sm:w-full'
+            >
+              <Button className='min-h-[46px] bg-green-400 px-4 py-3 !text-light-900'>
+                Write  a Blog
+              </Button>
+            </Link>
+            {/* </div> */}
+          </PopoverContent>
+        </Popover>
+        </div>
+        </div>
       </div>
       <div className='mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center'>
         <LocalSearch
@@ -46,22 +77,21 @@ export default async function Home ({ searchParams }:SearchParamsProps) {
       <div className='mt-10 flex w-full flex-col gap-6'>
         {/* looping through question */}
         {result.items.length > 0
-
           ? (
-              result.items.map((question : any) => (
+              result.items.map((question: any) => (
             <QuestionsCard
-                  key={question._id}
-                  _id={question._id}
-                  title={question.title}
-                  tags={question.tags}
-                  author={question.author}
-                  upvotes={question.upvotes}
-                  views={question.views}
-                  answers={question.answers}
-                  createdAt={question.createdAt}
-                  type={question.type}
-                  answered={question.answered && question.answered.length > 0}
-                  />
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes}
+              views={question.views}
+              answers={question.answers}
+              createdAt={question.createdAt}
+              type={question.type}
+              answered={question.answered && question.answered.length > 0}
+            />
               ))
             )
           : (
@@ -75,10 +105,11 @@ export default async function Home ({ searchParams }:SearchParamsProps) {
           />
             )}
       </div>
-        <div className='mt-10'>
-            <Pagination pageNumber={searchParams?.page ? +searchParams.page : 1}
-            isNext={result.isNext}
-            />
+      <div className='mt-10'>
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
       </div>
     </>
   )
