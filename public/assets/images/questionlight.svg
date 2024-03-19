@@ -29,9 +29,6 @@
 	.st23{opacity:0.36;fill:#1B84C1;}
 	.st24{fill:#DADEEA;}
 </style>
-<g id="BACKGROUND">
-	<rect class="st0" width="500" height="500"/>
-</g>
 <g id="OBJECTS">
 	<circle class="st1" cx="210.4" cy="190" r="142.2"/>
 	<ellipse class="st2" cx="250" cy="444.3" rx="195.7" ry="13"/>
