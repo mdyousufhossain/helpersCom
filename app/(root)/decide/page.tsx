@@ -71,7 +71,6 @@ const page = () => {
             height={200}
             className='hidden object-contain dark:flex'
           />
-          
             <Button className='min-h-[46px] bg-green-400 px-4 py-3 !text-light-900'>
               Write a Blog
             </Button>
