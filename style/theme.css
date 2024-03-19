@@ -13,6 +13,22 @@
       rgba(19, 22, 28, 0.7) 100%
     );
   }
+
+  .light-gradient-decide-question {
+    background: linear-gradient(-270deg, #ffffff 0%, #b2cbf6 100%);
+  }
+  
+  .dark-gradient-decide-question {
+    background: linear-gradient(-270deg, #000000 0%, #240739 100%);
+  }
+  .light-gradient-decide-blog {
+    background: linear-gradient(270deg, #ffffff 0%, #b2cbf6 100%);
+  }
+  
+  .dark-gradient-decide-blog {
+    background: linear-gradient(270deg, #000000 0%, #240739 100%);
+  }
+
   .text-dark100_light900 {
     @apply text-dark-100 dark:text-light-900 !important;
   }

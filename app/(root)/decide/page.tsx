@@ -29,7 +29,7 @@ const page = () => {
               </Button>
             </Link> */}
       <div className='flex w-full flex-col justify-around gap-4 lg:flex-row'>
-        <div className='flex h-[400px] flex-col items-center justify-center gap-2 lg:w-2/4 lg:border-r-2 lg:border-slate-300'>
+        <div className='hover:light-gradient-decide-question dark:hover:dark-gradient-decide-question flex h-[400px] flex-col items-center justify-center gap-2 rounded-[10px] border-2 transition-all duration-500 ease-in-out hover:scale-100  hover:brightness-110 dark:border-[#411457d4] lg:w-2/4'>
         <Link
             href={'/ask-question'}
             className='flex flex-col items-center'
@@ -48,12 +48,12 @@ const page = () => {
             height={200}
             className='hidden object-contain dark:flex'
           />
-            <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
+            <Button className='primary-gradient min-h-[46px] w-full px-4 py-3 !text-light-900'>
               Ask a Question
             </Button>
           </Link>
         </div>
-        <div className='flex h-[400px] flex-col items-center justify-center gap-2 lg:w-2/4'>
+        <div className='hover:light-gradient-decide-blog dark:hover:dark-gradient-decide-blog hover:[shadow-lg] flex h-[400px] flex-col items-center justify-center gap-2 rounded-[10px] border-2 transition duration-500 ease-in-out  hover:scale-100 hover:brightness-110 dark:border-[#411457d4] lg:w-2/4'>
         <Link href={'/post'}
         className='flex flex-col items-center'
         >
@@ -71,7 +71,7 @@ const page = () => {
             height={200}
             className='hidden object-contain dark:flex'
           />
-            <Button className='min-h-[46px] bg-green-400 px-4 py-3 !text-light-900'>
+            <Button className='min-h-[46px] w-full bg-green-400 px-4 py-3 !text-light-900'>
               Write a Blog
             </Button>
           </Link>
