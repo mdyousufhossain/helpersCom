@@ -66,7 +66,7 @@ const Voting = ({
       path: pathname,
       answerAuthor: ''
     })
-    router.push('/')
+    window.location.reload()
   }
 
   /**
@@ -159,6 +159,7 @@ const Voting = ({
     })
   }, [itemId, userId, pathname, router])
   return (
+    <>
     <div className='flex gap-5'>
       <div className='flex-center gap-2.5'>
         <div className='flex-center gap-1.5'>
@@ -222,8 +223,7 @@ const Voting = ({
           )
         : ('')}
 {
-  isAuth
-    ? (
+  isAuth && !hasAccepted && (
       <Popover>
           <PopoverTrigger>
           <Button className='min-h-[46px] bg-green-700 px-4 py-3 !text-light-900'>
@@ -236,11 +236,10 @@ const Voting = ({
           </Button>
           </PopoverContent>
         </Popover>)
-    : ('')
 }
 
 {
-  hasAccepted && !isAuth && (
+  hasAccepted && (
     <Image
     src={'/assets/icons/done-all.svg'}
 
@@ -252,6 +251,7 @@ const Voting = ({
 
 }
     </div>
+    </>
   )
 }
 export default Voting
