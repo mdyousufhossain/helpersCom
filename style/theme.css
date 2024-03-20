@@ -29,6 +29,28 @@
     background: linear-gradient(270deg, #000000 0%, #240739 100%);
   }
 
+
+  .light-gradient-ask-question {
+    background: linear-gradient(320deg, #ffffff 0%, #89f697bc 100%);
+  }
+  
+  .dark-gradient-ask-question {
+    background: linear-gradient(300deg, #000000 0%, #00360dbb 100%);
+  }
+  .dark-gradient-unanswered-question {
+    background: linear-gradient(300deg, #000000 0%, #21010ad6 100%);
+  }
+  .light-gradient-unanswered-question {
+    background: linear-gradient(320deg, #ffffff 0%, #ff626285 100%);
+  }
+  .light-gradient-post-blog {
+    background: linear-gradient(320deg, #ffffff 0%, #e2995f 100%);
+  }
+  
+  .dark-gradient-post-blog {
+    background: linear-gradient(320deg, #000000 0%, #0c031a 100%);
+  }
+
   .text-dark100_light900 {
     @apply text-dark-100 dark:text-light-900 !important;
   }
