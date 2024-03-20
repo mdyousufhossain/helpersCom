@@ -9,6 +9,8 @@ import { useEffect } from 'react'
 // import { useRouter } from 'next/router'
 import { ViewBlog, viewQuestion } from '@/lib/actions/interaction.action'
 import { downvotePost, upvotePost } from '@/lib/actions/blog.action'
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { Button } from '../ui/button'
 
 interface Props {
   type: string
@@ -64,6 +66,7 @@ const Voting = ({
       path: pathname,
       answerAuthor: ''
     })
+    window.location.reload()
   }
 
   /**
@@ -156,6 +159,7 @@ const Voting = ({
     })
   }, [itemId, userId, pathname, router])
   return (
+    <>
     <div className='flex gap-5'>
       <div className='flex-center gap-2.5'>
         <div className='flex-center gap-1.5'>
@@ -219,24 +223,23 @@ const Voting = ({
           )
         : ('')}
 {
-  isAuth
-    ? (<Image
-  src={
-    hasAccepted
-      ? '/assets/icons/done-all.svg'
-      : '/assets/icons/undone-all.svg'
-  }
-  width={18}
-  height={18}
-  alt='upvote'
-  className='cursor-pointer'
-  onClick={() => handleAcceptSolution()}
-/>)
-    : ('')
+  isAuth && !hasAccepted && (
+      <Popover>
+          <PopoverTrigger>
+          <Button className='min-h-[46px] bg-green-700 px-4 py-3 !text-light-900'>
+           Accept it as solution
+          </Button>
+          </PopoverTrigger>
+          <PopoverContent className='flex justify-around gap-2 border-none'>
+          <Button className=' min-h-[46px] bg-green-400 px-4 py-3 !text-light-900' onClick={() => handleAcceptSolution()}>
+           Confirm mark as solution
+          </Button>
+          </PopoverContent>
+        </Popover>)
 }
 
 {
-  hasAccepted && !isAuth && (
+  hasAccepted && (
     <Image
     src={'/assets/icons/done-all.svg'}
 
@@ -248,6 +251,7 @@ const Voting = ({
 
 }
     </div>
+    </>
   )
 }
 export default Voting

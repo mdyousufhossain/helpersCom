@@ -52,7 +52,6 @@ export default async function Home ({ searchParams }: SearchParamsProps) {
                 Write  a Blog
               </Button>
             </Link>
-            {/* </div> */}
           </PopoverContent>
         </Popover>
         </div>
