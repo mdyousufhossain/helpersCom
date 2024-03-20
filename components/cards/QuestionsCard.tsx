@@ -46,13 +46,13 @@ const QuestionsCard = ({
   console.log(answered)
   return (
     <div
-      className={`card-wrapper transition ease-in-out hover:brightness-110 ${
+      className={`card-wrapper border-gray-200 transition ease-in-out hover:brightness-110 dark:border-gray-800 ${
         answered
-          ? 'hover:light-gradient-ask-question dark:hover:dark-gradient-ask-question border-2 hover:border-green-400'
-          : 'hover:light-gradient-unanswered-question dark:hover:dark-gradient-unanswered-question hover:border-red-300'
+          ? 'hover:light-gradient-ask-question dark:hover:dark-gradient-ask-question border-2 hover:border-green-400 dark:hover:border-green-900'
+          : 'hover:light-gradient-unanswered-question dark:hover:dark-gradient-unanswered-question hover:border-red-300 dark:hover:border-red-900'
       } ${
         type === 'blogpost'
-          ? 'hover:light-gradient-post-blog dark:dark-gradient-post-blog border border-slate-300 '
+          ? 'hover:light-gradient-post-blog hover:dark:dark-gradient-post-blog border border-slate-300  hover:dark:border-slate-700 '
           : ''
       } mt-8 rounded-[10px]  border-2 p-9 sm:px-11`}
     >
@@ -61,7 +61,7 @@ const QuestionsCard = ({
           {`- asked ${getTimestamp(createdAt)} ago `}
         </span> */}
         <Link href={`/${type}/${_id}`}>
-          <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1'>
+          <h3 className='sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1 capitalize'>
             {title}
           </h3>
         </Link>
