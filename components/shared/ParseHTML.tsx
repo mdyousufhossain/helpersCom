@@ -29,11 +29,12 @@ import { useEffect } from 'react'
 interface Props {
   data: string
 }
+
 const ParseHTML = ({ data }: Props) => {
   useEffect(() => {
     Prism.highlightAll()
   }, [])
 
-  return <div>{parse(data)}</div>
+  return <div className='text-dark200_light900'>{parse(data)}</div>
 }
 export default ParseHTML
