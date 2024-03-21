@@ -225,6 +225,9 @@ export async function upvoteQuestion (params: QuestionVoteParams) {
     }
 
     // increament the auhtor reputation by some point
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -2 : 2 } })
+
+    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? -10 : 10 } })
 
     revalidatePath(path)
   } catch (error) {
@@ -259,6 +262,9 @@ export async function downvoteQuestion (params: QuestionVoteParams) {
     }
 
     // increament the auhtor reputation by some point
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasdownVoted ? -2 : 2 } })
+
+    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasdownVoted ? -10 : 10 } })
 
     revalidatePath(path)
   } catch (error) {
