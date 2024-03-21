@@ -160,7 +160,6 @@ export async function downvoteAnswer (params: AnswerVoteParams) {
     // increament the auhtor reputation by some point
     await User.findByIdAndUpdate(userId, { $inc: { reputation: hasdownVoted ? -2 : 2 } })
 
-
     await User.findByIdAndUpdate(answer.author, { $inc: { reputation: hasdownVoted ? -10 : 10 } })
     revalidatePath(path)
   } catch (error) {

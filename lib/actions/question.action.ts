@@ -2,7 +2,7 @@
 import Question from '@/database/question.model'
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
-import mongoose, { FilterQuery } from 'mongoose'
+import mongoose, { FilterQuery, model } from 'mongoose'
 import {
   CreateQuestionParams,
   DeleteQuestionParams,
@@ -199,6 +199,13 @@ export async function getQuestionsById (params: GetAnswersParams) {
   } catch (error) {}
 }
 
+/**
+ *
+ * @param params questiond userid(who upvoted or downvote)
+ * @todo increament on updvote , and give user point
+ * @abstract author can upvote but wont get rep points
+ * @argument auhtor id and user id match so its the author who upvoting himself
+ */
 export async function upvoteQuestion (params: QuestionVoteParams) {
   try {
     connectionToDatabase()
@@ -224,7 +231,15 @@ export async function upvoteQuestion (params: QuestionVoteParams) {
       throw new Error('Question not found')
     }
 
+    // const questionAuthor = question.author
+
     // increament the auhtor reputation by some point
+    if (question.author.toString() === userId) {
+      // console.log(question.author, userId)
+      await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 0 : 0 } })
+      await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? 0 : 0 } })
+    }
+
     await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -2 : 2 } })
 
     await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? -10 : 10 } })
