@@ -18,6 +18,8 @@ import Question from '@/database/question.model'
 import Tag from '@/database/tags.question'
 import Answer from '@/database/answer.model'
 import Blog from '@/database/blog.model'
+import { BadgeCriteriaType } from '@/types'
+import { assignBadge } from '../utils'
 
 export async function getUserById (params: any) {
   try {
@@ -235,7 +237,98 @@ export async function getUserinfo (params: GetUserByIdParams) {
     const totalAnswer = await Answer.countDocuments({ author: user._id })
     const totalPost = await Blog.countDocuments({ author: user._id })
 
-    return { user, totalAnswer, totalQuestions, totalPost }
+    /**
+     * summing up the upvote , views and other intreaction of
+     * question
+     * blog
+     * answer
+     * so it means author of all the blog , question and answers
+     * upvote , views is summing up for the badging system
+     */
+
+    // getting upvote of question
+    const [questionUpvote] = await Question.aggregate([
+      { $match: { author: user._id } },
+      {
+        $project: {
+          _id: 0, upvotes: { $size: '$upvotes' }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalUpvotes: { $sum: '$upvotes' }
+        }
+      }
+    ])
+
+    // getting upvote of blogs
+    const [blogUpvote] = await Blog.aggregate([
+      { $match: { author: user._id } },
+      {
+        $project: {
+          _id: 0, upvotes: { $size: '$upvotes' }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalUpvotes: { $sum: '$upvotes' }
+        }
+      }
+    ])
+
+    // upvote of answers
+    const [answerUpvote] = await Answer.aggregate([
+      { $match: { author: user._id } },
+      {
+        $project: {
+          _id: 0, upvotes: { $size: '$upvotes' }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalUpvotes: { $sum: '$upvotes' }
+        }
+      }
+    ])
+
+    // getting question views
+    const [questionViews] = await Question.aggregate([
+      { $match: { author: user._id } },
+      {
+        $group: {
+          _id: null,
+          totalViews: { $sum: '$views' }
+        }
+      }
+    ])
+    // getting blogs views
+    const [blogViews] = await Blog.aggregate([
+      { $match: { author: user._id } },
+      {
+        $group: {
+          _id: null,
+          totalViews: { $sum: '$views' }
+        }
+      }
+    ])
+
+    const criteria = [
+      { type: 'QUESTION_COUNT' as BadgeCriteriaType, count: totalQuestions },
+      { type: 'ANSWER_COUNT' as BadgeCriteriaType, count: totalAnswer },
+      { type: 'BlOG_COUNT' as BadgeCriteriaType, count: totalPost },
+      { type: 'QUESTION_UPVOTES' as BadgeCriteriaType, count: questionUpvote?.totalUpvotes || 0 },
+      { type: 'BLOG_UPVOTE' as BadgeCriteriaType, count: blogUpvote?.totalUpvotes || 0 },
+      { type: 'QUESTION_VIEWS' as BadgeCriteriaType, count: questionViews?.totalViews || 0 },
+      { type: 'BLOG_VIEWS' as BadgeCriteriaType, count: blogViews?.totalViews || 0 },
+      { type: 'ANSWER_UPVOTE' as BadgeCriteriaType, count: answerUpvote?.totalUpvotes || 0 }
+    ]
+
+    const badgeCounts = assignBadge({ criteria })
+
+    return { user, totalAnswer, totalQuestions, totalPost,badgeCounts }
   } catch (error) {
     console.log(error)
     throw error

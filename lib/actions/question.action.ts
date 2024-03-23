@@ -2,7 +2,7 @@
 import Question from '@/database/question.model'
 import { connectionToDatabase } from '../mongoose'
 import Tag from '@/database/tags.question'
-import mongoose, { FilterQuery, model } from 'mongoose'
+import mongoose, { FilterQuery } from 'mongoose'
 import {
   CreateQuestionParams,
   DeleteQuestionParams,
@@ -20,10 +20,11 @@ import Blog from '@/database/blog.model'
 
 /**
  *
- * @param params
- * @returns
+ * @param params query
+ * @returns questons and blogpost
  *
  * @todo so let get questions and blog post and mix them togethar and sort
+ * @todo sorting the shet
  */
 export async function getQuestions (params: GetQuestionsParams) {
   try {
@@ -239,10 +240,10 @@ export async function upvoteQuestion (params: QuestionVoteParams) {
       await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 0 : 0 } })
       await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? 0 : 0 } })
     }
-
-    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -2 : 2 } })
-
-    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? -10 : 10 } })
+    // increase reputation on comment is upvoted
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 2 : -2 } })
+    // increase rep question author on upvote
+    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? 10 : -10 } })
 
     revalidatePath(path)
   } catch (error) {

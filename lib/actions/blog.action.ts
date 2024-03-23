@@ -57,7 +57,7 @@ export async function createBlogPost (params:CreateBlogParams) {
 
     })
     // increment the authors reputation by 5 for creating the  damn quesiton
-    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } })
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 12 } })
 
     revalidatePath(path)
   } catch (error) {

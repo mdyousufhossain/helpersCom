@@ -28,23 +28,27 @@ const Page = async ({ params, searchParams }: URLProps) => {
             className='rounded-full object-cover'
           />
           <div className='mt-3'>
-            <h3 className='h2-bold text-dark100_light900'>{userInfo.user.name}</h3>
-            <p className='paragraph-regular text-dark200_light800'>@{userInfo.user.username}</p>
+            <h3 className='h2-bold text-dark100_light900'>
+              {userInfo.user.name}
+            </h3>
+            <p className='paragraph-regular text-dark200_light800'>
+              @{userInfo.user.username}
+            </p>
 
             <div className='mt-5 flex flex-wrap items-center justify-start gap-5'>
-              {userInfo.user.locaion &&
-              <ProfileLink
-                imgUrl='/assets/icons/location.svg'
-                title={userInfo.user.locaion}
-              />}
+              {userInfo.user.locaion && (
                 <ProfileLink
+                  imgUrl='/assets/icons/location.svg'
+                  title={userInfo.user.locaion}
+                />
+              )}
+              <ProfileLink
                 imgUrl='/assets/icons/calendar.svg'
                 title={getJoinedDate(userInfo.user.joinedAt)}
               />
-
             </div>
 
-            {userInfo.user.bio && <p >{userInfo.user.bio}</p>}
+            {userInfo.user.bio && <p>{userInfo.user.bio}</p>}
           </div>
         </div>
 
@@ -61,23 +65,47 @@ const Page = async ({ params, searchParams }: URLProps) => {
         </div>
       </div>
 
-      <Stats totalQuestions={userInfo.totalQuestions} totalAnswers={userInfo.totalAnswer} totalPosts={userInfo.totalPost} />
+      <Stats
+        totalQuestions={userInfo.totalQuestions}
+        totalAnswers={userInfo.totalAnswer}
+        totalPosts={userInfo.totalPost}
+        badgeCounts={userInfo.badgeCounts}
+      />
       <div className='mt-10 flex gap-10'>
-      <Tabs defaultValue="top-posts" className="flex-1">
-        <TabsList className='background-light800_dark400 min-h-[42px] p-1'>
-          <TabsTrigger value="top-questions" className='tab'>Top Questions</TabsTrigger>
-          <TabsTrigger value="answers" className='tab'>Answers</TabsTrigger>
-          <TabsTrigger value="top-post" className='tab'>Top Post</TabsTrigger>
-        </TabsList>
-        <TabsContent value="top-questions">
-          <QuestionTab searchParams={searchParams} userId={userInfo.user._id} clerkId={ userInfo.user.clerkId} />
-        </TabsContent>
-        <TabsContent value="answers" className='flex w-full flex-col gap-6'>
-          <AnswersTab userId={userInfo.user._id} clerkId={userInfo.user.clerkId} searchParams={searchParams} /></TabsContent>
-        <TabsContent value="top-post" className='flex w-full flex-col gap-6'>
-          <PostsTab userId={userInfo.user._id} clerkId={userInfo.user.clerkId} searchParams={searchParams} /></TabsContent>
-      </Tabs>
-
+        <Tabs defaultValue='top-posts' className='flex-1'>
+          <TabsList className='background-light800_dark400 min-h-[42px] p-1'>
+            <TabsTrigger value='top-questions' className='tab'>
+              Top Questions
+            </TabsTrigger>
+            <TabsTrigger value='answers' className='tab'>
+              Answers
+            </TabsTrigger>
+            <TabsTrigger value='top-post' className='tab'>
+              Top Post
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value='top-questions'>
+            <QuestionTab
+              searchParams={searchParams}
+              userId={userInfo.user._id}
+              clerkId={userInfo.user.clerkId}
+            />
+          </TabsContent>
+          <TabsContent value='answers' className='flex w-full flex-col gap-6'>
+            <AnswersTab
+              userId={userInfo.user._id}
+              clerkId={userInfo.user.clerkId}
+              searchParams={searchParams}
+            />
+          </TabsContent>
+          <TabsContent value='top-post' className='flex w-full flex-col gap-6'>
+            <PostsTab
+              userId={userInfo.user._id}
+              clerkId={userInfo.user.clerkId}
+              searchParams={searchParams}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </>
   )

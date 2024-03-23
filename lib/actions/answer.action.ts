@@ -47,7 +47,7 @@ export async function createAnswer (params: CreateAnswerParams) {
       tags: questionObject.tags
     })
 
-    await User.findByIdAndUpdate(author, { $inc: { reputation: 10 } })
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } })
 
     revalidatePath(path)
   } catch (error) {
@@ -119,9 +119,14 @@ export async function upvoteAnswer (params: AnswerVoteParams) {
     }
 
     // increament the auhtor reputation by some point
-    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -2 : 2 } })
-
-    await User.findByIdAndUpdate(answer.author, { $inc: { reputation: hasupVoted ? -10 : 10 } })
+    if (answer.author.toString() === userId) {
+      // console.log(question.author, userId)
+      await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 0 : 0 } })
+    }
+    // increase reputation on comment is upvoted
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 2 : -2 } })
+    // increase rep comment  author on upvote
+    await User.findByIdAndUpdate(answer.author, { $inc: { reputation: hasdownVoted ? 10 : -10 } })
 
     revalidatePath(path)
   } catch (error) {
