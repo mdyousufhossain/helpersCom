@@ -328,7 +328,7 @@ export async function getUserinfo (params: GetUserByIdParams) {
 
     const badgeCounts = assignBadge({ criteria })
 
-    return { user, totalAnswer, totalQuestions, totalPost,badgeCounts }
+    return { user, totalAnswer, totalQuestions, totalPost, badgeCounts }
   } catch (error) {
     console.log(error)
     throw error

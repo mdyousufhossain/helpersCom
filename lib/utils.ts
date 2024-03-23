@@ -77,8 +77,8 @@ export const getJoinedDate = (date: Date): string => {
 }
 
 interface UrlformUrlQuery {
-  params : string
-  key : string
+  params: string
+  key: string
   value: string | null
 }
 
@@ -87,46 +87,51 @@ export const formUrlQuery = ({ params, key, value }: UrlformUrlQuery) => {
 
   currentUrl[key] = value
 
-  return qs.stringifyUrl({
-    url: window.location.pathname,
-    query: currentUrl
-  },
-  { skipNull: true }
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl
+    },
+    { skipNull: true }
   )
 }
 
 interface removeUrlQueryParams {
-  params : string
-  keysToRemove : string[]
+  params: string
+  keysToRemove: string[]
 }
 
-export const removeKeysFromQuery = ({ params, keysToRemove }: removeUrlQueryParams) => {
+export const removeKeysFromQuery = ({
+  params,
+  keysToRemove
+}: removeUrlQueryParams) => {
   const currentUrl = qs.parse(params)
 
   keysToRemove.forEach((key) => {
     delete currentUrl[key]
   })
 
-  return qs.stringifyUrl({
-    url: window.location.pathname,
-    query: currentUrl
-  },
-  { skipNull: true }
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl
+    },
+    { skipNull: true }
   )
 }
 
-export const titleSlicer = (text: string, size : number): string => {
+export const titleSlicer = (text: string, size: number): string => {
   return text.slice(0, size)
 }
 
 interface BadgeParams {
-  criteria : {
-    type : keyof typeof BADGE_CRITERIA;
-    count : number
+  criteria: {
+    type: keyof typeof BADGE_CRITERIA
+    count: number
   }[]
 }
 
-export const assignBadge = (params : BadgeParams) => {
+export const assignBadge = (params: BadgeParams) => {
   const badgeCounts: BadgeCounts = {
     GOLD: 0,
     SILVER: 0,
@@ -145,6 +150,21 @@ export const assignBadge = (params : BadgeParams) => {
       }
     })
   })
+
+  try {
+    criteria.forEach((item) => {
+      const { type, count } = item
+      const badgeLevels: any = BADGE_CRITERIA[type]
+
+      Object.keys(badgeLevels).forEach((level: any) => {
+        if (count >= badgeLevels[level]) {
+          badgeCounts[level as keyof BadgeCounts] += 1
+        }
+      })
+    })
+  } catch (error) {
+    console.log(error)
+  }
 
   return badgeCounts
 }

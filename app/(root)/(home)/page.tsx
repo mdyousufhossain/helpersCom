@@ -29,28 +29,22 @@ export default async function Home ({ searchParams }: SearchParamsProps) {
         <h1 className='h1-bold text-dark100_light900'>Feeds</h1>
         <div>
         <Popover>
-          <PopoverTrigger>
-          <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
+          <PopoverTrigger className='primary-gradient min-h-[46px] rounded px-4 py-3 !text-light-900'>
                 Write a Post
-              </Button>
           </PopoverTrigger>
           <PopoverContent className='flex justify-around gap-2'>
             {/* <div className='flex flex-col items-center gap-2'> */}
             <Link
               href={'/ask-question'}
-              className='flex justify-end max-sm:w-full'
+              className='primary-gradient flex min-h-[46px] justify-end rounded px-4 py-3 !text-light-900 max-sm:w-full'
             >
-              <Button className='primary-gradient min-h-[46px] px-4 py-3 !text-light-900'>
                 Ask a Question
-              </Button>
             </Link>
             <Link
               href={'/post'}
-              className='flex justify-end max-sm:w-full'
+              className='flex min-h-[46px] justify-end bg-green-400 px-4 py-3 !text-light-900 max-sm:w-full'
             >
-              <Button className='min-h-[46px] bg-green-400 px-4 py-3 !text-light-900'>
                 Write  a Blog
-              </Button>
             </Link>
           </PopoverContent>
         </Popover>
