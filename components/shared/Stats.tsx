@@ -1,6 +1,7 @@
 import { formatNumber } from '@/lib/utils'
 import { BadgeCounts } from '@/types'
 import Image from 'next/image'
+import { Badge } from '../ui/badge'
 
 interface StatsCardProps {
   imgUrl: string
@@ -27,13 +28,18 @@ interface Props {
   totalQuestions: number
   totalAnswers: number
   totalPosts: number
+  reputation:number
   badgeCounts : BadgeCounts
 }
 
-const Stats = ({ totalQuestions, totalAnswers, totalPosts, badgeCounts }: Props) => {
+const Stats = ({ totalQuestions, totalAnswers, totalPosts, badgeCounts, reputation }: Props) => {
   return (
     <div className='mt-10'>
-      <h4 className='h3-semibold text-dark200_light900'>Stats</h4>
+      <Badge className='subtle-medium background-light800_dark300 text-dark400_light700 rounded-md border-none px-4 py-2 uppercase'>
+        <strong>
+        <h4 className='h3-semibold'>Reputation: <span>{reputation}</span> </h4>
+        </strong>
+    </Badge>
       <div className='mt-5 grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-4'>
         <div className='light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-2 rounded-md border p-2 shadow-light-300 dark:shadow-dark-200'>
           <div>

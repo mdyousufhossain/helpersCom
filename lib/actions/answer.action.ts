@@ -226,7 +226,9 @@ export async function markAnswerAccepted (params : AcceptedSolutions) {
     question.answered = [answer._id]
     await question.save()
 
+    // checking if queustion auth and comment auth is same
     const isQuestionAuthorisSolutin:boolean = question.author.toString() === answer.author.toString()
+
     if (isQuestionAuthorisSolutin) {
       await User.findByIdAndUpdate(answer.author, { $inc: { reputation: 5 } })
     }
