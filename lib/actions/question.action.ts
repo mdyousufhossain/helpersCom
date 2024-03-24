@@ -237,13 +237,13 @@ export async function upvoteQuestion (params: QuestionVoteParams) {
     // increament the auhtor reputation by some point
     if (question.author.toString() === userId) {
       // console.log(question.author, userId)
-      await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 0 : 0 } })
-      await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? 0 : 0 } })
+      await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -1 : 1 } })
+      await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? -1 : 1 } })
     }
     // increase reputation on comment is upvoted
-    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 2 : -2 } })
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -2 : 2 } })
     // increase rep question author on upvote
-    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? 10 : -10 } })
+    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasupVoted ? -10 : 10 } })
 
     revalidatePath(path)
   } catch (error) {
@@ -278,9 +278,9 @@ export async function downvoteQuestion (params: QuestionVoteParams) {
     }
 
     // increament the auhtor reputation by some point
-    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasdownVoted ? -2 : 2 } })
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasdownVoted ? 2 : -2 } })
 
-    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasdownVoted ? -10 : 10 } })
+    await User.findByIdAndUpdate(question.author, { $inc: { reputation: hasdownVoted ? 10 : -10 } })
 
     revalidatePath(path)
   } catch (error) {

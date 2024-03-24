@@ -121,10 +121,10 @@ export async function upvoteAnswer (params: AnswerVoteParams) {
     // increament the auhtor reputation by some point
     if (answer.author.toString() === userId) {
       // console.log(question.author, userId)
-      await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 0 : 0 } })
+      await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -1 : 1 } })
     }
     // increase reputation on comment is upvoted
-    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? 2 : -2 } })
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -2 : 2 } })
     // increase rep comment  author on upvote
     await User.findByIdAndUpdate(answer.author, { $inc: { reputation: hasdownVoted ? 10 : -10 } })
 
@@ -225,6 +225,11 @@ export async function markAnswerAccepted (params : AcceptedSolutions) {
     // Update the question to reflect the accepted answer
     question.answered = [answer._id]
     await question.save()
+
+    const isQuestionAuthorisSolutin:boolean = question.author.toString() === answer.author.toString()
+    if (isQuestionAuthorisSolutin) {
+      await User.findByIdAndUpdate(answer.author, { $inc: { reputation: 5 } })
+    }
 
     await User.findByIdAndUpdate(answer.author, { $inc: { reputation: 15 } })
 

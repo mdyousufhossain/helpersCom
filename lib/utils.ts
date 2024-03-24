@@ -140,22 +140,25 @@ export const assignBadge = (params: BadgeParams) => {
 
   const { criteria } = params
 
-  criteria.forEach((item) => {
-    const { type, count } = item
-    const badgeLevels: any = BADGE_CRITERIA[type]
+  // criteria.forEach((item) => {
+  //   const { type, count } = item
+  //   const badgeLevels: any = BADGE_CRITERIA[type]
 
-    Object.keys(badgeLevels).forEach((level: any) => {
-      if (count >= badgeLevels[level]) {
-        badgeCounts[level as keyof BadgeCounts] += 1
-      }
-    })
-  })
+  //   Object.keys(badgeLevels).forEach((level: any) => {
+  //     if (count >= badgeLevels[level]) {
+  //       badgeCounts[level as keyof BadgeCounts] += 1
+  //     }
+  //   })
+  // })
 
   try {
     criteria.forEach((item) => {
       const { type, count } = item
       const badgeLevels: any = BADGE_CRITERIA[type]
-
+      /**
+       * @issue object getting null value
+       * @togo check the  database data we getting
+       */
       Object.keys(badgeLevels).forEach((level: any) => {
         if (count >= badgeLevels[level]) {
           badgeCounts[level as keyof BadgeCounts] += 1
