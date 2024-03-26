@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import LocalSearch from '@/components/shared/search/LocalSearch'
 import Filter from '@/components/shared/Filter'
