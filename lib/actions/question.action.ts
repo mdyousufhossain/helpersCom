@@ -30,7 +30,7 @@ export async function getQuestions (params: GetQuestionsParams) {
   try {
     connectionToDatabase()
 
-    const { searchQuery, filter, page = 1, pageSize = 5 } = params
+    const { searchQuery, filter, page = 1, pageSize = 10 } = params
     // calculate the number of the posts to skip
     const skipAmount = (page - 1) * pageSize
 

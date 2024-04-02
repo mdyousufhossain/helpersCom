@@ -13,6 +13,7 @@ import { useTheme } from '@/constants/ThemeProvider'
 import { Button } from '../ui/button'
 import { createAnswer } from '@/lib/actions/answer.action'
 import { usePathname } from 'next/navigation'
+import { toast } from '../ui/use-toast'
 
 interface Props {
   question: string
@@ -52,6 +53,11 @@ const Answer = ({ question, questionId, authorId, content }: Props) => {
 
         editor.setContent('')
       }
+
+      return toast({
+        title: 'Added an Answer to Question successfull',
+        description: 'wow you added Answer !'
+      })
     } catch (error) {
       console.log(error)
     } finally {

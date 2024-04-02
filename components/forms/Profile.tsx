@@ -18,6 +18,7 @@ import { useState } from 'react'
 import { ProfileSchema } from '@/lib/validation'
 import { usePathname, useRouter } from 'next/navigation'
 import { updateUser } from '@/lib/actions/user.action'
+import { toast } from '../ui/use-toast'
 
 interface Params {
   clerkId: string
@@ -58,6 +59,10 @@ const Profile = ({ clerkId, user }: Params) => {
         path: pathname
       })
       router.back()
+      return toast({
+        title: 'Update successfull',
+        description: 'Your information updated the way you wanted '
+      })
     } catch (error) {
       console.log(error)
     } finally {
