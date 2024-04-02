@@ -11,7 +11,6 @@ import { useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import { useTheme } from '@/constants/ThemeProvider'
 import { Button } from '../ui/button'
-import Image from 'next/image'
 import { createAnswer } from '@/lib/actions/answer.action'
 import { usePathname } from 'next/navigation'
 
@@ -173,6 +172,6 @@ const Answer = ({ question, questionId, authorId, content }: Props) => {
       </Form>
     </div>
   )
-  // something in the way 
+  // something in the way
 }
 export default Answer

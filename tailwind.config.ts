@@ -85,13 +85,25 @@ const config: Config = {
           transform: 'rotate(360deg);'
         }
       },
+      pulse: {
+        '0%, 100%': {
+        //  @ts-ignore
+          opacity: 1
+        },
+        '50%': {
+          //  @ts-ignore
+          opacity: 0.5
+        }
+      },
       animation: {
         // @ts-ignore
         'accordion-down': 'accordion-down 0.2s ease-out',
         // @ts-ignore
         'accordion-up': 'accordion-up 0.2s ease-out',
         // @ts-ignore
-        spin: 'spin 3s linear infinite'
+        spin: 'spin 3s linear infinite',
+        // @ts-ignore
+        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;'
       }
     },
     plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')]
