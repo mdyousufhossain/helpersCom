@@ -3,7 +3,13 @@ import LocalSearch from '@/components/shared/search/LocalSearch'
 import { getAllUsers } from '@/lib/actions/user.action'
 import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 
+export const metadata : Metadata = {
+  title: 'Community | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const reuslt = await getAllUsers({
     searchQuery: searchParams.q

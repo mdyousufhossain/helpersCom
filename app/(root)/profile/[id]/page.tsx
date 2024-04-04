@@ -11,7 +11,13 @@ import { URLProps } from '@/types'
 import { SignedIn, auth } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 
+export const metadata : Metadata = {
+  title: 'Profile | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth()
   const userInfo = await getUserinfo({ userId: params.id })

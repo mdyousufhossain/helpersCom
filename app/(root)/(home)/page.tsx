@@ -14,6 +14,13 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover'
 
+import type { Metadata } from 'next'
+
+export const metadata : Metadata = {
+  title: 'Home | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 export default async function Home ({ searchParams }: SearchParamsProps) {
   const result: any = await getQuestions({
     searchQuery: searchParams.q,
