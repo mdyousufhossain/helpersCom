@@ -99,6 +99,8 @@ const QuestionsCard = ({
           href={`/profile/${author.clerkId}`}
           textStyles='small-medium text-dark400_light800'
         />
+
+        <div className='flex items-center gap-3 max-sm:flex-wrap'>
         <Metric
           imgUrl='/assets/icons/like.svg'
           value={formatNumber(upvotes.length)}
@@ -120,6 +122,7 @@ const QuestionsCard = ({
           title='views'
           textStyles='small-medium text-dark400_light800'
         />
+        </div>
       </div>
       <div className=' mt-3.5 flex flex-wrap gap-2 max-sm:relative'>
         {tags.map((tag) => (

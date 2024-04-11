@@ -105,8 +105,8 @@ const config: Config = {
         // @ts-ignore
         pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;'
       }
-    },
-    plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')]
-  }
+    }
+  },
+  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')]
 }
 export default config
