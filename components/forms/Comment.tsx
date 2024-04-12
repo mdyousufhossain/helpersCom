@@ -33,8 +33,6 @@ const Comment = ({ post, postId, authorId, content }: Props) => {
     }
   })
 
-  console.log(postId, authorId)
-
   const handleCreateAnswer = async (values: z.infer<typeof CommentSchema>) => {
     setIsSubmiting(true)
 

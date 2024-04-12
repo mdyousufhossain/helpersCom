@@ -4,7 +4,6 @@ export const POST = async (request:Request) => {
   const { question } = await request.json()
 
   try {
-    console.log('this is posting')
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -26,7 +25,6 @@ export const POST = async (request:Request) => {
     })
 
     const responseData = await response.json()
-    console.log(responseData)
     const reply = responseData.choices[0].message.content
 
     return NextResponse.json({ reply })

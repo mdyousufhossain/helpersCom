@@ -39,7 +39,7 @@ const Page = async ({ params, searchParams }: any) => {
   return (
     <>
       <div className='flex-start w-full flex-col'>
-        <div className='flex w-full flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
+        <div className='flex w-full justify-between sm:flex-row sm:items-center sm:gap-2'>
           <Link
             href={`/profile/${result.author.clerkId}`}
             className='flex items-start  gap-1'

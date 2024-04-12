@@ -20,7 +20,6 @@ const Page = async ({ searchParams }:SearchParamsProps) => {
     filter: searchParams.filter
   })
 
-  // console.log(reuslt.tags)
   return (
     <>
       <h1 className='h1-bold text-dark100_light900'>All Tags</h1>

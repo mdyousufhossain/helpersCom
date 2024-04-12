@@ -81,7 +81,7 @@ const Profile = ({ clerkId, user }: Params) => {
             name='name'
             render={({ field }) => (
               <FormItem className='space-y-3.5'>
-                <FormLabel>
+                <FormLabel className='paragraph-semibold text-dark400_light800'>
                   Name <span className='text-primary-500'></span>
                 </FormLabel>
                 <FormControl>
@@ -101,7 +101,7 @@ const Profile = ({ clerkId, user }: Params) => {
             name='username'
             render={({ field }) => (
               <FormItem className='space-y-3.5'>
-                <FormLabel>
+                <FormLabel className='paragraph-semibold text-dark400_light800'>
                   Username <span className='text-primary-500'>*</span>
                 </FormLabel>
                 <FormControl>
@@ -120,7 +120,7 @@ const Profile = ({ clerkId, user }: Params) => {
             name='portfolioWebsite'
             render={({ field }) => (
               <FormItem className='space-y-3.5'>
-                <FormLabel>
+                <FormLabel className='paragraph-semibold text-dark400_light800'>
                   Portfolio link<span className='text-primary-500'></span>
                 </FormLabel>
                 <FormControl>
@@ -141,7 +141,7 @@ const Profile = ({ clerkId, user }: Params) => {
             name='location'
             render={({ field }) => (
               <FormItem className='space-y-3.5'>
-                <FormLabel>
+                <FormLabel className='paragraph-semibold text-dark400_light800'>
                   location<span className='text-primary-500'></span>
                 </FormLabel>
                 <FormControl>
@@ -161,7 +161,7 @@ const Profile = ({ clerkId, user }: Params) => {
             name='bio'
             render={({ field }) => (
               <FormItem className='space-y-3.5'>
-                <FormLabel>
+                <FormLabel className='paragraph-semibold text-dark400_light800 '>
                   Bio<span className='text-primary-500'></span>
                 </FormLabel>
                 <FormControl>

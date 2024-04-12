@@ -52,7 +52,7 @@ const Filter = ({ filters, otherclasses, containerclasses }: Props) => {
         <SelectContent>
           <SelectGroup>
             {filters.map((item) => (
-              <SelectItem key={item.value} value={item.value} className='text-dark500_light700'>
+              <SelectItem key={item.value} value={item.value} className='text-dark500_light700 cursor-pointer bg-light-900 focus:bg-light-800 dark:bg-dark-400 dark:focus:bg-dark-400'>
                 {item.name}
               </SelectItem>
             ))}

@@ -217,7 +217,6 @@ export async function markAnswerAccepted (params : AcceptedSolutions) {
       throw new Error('This question already has an accepted answer')
     }
 
-    console.log('this is answer accepted :', answer.author)
     // Mark the answer as accepted
     answer.accepted = true
     await answer.save()

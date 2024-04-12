@@ -327,7 +327,6 @@ export async function getUserinfo (params: GetUserByIdParams) {
     ]
 
     const badgeCounts = assignBadge({ criteria })
-    console.log(badgeCounts)
     return { user, totalAnswer, totalQuestions, totalPost, badgeCounts, reputation: user.reputation }
   } catch (error) {
     console.log(error)

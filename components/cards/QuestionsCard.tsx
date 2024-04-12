@@ -43,7 +43,6 @@ const QuestionsCard = ({
   createdAt
 }: QuestionProps) => {
   const showActionButtons = clerkId && clerkId === author.clerkId
-  console.log(answered)
   return (
     <div
       className={`card-wrapper border-gray-200 transition ease-in-out hover:brightness-110 dark:border-gray-800 ${
@@ -65,15 +64,6 @@ const QuestionsCard = ({
             {title}
           </h3>
         </Link>
-        <SignedIn>
-          {showActionButtons && (
-            <EditDeleteActions
-              type='Questions'
-              itemId={JSON.stringify(_id)}
-              path={type}
-            />
-          )}
-        </SignedIn>
         <Badge
           className={`${
             type === 'question'
@@ -140,6 +130,16 @@ const QuestionsCard = ({
           : (
               ''
             )}
+
+<SignedIn>
+          {showActionButtons && (
+            <EditDeleteActions
+              type='Questions'
+              itemId={JSON.stringify(_id)}
+              path={type}
+            />
+          )}
+        </SignedIn>
 
         <Badge
           className={`${

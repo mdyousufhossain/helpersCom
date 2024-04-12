@@ -56,8 +56,6 @@ const AllAnswer = async ({
             key={answer._id}
             className='light-border justify-between border-b py-10'
           >
-            {' '}
-            <div className='flex items-center justify-between '>
               <div className='mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
                 <Link
                   href={`/profile/${answer.author.clerkId}`}
@@ -80,7 +78,7 @@ const AllAnswer = async ({
                     </p>
                   </div>
                 </Link>
-                <div className='flex justify-end'>
+                <div className='flex items-center justify-end'>
                   <Voting
                     type='Answer'
                     itemId={JSON.stringify(answer._id)}
@@ -96,7 +94,6 @@ const AllAnswer = async ({
 
                 </div>
               </div>
-            </div>
             <ParseHTML data={answer.content} />
           </article>
         ))}
