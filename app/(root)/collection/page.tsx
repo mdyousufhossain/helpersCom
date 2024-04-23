@@ -7,6 +7,13 @@ import { getSavedQuestions } from '@/lib/actions/user.action'
 import { auth } from '@clerk/nextjs'
 import { SearchParamsProps } from '@/types'
 // bal
+import type { Metadata } from 'next'
+
+export const metadata : Metadata = {
+  title: 'Collections | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 export default async function Home ({ searchParams }: SearchParamsProps) {
   const { userId } = auth()
   const result = await getSavedQuestions({

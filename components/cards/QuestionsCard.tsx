@@ -43,7 +43,6 @@ const QuestionsCard = ({
   createdAt
 }: QuestionProps) => {
   const showActionButtons = clerkId && clerkId === author.clerkId
-  console.log(answered)
   return (
     <div
       className={`card-wrapper border-gray-200 transition ease-in-out hover:brightness-110 dark:border-gray-800 ${
@@ -65,15 +64,6 @@ const QuestionsCard = ({
             {title}
           </h3>
         </Link>
-        <SignedIn>
-          {showActionButtons && (
-            <EditDeleteActions
-              type='Questions'
-              itemId={JSON.stringify(_id)}
-              path={type}
-            />
-          )}
-        </SignedIn>
         <Badge
           className={`${
             type === 'question'
@@ -99,6 +89,8 @@ const QuestionsCard = ({
           href={`/profile/${author.clerkId}`}
           textStyles='small-medium text-dark400_light800'
         />
+
+        <div className='flex items-center gap-3 max-sm:flex-wrap'>
         <Metric
           imgUrl='/assets/icons/like.svg'
           value={formatNumber(upvotes.length)}
@@ -120,6 +112,7 @@ const QuestionsCard = ({
           title='views'
           textStyles='small-medium text-dark400_light800'
         />
+        </div>
       </div>
       <div className=' mt-3.5 flex flex-wrap gap-2 max-sm:relative'>
         {tags.map((tag) => (
@@ -137,6 +130,16 @@ const QuestionsCard = ({
           : (
               ''
             )}
+
+<SignedIn>
+          {showActionButtons && (
+            <EditDeleteActions
+              type='Questions'
+              itemId={JSON.stringify(_id)}
+              path={type}
+            />
+          )}
+        </SignedIn>
 
         <Badge
           className={`${

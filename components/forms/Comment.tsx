@@ -12,6 +12,7 @@ import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem } from '../ui/form'
 import Image from 'next/image'
 import { Editor } from '@tinymce/tinymce-react'
+import { toast } from '../ui/use-toast'
 
 interface Props {
   post: string
@@ -32,8 +33,6 @@ const Comment = ({ post, postId, authorId, content }: Props) => {
     }
   })
 
-  console.log(postId, authorId)
-
   const handleCreateAnswer = async (values: z.infer<typeof CommentSchema>) => {
     setIsSubmiting(true)
 
@@ -45,13 +44,16 @@ const Comment = ({ post, postId, authorId, content }: Props) => {
         path: pathname
       })
 
-      form.reset()
-
       if (editorRef.current) {
         const editor = editorRef.current as any
 
         editor.setContent('')
       }
+      form.reset()
+      return toast({
+        title: 'Added an Comment successfull',
+        description: 'wow you editing the questions!'
+      })
     } catch (error) {
       console.log(error)
     } finally {

@@ -11,9 +11,9 @@ import { useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import { useTheme } from '@/constants/ThemeProvider'
 import { Button } from '../ui/button'
-import Image from 'next/image'
 import { createAnswer } from '@/lib/actions/answer.action'
 import { usePathname } from 'next/navigation'
+import { toast } from '../ui/use-toast'
 
 interface Props {
   question: string
@@ -25,6 +25,7 @@ interface Props {
 const Answer = ({ question, questionId, authorId, content }: Props) => {
   const pathname = usePathname()
   const [isSubmiting, setIsSubmiting] = useState(false)
+  // const [isSubmitingAi, setIsSubmitingAi] = useState(false)
   const { mode } = useTheme()
   const editorRef = useRef(null)
   const form = useForm<z.infer<typeof AnswerSchema>>({
@@ -52,12 +53,40 @@ const Answer = ({ question, questionId, authorId, content }: Props) => {
 
         editor.setContent('')
       }
+
+      return toast({
+        title: 'Added an Answer to Question successfull',
+        description: 'wow you added Answer !'
+      })
     } catch (error) {
       console.log(error)
     } finally {
       setIsSubmiting(false)
     }
   }
+
+  // const generateAiAnswer = async () => {
+  //   if (!authorId) return
+  //   console.log('funtion is called')
+  //   setIsSubmitingAi(true)
+
+  //   try {
+  //     console.log('trying to fetch ai')
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`, {
+  //         method: 'POST',
+  //         body: JSON.stringify({ question })
+  //       }
+  //     )
+
+  //     const aiAnswer = await response.json()
+  //     alert(aiAnswer.reply)
+  //   } catch (error) {
+  //     console.log(error)
+  //   } finally {
+  //     setIsSubmitingAi(false)
+  //   }
+  // }
   return (
     <div>
       <div>
@@ -65,9 +94,9 @@ const Answer = ({ question, questionId, authorId, content }: Props) => {
           <h4 className='paragraph-semibold text-dark400_light800'>
             {content}
           </h4>
-          <Button
+          {/* <Button
             className='btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 dark:text-primary-500'
-            onClick={() => {}}
+            onClick={generateAiAnswer}
           >
             <Image
               src='/assets/icons/stars.svg'
@@ -76,8 +105,8 @@ const Answer = ({ question, questionId, authorId, content }: Props) => {
               height={12}
               className='object-contain'
             />
-            Generate An Ai Answer
-          </Button>
+            Generate Ai Answer
+          </Button> */}
         </div>
       </div>
       <Form {...form}>
@@ -149,5 +178,6 @@ const Answer = ({ question, questionId, authorId, content }: Props) => {
       </Form>
     </div>
   )
+  // something in the way
 }
 export default Answer

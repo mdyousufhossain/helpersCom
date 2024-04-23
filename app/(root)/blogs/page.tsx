@@ -9,7 +9,13 @@ import { BlogPostFilters } from '@/constants/filters'
 import { getPosts } from '@/lib/actions/blog.action'
 import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 
+export const metadata : Metadata = {
+  title: 'blogs | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 const page = async ({ searchParams }:SearchParamsProps) => {
   const bal : any = await getPosts({
     searchQuery: searchParams.q,

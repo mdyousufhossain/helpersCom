@@ -7,14 +7,19 @@ import { getAllTags } from '@/lib/actions/tag.actions'
 import { SearchParamsProps } from '@/types'
 // import { getAllUsers } from '@/lib/actions/user.action'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 
+export const metadata : Metadata = {
+  title: 'Tags | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 const Page = async ({ searchParams }:SearchParamsProps) => {
   const reuslt = await getAllTags({
     searchQuery: searchParams.q,
     filter: searchParams.filter
   })
 
-  // console.log(reuslt.tags)
   return (
     <>
       <h1 className='h1-bold text-dark100_light900'>All Tags</h1>
