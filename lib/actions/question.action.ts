@@ -240,7 +240,12 @@ export async function upvoteQuestion (params: QuestionVoteParams) {
     }
 
     // const questionAuthor = question.author
-
+    await Interaction.create({
+      user: userId,
+      action: 'upvote_question',
+      question: question._id,
+      tags: question.tags
+    })
     // increament the auhtor reputation by some point
     if (question.author.toString() === userId) {
       // console.log(question.author, userId)
