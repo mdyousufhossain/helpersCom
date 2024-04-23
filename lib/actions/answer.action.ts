@@ -27,15 +27,27 @@ export async function createAnswer (params: CreateAnswerParams) {
       question
     })
 
-    await Question.findByIdAndUpdate(question, {
+    const questionObject = await Question.findByIdAndUpdate(question, {
       $push: { answers: newAnswer._id }
     })
 
     /**
+     *
      * @todo
      * @add interaction
      * @user repution
+     *
      */
+
+    await Interaction.create({
+      user: author,
+      action: 'answer',
+      question,
+      answer: newAnswer._id,
+      tags: questionObject.tags
+    })
+
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } })
 
     revalidatePath(path)
   } catch (error) {
@@ -107,6 +119,14 @@ export async function upvoteAnswer (params: AnswerVoteParams) {
     }
 
     // increament the auhtor reputation by some point
+    if (answer.author.toString() === userId) {
+      // console.log(question.author, userId)
+      await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -1 : 1 } })
+    }
+    // increase reputation on comment is upvoted
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasupVoted ? -2 : 2 } })
+    // increase rep comment  author on upvote
+    await User.findByIdAndUpdate(answer.author, { $inc: { reputation: hasdownVoted ? 10 : -10 } })
 
     revalidatePath(path)
   } catch (error) {
@@ -143,7 +163,9 @@ export async function downvoteAnswer (params: AnswerVoteParams) {
     }
 
     // increament the auhtor reputation by some point
+    await User.findByIdAndUpdate(userId, { $inc: { reputation: hasdownVoted ? -2 : 2 } })
 
+    await User.findByIdAndUpdate(answer.author, { $inc: { reputation: hasdownVoted ? -10 : 10 } })
     revalidatePath(path)
   } catch (error) {
     console.log(error)
@@ -195,7 +217,6 @@ export async function markAnswerAccepted (params : AcceptedSolutions) {
       throw new Error('This question already has an accepted answer')
     }
 
-    console.log('this is answer accepted :', answer.author)
     // Mark the answer as accepted
     answer.accepted = true
     await answer.save()
@@ -203,6 +224,13 @@ export async function markAnswerAccepted (params : AcceptedSolutions) {
     // Update the question to reflect the accepted answer
     question.answered = [answer._id]
     await question.save()
+
+    // checking if queustion auth and comment auth is same
+    const isQuestionAuthorisSolutin:boolean = question.author.toString() === answer.author.toString()
+
+    if (isQuestionAuthorisSolutin) {
+      await User.findByIdAndUpdate(answer.author, { $inc: { reputation: 5 } })
+    }
 
     await User.findByIdAndUpdate(answer.author, { $inc: { reputation: 15 } })
 

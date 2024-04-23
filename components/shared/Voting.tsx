@@ -11,6 +11,7 @@ import { ViewBlog, viewQuestion } from '@/lib/actions/interaction.action'
 import { downvotePost, upvotePost } from '@/lib/actions/blog.action'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Button } from '../ui/button'
+import { toast } from '../ui/use-toast'
 
 interface Props {
   type: string
@@ -58,6 +59,11 @@ const Voting = ({
       questionId: JSON.parse(itemId),
       path: pathname
     })
+
+    return toast({
+      title: 'Question Saved in your Collection',
+      variant: !hasSaved ? 'default' : 'destructive'
+    })
   }
   const handleAcceptSolution = async () => {
     await markAnswerAccepted({
@@ -67,6 +73,10 @@ const Voting = ({
       answerAuthor: ''
     })
     window.location.reload()
+    return toast({
+      title: 'This answer accept as final answer',
+      description: 'Author daddies must be proud'
+    })
   }
 
   /**
@@ -82,7 +92,10 @@ const Voting = ({
 
   const handleVote = async (action: string) => {
     if (!userId) {
-      return
+      return toast({
+        title: 'Please log in',
+        description: 'You must be logged in to perform this action'
+      })
     }
 
     if (action === 'upvote') {
@@ -112,10 +125,10 @@ const Voting = ({
         })
       }
 
-      /**
-       * @todo do a toaster
-       */
-      return
+      return toast({
+        title: `Upvote ${!hasupVoted ? 'Successfull' : 'Removed'}`,
+        variant: !hasdownVoted ? 'default' : 'destructive'
+      })
     }
 
     if (action === 'downvote') {
@@ -144,6 +157,11 @@ const Voting = ({
           path: pathname
         })
       }
+
+      return toast({
+        title: `downvote ${!hasdownVoted ? 'Successfull' : 'Removed'}`,
+        variant: !hasdownVoted ? 'destructive' : 'default'
+      })
     }
   }
 

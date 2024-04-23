@@ -2,7 +2,13 @@ import Questions from '@/components/forms/Questions'
 import { getUserById } from '@/lib/actions/user.action'
 import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs'
+import type { Metadata } from 'next'
 
+export const metadata : Metadata = {
+  title: 'Ask Questions | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 const Page = async () => {
   const { userId } = auth()
 

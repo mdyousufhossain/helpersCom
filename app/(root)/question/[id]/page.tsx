@@ -14,7 +14,13 @@ import { getUserById } from '@/lib/actions/user.action'
 import AllAnswer from '@/components/shared/AllAnswer'
 import Voting from '@/components/shared/Voting'
 import EditDeleteActions from '@/components/shared/EditDeleteActions'
+import type { Metadata } from 'next'
 
+export const metadata : Metadata = {
+  title: 'Question | HelpersCom',
+  description: 'HelpersCom is community where developer living in harmony'
+
+}
 const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = auth()
 
@@ -33,7 +39,7 @@ const Page = async ({ params, searchParams }: any) => {
   return (
     <>
       <div className='flex-start w-full flex-col'>
-        <div className='flex w-full flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
+        <div className='flex w-full justify-between sm:flex-row sm:items-center sm:gap-2'>
           <Link
             href={`/profile/${result.author.clerkId}`}
             className='flex items-start  gap-1'

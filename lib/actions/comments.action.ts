@@ -17,7 +17,6 @@ export async function createComments (params: CreateCommentParams) {
       author,
       postid
     })
-    console.log(Comments)
     // Use await to ensure Blog is defined before update
     await Blog.findByIdAndUpdate(postid, {
       $push: { answers: newAnswer._id }

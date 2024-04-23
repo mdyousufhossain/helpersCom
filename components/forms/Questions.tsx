@@ -25,6 +25,7 @@ import { createQuestion, editQuestions } from '@/lib/actions/question.action'
 
 import { useRouter, usePathname } from 'next/navigation'
 import { useTheme } from '@/constants/ThemeProvider'
+import { toast } from '../ui/use-toast'
 /**
  *
  * @returns 'javascript',"funcitonal programming",'algorithm
@@ -63,7 +64,6 @@ const Questions = ({ mongoUserId, typed, questionDetails }: Props) => {
   // 2. Define a submit handler.
   async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true)
-    console.log('function is running 1')
     try {
       if (typed === 'Edit') {
         await editQuestions({
@@ -73,6 +73,10 @@ const Questions = ({ mongoUserId, typed, questionDetails }: Props) => {
           path: pathname
         })
         router.push(`/question/${parsedQuestionDetails._id}`)
+        return toast({
+          title: 'Question Edit successfull',
+          description: 'wow you editing the questions!'
+        })
       } else {
         await createQuestion({
           title: values.title,
@@ -83,6 +87,10 @@ const Questions = ({ mongoUserId, typed, questionDetails }: Props) => {
           path: pathname
         })
         router.push('/')
+        return toast({
+          title: 'Question created successfull',
+          description: 'wow you asked a questions!'
+        })
       }
     } catch (error) {
     } finally {
