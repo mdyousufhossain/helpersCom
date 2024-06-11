@@ -42,7 +42,7 @@ export function useTheme () {
   const context = useContext(ThemeContext)
 
   if (context === undefined) {
-    throw new Error('useTMeme must be used within a themeProvider')
+    throw new Error('useTheme must be used within a themeProvider')
   }
 
   return context
