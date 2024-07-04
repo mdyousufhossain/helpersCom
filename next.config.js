@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// sometimes something cant be done right 
 const nextConfig = {
   experimental: {
     serverActions: true,
