@@ -54,7 +54,7 @@ const LocalSearch = ({
   return (
     // <div className='relative w-full max-lg:max-w-[400px] max-sm:w-full'>
     <div
-      className={`background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-4 rounded-sm px-4 ${otherclasses}`}
+      className={`background-light800_darkgradient relative  flex min-h-[56px] grow items-center gap-4 rounded-sm px-4 ${otherclasses}`}
     >
       {iconPosition === 'left' && (
         <Image

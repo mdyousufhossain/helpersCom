@@ -62,7 +62,7 @@ export default async function Home ({ searchParams }: SearchParamsProps) {
           route='/'
           iconPosition='left'
           imgSrc='/assets/icons/search.svg'
-          placeholder='Search for questions'
+          placeholder='Search for product'
           otherclasses='flex-1'
         />
         <Filter
